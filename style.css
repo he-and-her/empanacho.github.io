@@ -154,7 +154,6 @@ dl dd {
 .author {
     margin-top: 8px;
     margin-bottom: 8px;
-    font-variant-caps: small-caps;
     text-align: center;
 }
 
@@ -182,4 +181,28 @@ a:hover,
 a:active {
     text-decoration: none;
     color: #333;
+}
+
+.sidebar {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 27ch;
+}
+
+.thoughts {
+    position: absolute;
+    left: 27ch;
+    bottom: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 27ch;
+    width: calc(100% - 37ch);
+    padding: 5ch;
 }
