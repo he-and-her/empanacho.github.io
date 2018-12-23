@@ -1,0 +1,8 @@
+---
+---
+<% page_articles.each_with_index do |article, i| %>
+  <h2><%= link_to article.title, article %></h2>
+  <%= article.body %>
+  <br/>
+  <span class="author"><%= article.date.strftime('%b %e') %></span>
+<% end %>

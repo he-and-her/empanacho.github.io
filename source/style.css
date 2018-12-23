@@ -155,6 +155,7 @@ dl dd {
     margin-top: 8px;
     margin-bottom: 8px;
     text-align: center;
+    font-size: 1.7ch;
 }
 
 .tg {
@@ -192,6 +193,7 @@ a:active {
     flex-direction: column;
     justify-content: center;
     width: 27ch;
+    border-right: 1px dotted lightgray;
 }
 
 .thoughts {
@@ -205,4 +207,14 @@ a:active {
     min-width: 27ch;
     width: calc(100% - 37ch);
     padding: 5ch;
+}
+
+.thoughts-container {
+    position: relative;
+    overflow: auto;
+    margin-top: 5ch;
+}
+
+.title-page {
+    text-align: center;
 }
