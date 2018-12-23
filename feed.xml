@@ -5,10 +5,36 @@
   <id>http://blog.url.com/</id>
   <link href="http://blog.url.com/"/>
   <link href="http://blog.url.com/feed.xml" rel="self"/>
-  <updated>2018-12-22T00:00:00+00:00</updated>
+  <updated>2018-12-23T00:00:00+00:00</updated>
   <author>
     <name>Blog Author</name>
   </author>
+  <entry>
+    <title>Perspective and Representation are the Sides of the Same Coin</title>
+    <link rel="alternate" href="http://blog.url.com/20181223perspective-representation-sides-of-the-same-coin.html"/>
+    <id>http://blog.url.com/20181223perspective-representation-sides-of-the-same-coin.html</id>
+    <published>2018-12-23T00:00:00+00:00</published>
+    <updated>2018-12-23T15:58:59+00:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;blockquote&gt;
+  &lt;p&gt;The rationalization that took place during the so-called "scientific revolution" is not of the mind, of the eye, of philosophy, but of the &lt;em&gt;sigh&lt;/em&gt;.Why is perspective such an inportant invention?&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;To me, perspective is representation, internally (brain) and/or externally (reality). You probably have noticed that because you have encountered problems in your life. You tried to solve them with no results. Then, for some reason, you tried another approach. You saw the situations in a different way. You noticed new stuff. And soon you saw the solution. It was right there. How I'd haven't seen it!.&lt;/p&gt;
+
+&lt;p&gt;Maybe it was being cooked in the back of your head. Maybe it was a different version your brain twist it again and again until it &lt;em&gt;fit&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;I dunno.&lt;/p&gt;
+
+&lt;p&gt;The fact is that you found them and the only thing that &lt;em&gt;changed&lt;/em&gt; was you.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;There is no spoon.&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+  </entry>
   <entry>
     <title>A Mind at Play</title>
     <link rel="alternate" href="http://blog.url.com/20181222a-mind-at-play.html"/>
