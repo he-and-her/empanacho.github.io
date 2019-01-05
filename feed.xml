@@ -5,10 +5,41 @@
   <id>http://blog.url.com/</id>
   <link href="http://blog.url.com/"/>
   <link href="http://blog.url.com/feed.xml" rel="self"/>
-  <updated>2019-01-04T00:00:00+00:00</updated>
+  <updated>2019-01-05T00:00:00+00:00</updated>
   <author>
     <name>Blog Author</name>
   </author>
+  <entry>
+    <title>Artificial Intelligence</title>
+    <link rel="alternate" href="http://blog.url.com/20190105artificial-intelligence.html"/>
+    <id>http://blog.url.com/20190105artificial-intelligence.html</id>
+    <published>2019-01-05T00:00:00+00:00</published>
+    <updated>2019-01-05T17:19:50+00:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;blockquote&gt;
+  &lt;p&gt;Some people worry that artificial intelligence will make us feel inferior, but then, anybody in his right mind should have an inferiority complex every time he looks at a flower.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;In my pursue to conquer the galaxy one thing I certainly need. That is the use of artificial intelligence. My goal is to conquer myrmecology as much as possible to have an workforce that allow me, at some point, to harvest raw materials in space. However, I don't need to create dangerous artificial intelligence as some well-known celebrities are worried about to be created.&lt;/p&gt;
+
+&lt;p&gt;I'm worried but for entirely different reasons.&lt;/p&gt;
+
+&lt;p&gt;First, I don't think the A.I. we'll create will be &lt;em&gt;evil&lt;/em&gt; by itself. It might be &lt;em&gt;evil&lt;/em&gt; because the humans who coded.
+Second, I don't think we will reach intelligence like ours.&lt;/p&gt;
+
+&lt;p&gt;I don't think we will reach it because of the same reason I'm not looking to create it. That is:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Existence is pain.&lt;/li&gt;
+  &lt;li&gt;I see consciousness as an illusion.&lt;/li&gt;
+  &lt;li&gt;It will be like having babes we then make slaves.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;By the time we are capable of creating General Artificial Intelligence, we will seattle for less: an enhancement of our own intelligence hopefully for good.&lt;/p&gt;
+</content>
+  </entry>
   <entry>
     <title>Existential Debt</title>
     <link rel="alternate" href="http://blog.url.com/20190104existential-debt.html"/>
