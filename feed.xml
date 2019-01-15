@@ -5,10 +5,30 @@
   <id>http://blog.url.com/</id>
   <link href="http://blog.url.com/"/>
   <link href="http://blog.url.com/feed.xml" rel="self"/>
-  <updated>2019-01-14T00:00:00+00:00</updated>
+  <updated>2019-01-15T00:00:00+00:00</updated>
   <author>
     <name>Blog Author</name>
   </author>
+  <entry>
+    <title>Plan</title>
+    <link rel="alternate" href="http://blog.url.com/20190115plan.html"/>
+    <id>http://blog.url.com/20190115plan.html</id>
+    <published>2019-01-15T00:00:00+00:00</published>
+    <updated>2019-01-15T00:40:28+00:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;blockquote&gt;
+  &lt;p&gt;The future is already here - it's just not evenly distributed&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Planning is one of those things that humans are into it. I don't know if the reason is fear of failing, death, disappointment, etc. Maybe it's because the brain is a pattern recognition machine and a plan has structure, has a pattern.&lt;/p&gt;
+
+&lt;p&gt;One of the etymologies of plan is &lt;em&gt;level or flat surface&lt;/em&gt;. It reminds of phrases like &lt;em&gt;don't go under water&lt;/em&gt;. Under water? It's like water is a 2D thing. Water for the brain is a surface. Plan is a flat surface. I don't know why my brain makes these silly connections.&lt;/p&gt;
+
+&lt;p&gt;Anyway, I think planning might not be the answer. I don't think the Cosmos plans for this reality and yet look it run!&lt;/p&gt;
+</content>
+  </entry>
   <entry>
     <title>No Leaders</title>
     <link rel="alternate" href="http://blog.url.com/20190114no-leaders.html"/>
@@ -113,22 +133,6 @@
 &lt;blockquote&gt;
   &lt;p&gt;I'd like to share a revelation that I've had during my time here. It came to me when I tried to classify your species and I realized that you're not actually mammals. Every mammal on this planet instinctively develops a natural equilibrium with the surrounding environment but you humans do not. You move to an area and you multiply and multiply until every natural resource is consumed and the only way you can survive is to spread to another area. There is another organism on this planet that follows the same pattern. Do you know what it is? A virus. Human beings are a disease, a cancer of this planet. You're a plague and we are the cure.&lt;/p&gt;
 &lt;/blockquote&gt;
-</content>
-  </entry>
-  <entry>
-    <title>Es War Einmal</title>
-    <link rel="alternate" href="http://blog.url.com/20190109es-war-einmal.html"/>
-    <id>http://blog.url.com/20190109es-war-einmal.html</id>
-    <published>2019-01-09T00:00:00+00:00</published>
-    <updated>2019-01-09T16:18:15+00:00</updated>
-    <author>
-      <name>Article Author</name>
-    </author>
-    <content type="html">&lt;blockquote&gt;
-  &lt;p&gt;Nous ne vivons pas dans un pays, Nous vivons dans une langue&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Wenn nur die Geschichten am Ende beginnen wurden, ware eine andere Sache die Natur eines sinnlosen Universums&lt;/p&gt;
 </content>
   </entry>
 </feed>
