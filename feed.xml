@@ -5,10 +5,50 @@
   <id>http://blog.url.com/</id>
   <link href="http://blog.url.com/"/>
   <link href="http://blog.url.com/feed.xml" rel="self"/>
-  <updated>2019-01-12T00:00:00+00:00</updated>
+  <updated>2019-01-14T00:00:00+00:00</updated>
   <author>
     <name>Blog Author</name>
   </author>
+  <entry>
+    <title>No Leaders</title>
+    <link rel="alternate" href="http://blog.url.com/20190114no-leaders.html"/>
+    <id>http://blog.url.com/20190114no-leaders.html</id>
+    <published>2019-01-14T00:00:00+00:00</published>
+    <updated>2019-01-15T00:02:55+00:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;blockquote&gt;
+  &lt;p&gt;Make it so&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Things like &lt;a href="https://1scyem2bunjw1ghzsf1cjwwn-wpengine.netdna-ssl.com/wp-content/uploads/2018/11/thinking-forth-color.pdf"&gt;Forth Thinking&lt;/a&gt;, &lt;a href="https://en.wikipedia.org/wiki/LOOP_(programming_language)"&gt;LOOP Programming&lt;/a&gt;, &lt;a href="http://science.sciencemag.org/content/327/5964/439"&gt;Rules for Biologically Inspired Adaptive Network Design&lt;/a&gt; and &lt;a href="https://books.google.com.mx/books?id=3DocCGB0cRkC&amp;amp;pg=PT348&amp;amp;lpg=PT348&amp;amp;dq=hanoi+towers+steven+pinker&amp;amp;source=bl&amp;amp;ots=rYQQ7O7Nt_&amp;amp;sig=kUt4XqOZYs-5I4eHogbvXF2AODs&amp;amp;hl=en&amp;amp;sa=X&amp;amp;ved=2ahUKEwijpqiLve7fAhVQ2qwKHUw7BQkQ6AEwB3oECAgQAQ#v=onepage&amp;amp;q=hanoi%20towers%20steven%20pinker&amp;amp;f=false"&gt;the Tower of Hanoi Analogy&lt;/a&gt; make me think that perhaps we are doing everything wrong.&lt;/p&gt;
+
+&lt;p&gt;Instead, we should think like mathematicians, we should be slow thinkers. Remove everything that rush us into get things done as fast as we can. Take our time. Yeah, life's too short but it will get shorter for everybody on this planet if we don't stop fast thinking.&lt;/p&gt;
+
+&lt;p&gt;The brain is a powerful machine but it's not perfect. We need to take our time.&lt;/p&gt;
+
+&lt;p&gt;Make it so.&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Binary System</title>
+    <link rel="alternate" href="http://blog.url.com/20190113binary-system.html"/>
+    <id>http://blog.url.com/20190113binary-system.html</id>
+    <published>2019-01-13T00:00:00+00:00</published>
+    <updated>2019-01-14T23:53:06+00:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;blockquote&gt;
+  &lt;p&gt;A reliable way to make people believe in falsehoods is frequent repetition, because familiarity is not easily distinguished from truth. Authoritarian institutions and marketers have always known this fact.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Is it possible the human civilization we our so proud of is merely the product of our fast thinking and, therefore, it has a terrible foundation?&lt;/p&gt;
+
+&lt;p&gt;The complexity of this civilization baffles to the point that I'm not sure how much time before we annihilate ourselves.&lt;/p&gt;
+</content>
+  </entry>
   <entry>
     <title>Dauthuz</title>
     <link rel="alternate" href="http://blog.url.com/20190112dauthuz.html"/>
@@ -89,48 +129,6 @@
 &lt;/blockquote&gt;
 
 &lt;p&gt;Wenn nur die Geschichten am Ende beginnen wurden, ware eine andere Sache die Natur eines sinnlosen Universums&lt;/p&gt;
-</content>
-  </entry>
-  <entry>
-    <title>Sha'ir</title>
-    <link rel="alternate" href="http://blog.url.com/20190108shair.html"/>
-    <id>http://blog.url.com/20190108shair.html</id>
-    <published>2019-01-08T00:00:00+00:00</published>
-    <updated>2019-01-08T19:11:10+00:00</updated>
-    <author>
-      <name>Article Author</name>
-    </author>
-    <content type="html">&lt;blockquote&gt;
-  &lt;p&gt;This little box of mine? It's my collection. Contains lots of stuff but mostly questions.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;To &lt;em&gt;know&lt;/em&gt; something is to what?&lt;/p&gt;
-
-&lt;p&gt;Til this day I have no idea what knowning actually is. I'm full of doubts and questions. Answers don't seem to be my thing.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;Sha'ir&lt;/em&gt;, the knower.&lt;/p&gt;
-</content>
-  </entry>
-  <entry>
-    <title>Shag</title>
-    <link rel="alternate" href="http://blog.url.com/20190107shag.html"/>
-    <id>http://blog.url.com/20190107shag.html</id>
-    <published>2019-01-07T00:00:00+00:00</published>
-    <updated>2019-01-08T19:03:28+00:00</updated>
-    <author>
-      <name>Article Author</name>
-    </author>
-    <content type="html">&lt;blockquote&gt;
-  &lt;p&gt;Human memory demands light before heavy.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;em&gt;Shag&lt;/em&gt; a word in Akkadian that seems to mean &lt;strong&gt;in&lt;/strong&gt; or &lt;strong&gt;inside&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;Is that why shagging is used to mean having sex?&lt;/p&gt;
-
-&lt;p&gt;Or is it just part of the Dopeler effect? Where stupid ideas tend to seem smarter when they come at you rapdly?&lt;/p&gt;
-
-&lt;p&gt;Beats me.&lt;/p&gt;
 </content>
   </entry>
 </feed>
