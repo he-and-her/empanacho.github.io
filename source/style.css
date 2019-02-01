@@ -185,15 +185,13 @@ a:active {
 }
 
 .sidebar {
-    position: absolute;
-    left: 0;
-    bottom: 0;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     width: 27ch;
     border-right: 1px dotted lightgray;
+    margin: 0 auto;
 }
 
 .thoughts {
