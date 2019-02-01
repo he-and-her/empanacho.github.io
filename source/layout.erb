@@ -23,7 +23,7 @@
     <link rel="icon" href="/favicon.ico">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
 
-    <title>a mind at play<%= ' - ' + current_article.title unless current_article.nil? %></title>
+    <title>an independent scientist<%= ' - ' + current_article.title unless current_article.nil? %></title>
     <%= feed_tag :atom, "#{blog.options.prefix.to_s}/feed.xml", title: "Atom Feed" %>
   </head>
   <body>
@@ -35,6 +35,10 @@
         independent<br/>
         scientist
       </h4>
+
+      <h5>
+        Physics | Mathematics | AI | Myrmecology | Mycology
+      </h5>
 
       <p class='author'>
         <a href='mailto:email@luisignac.io'>email@luisignac.io</a>
