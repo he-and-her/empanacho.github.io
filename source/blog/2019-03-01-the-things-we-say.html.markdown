@@ -14,7 +14,7 @@ Maybe we should indeed deny our programming. Use these powerful brains to agains
 
 Pay attention to the things you say, really, listening to yourself.
 
-<bolockquote>
+<blockquote>
 I'd consider myself a realist, alright? But in philosophical terms I'm what's called a pessimist... I think human consciousness is a tragic misstep in evolution. We became too self-aware. Nature created an aspect of nature separate from itself - we are creatures that should not exist by natural law... We are things that labor under the illusion of having a self, that accretion of sensory experience and feelings, programmed with total assurance that we are each somebody, when in fact everybody's nobody... I think the honorable thing for our species to do is to deny our programming. Stop reproducing, walk hand in hand into extinction - one last midnight, brothers and sisters opting out of a raw deal.
 <span>Rust</span>
 </blockquote>

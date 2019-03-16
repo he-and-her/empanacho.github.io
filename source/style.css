@@ -219,14 +219,8 @@ ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
-}
-
-li {
-    border-bottom: 1px solid #ccc;
-}
-
-li:last-child {
-    border: none;
+    display: flex;
+    flex-direction: column;
 }
 
 li a {
