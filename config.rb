@@ -1,4 +1,13 @@
 activate :blog do |blog|
+  blog.name = "resume"
+  blog.prefix = "resume"
+  blog.permalink = "{year}{month}{day}{title}.html"
+  blog.sources = "{year}-{month}-{day}-{title}.html"
+  blog.taglink = "{tag}.html"
+  blog.layout = "resume_layout"
+end
+
+activate :blog do |blog|
   blog.name = "blog"
   blog.prefix = "blog"
   blog.permalink = "{year}{month}{day}{title}.html"
