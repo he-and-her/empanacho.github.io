@@ -5,6 +5,7 @@ blog: blog
 ---
 
 <blockquote>
+<span>
 But why are we in such a rush to leave the tide pool, when the only things waiting for us on shore are the sands of time.
 And the hungry seagulls of slowly growing apart.
 </span>
