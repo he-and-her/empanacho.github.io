@@ -2,7 +2,7 @@
 
 set -e
 
-docker-compose run --rm app middleman build
+docker-compose run --rm app bundle exec middleman build
 cp build/*.* .
 cp build/blog/* blog/
 cp build/resume/* resume/
