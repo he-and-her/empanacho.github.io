@@ -68,7 +68,7 @@ p.subtitle {
   font-style: italic;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   display: block;
   line-height: 1;
 }
@@ -316,124 +316,173 @@ label.margin-toggle:not(.sidenote-number) {
   height: 100%;
 }
 
-@media (max-width: 760px) {
-  body {
-    width: 84%;
-    padding-left: 8%;
-    padding-right: 8%;
+  @media (max-width: 760px) {
+    body {
+      width: 84%;
+      padding-left: 8%;
+      padding-right: 8%;
+    }
+
+    hr,
+    section>p,
+    section>footer,
+    section>table {
+      width: 100%;
+    }
+
+    pre>code {
+      width: 97%;
+    }
+
+    section>ol {
+      width: 90%;
+    }
+
+    section>ul {
+      width: 90%;
+    }
+
+    figure {
+      max-width: 90%;
+    }
+
+    figcaption,
+    figure.fullwidth figcaption {
+      margin-right: 0%;
+      max-width: none;
+    }
+
+    blockquote {
+      margin-left: 1.5em;
+      margin-right: 0em;
+    }
+
+    blockquote p,
+    blockquote footer {
+      width: 100%;
+    }
+
+    label.margin-toggle:not(.sidenote-number) {
+      display: inline;
+    }
+
+    .sidenote,
+    .marginnote {
+      display: none;
+    }
+
+    .margin-toggle:checked+.sidenote,
+    .margin-toggle:checked+.marginnote {
+      display: block;
+      float: left;
+      left: 1rem;
+      clear: both;
+      width: 95%;
+      margin: 1rem 2.5%;
+      vertical-align: baseline;
+      position: relative;
+    }
+
+    label {
+      cursor: pointer;
+    }
+
+    div.table-wrapper,
+    table {
+      width: 85%;
+    }
+
+    img {
+      width: 100%;
+    }
   }
 
-  hr,
-  section>p,
-  section>footer,
-  section>table {
-    width: 100%;
-  }
-
-  pre>code {
-    width: 97%;
-  }
-
-  section>ol {
-    width: 90%;
-  }
-
-  section>ul {
-    width: 90%;
-  }
-
-  figure {
-    max-width: 90%;
-  }
-
-  figcaption,
-  figure.fullwidth figcaption {
-    margin-right: 0%;
-    max-width: none;
-  }
-
-  blockquote {
-    margin-left: 1.5em;
-    margin-right: 0em;
-  }
-
-  blockquote p,
-  blockquote footer {
-    width: 100%;
-  }
-
-  label.margin-toggle:not(.sidenote-number) {
-    display: inline;
-  }
-
-  .sidenote,
-  .marginnote {
-    display: none;
-  }
-
-  .margin-toggle:checked+.sidenote,
-  .margin-toggle:checked+.marginnote {
-    display: block;
-    float: left;
-    left: 1rem;
-    clear: both;
-    width: 95%;
-    margin: 1rem 2.5%;
-    vertical-align: baseline;
+  .latex-sub,
+  .latex-sup {
+    text-transform: uppercase;
+    font-size: smaller;
     position: relative;
   }
 
-  label {
-    cursor: pointer;
+  .latex-sub {
+    top: 0.2rem;
+    margin-left: -0.1667rem;
+    margin-right: -0.125rem;
   }
 
-  div.table-wrapper,
-  table {
-    width: 85%;
+  .latex-sup {
+    top: -0.2rem;
+    margin-left: -0.36rem;
+    margin-right: -0.15rem;
+    text-shadow: none;
   }
 
-  img {
-    width: 100%;
+  .latex::selection,
+  .latex span:not(.latex-sup)::selection {
+    text-shadow: 0.03em 0 #b4d5fe, -0.03em 0 #b4d5fe, 0 0.03em #b4d5fe, 0 -0.03em #b4d5fe, 0.06em 0 #b4d5fe, -0.06em 0 #b4d5fe, 0.09em 0 #b4d5fe, -0.09em 0 #b4d5fe, 0.12em 0 #b4d5fe, -0.12em 0 #b4d5fe, 0.15em 0 #b4d5fe, -0.15em 0 #b4d5fe;
+    background: #b4d5fe;
   }
-}
 
-.latex-sub,
-.latex-sup {
-  text-transform: uppercase;
-  font-size: smaller;
-  position: relative;
-}
-
-.latex-sub {
-  top: 0.2rem;
-  margin-left: -0.1667rem;
-  margin-right: -0.125rem;
-}
-
-.latex-sup {
-  top: -0.2rem;
-  margin-left: -0.36rem;
-  margin-right: -0.15rem;
-  text-shadow: none;
-}
-
-.latex::selection,
-.latex span:not(.latex-sup)::selection {
-  text-shadow: 0.03em 0 #b4d5fe, -0.03em 0 #b4d5fe, 0 0.03em #b4d5fe, 0 -0.03em #b4d5fe, 0.06em 0 #b4d5fe, -0.06em 0 #b4d5fe, 0.09em 0 #b4d5fe, -0.09em 0 #b4d5fe, 0.12em 0 #b4d5fe, -0.12em 0 #b4d5fe, 0.15em 0 #b4d5fe, -0.15em 0 #b4d5fe;
-  background: #b4d5fe;
-}
-
-.latex::-moz-selection,
-.latex span:not(.latex-sup)::-moz-selection {
-  text-shadow: 0.03em 0 #b4d5fe, -0.03em 0 #b4d5fe, 0 0.03em #b4d5fe, 0 -0.03em #b4d5fe, 0.06em 0 #b4d5fe, -0.06em 0 #b4d5fe, 0.09em 0 #b4d5fe, -0.09em 0 #b4d5fe, 0.12em 0 #b4d5fe, -0.12em 0 #b4d5fe, 0.15em 0 #b4d5fe, -0.15em 0 #b4d5fe;
-  background: #b4d5fe;
-}
+  .latex::-moz-selection,
+  .latex span:not(.latex-sup)::-moz-selection {
+    text-shadow: 0.03em 0 #b4d5fe, -0.03em 0 #b4d5fe, 0 0.03em #b4d5fe, 0 -0.03em #b4d5fe, 0.06em 0 #b4d5fe, -0.06em 0 #b4d5fe, 0.09em 0 #b4d5fe, -0.09em 0 #b4d5fe, 0.12em 0 #b4d5fe, -0.12em 0 #b4d5fe, 0.15em 0 #b4d5fe, -0.15em 0 #b4d5fe;
+    background: #b4d5fe;
+  }
+  a:link,
+  a:hover,
+  a:visited,
+  a:active {
+    color: #333;
+    text-decoration: none;
+  }
+  .italic { font-style: italic; }
+  .float-right { float: right; }
+  .uppercase { text-transform: uppercase; }
     </style>
   </head>
   <body>
+    <p class="italic uppercase" id="disclaimer">
+      <a href="/"> < </a><b>DISCLAIMER: </b> these are [quasi]micro essays to improve how my mind expresses itself, to improve my writing skills in 4 languages and to experiment. Bear in mind that, actually, I have no idea what I am saying.
+    </p>
+
+    <hr/>
+
     <article>
-      <h1>A series of ridiculous attemps to be alive</h1>
-      <p class="subtitle">Apr 4th, 2020</p>
+      <h1 id="we-made-it">We made it <a class="float-right" href="#disclaimer">^</a></h1>
+      <p class="subtitle"><blockquote class="italic">If you think this Universe is bad, you should see some of the others.</blockquote></p>
+      <section>
+        <p>
+          We created a civilization to keep things in <a class="italic" href="#a-series-of-ridiculous-attems-to-be-alive">order</a> and in a way, to deny our true money nature. But also, to keep things in control. The problems we had before getting down from the trees were just energy and survival. Now, we have a bunch of made of things to keep us away from the fact that soon this also shall pass. There is one more thing, though, I believe this civilization has become a form of slavery.
+        </p>
+        <p>
+          One force that most people dislike is work (to work). You can find many profiles in the Internet where people declare their loves for things like travel, sports and so on. They tell the amazing things they do or experience in their doings. 
+        </p>
+        <p>
+          If we try to map that to early stages of the human civilization, we'll find out that we have so much liberties that we can <b>explore</b> things within the context of the civilization. If those things temper the foundation of the human civilization, well, you shouldn't, nobody like an angel of <em>chaos</em> (do you know the opposite word for <b>chaos</b>? It's <b>cosmos</b>. <em>Are you seeing it now?</em>).
+        </p>
+        <p>
+          Of course the civilization is not perfect. We have some many movements around the planet. Feminists. Environmentlists. Anarchists. Vegan Anarchists. Neoliberails. Marxists. Neonazis. And so on. The list is quite big. Some of them are subsets of others. Some of them are way too radical. In the end, I see all those movements part of the same category (category in the context of <a href="https://plato.stanford.edu/entries/category-theory/#PhilSign">category theory</a>).
+        </p>
+        <p>
+          But one thing seems to be fine, the progress that civilization has given to humans. I'm not so sure anymore about that. For one, I find very hard to define progress. And it gets worse, I think progress is defined within the boundaries of the context itsefl. For example, there is a joke from Eddie Izzard that says 
+        </p>
+        <blockquote class="italic">
+          we built empires. We stole countries. We stole countries with the cunning use of flags. Just sail around the workd and stick a flag in. I claim India for Britain. And the Indians go you can't claim as we live in 500 millions of us. Do you have a flag?
+        </blockquote>
+        <p>
+          The punch line expresses my point. From the perspective of Britain, it makes senses. Although it only make sense in their context. And that same way, progress is understood and justified by the same thing it defines it. NÄTURLICH!
+        </p>
+        <p>
+          We made the thing that sustains itself and justifies itself damit wir das, was wir leugnen, unter den Teppich legen können. I think it's a trap. It's a form of slavery. We are seeing it now. We must, we have to get out of this planet. We are explorers for good or for bad. We are. We chained ourselves to cope with reality, I get it but we need to let our people go or we are going to collapse. We will collapse but let it be in another galaxy.
+        </p>
+      </section>
+    </article>
+
+    <hr/>
+
+    <article>
+      <h1 id="a-series-of-ridiculous-attemps-to-be-alive">A series of ridiculous attemps to be alive <a class="float-right" href="#disclaimer">^</a></h1>
+      <p class="subtitle"><blockquote class="italic">We are all in the gutter, but some of us are looking at the stars.</blockquote></p>
       <section>
         <p>
           In a universe where there is no meaning <em>(why do we even want a purpose?)</em>, there is one way of living: just play the game. If you don't want to and you think what's the point you might as well stop living? Do. You have the right.
@@ -446,12 +495,12 @@ label.margin-toggle:not(.sidenote-number) {
         </p>
       </section>
     </article>
-    
+
     <hr />
 
     <article>
-      <h1>Leben, Entropy et Mémoire</h1>
-      <p class="subtitle">Apr 1st, 2020</p>
+      <h1 id="leben-entropy-et-memoire">Leben, Entropy et Mémoire <a class="float-right" href="#disclaimer">^</a></h1>
+      <p class="subtitle"><blockquote class="italic">Just because something bears the aspect of the inevitable one should not, therefore, go along willingly with it.</blockquote></p>
       <section>
         <p>
           What's a living thing? One can define Life in many ways only soon to find out that some things don't fit that definition very well and yet one will see them alive. One thing, though, seems to be common to all of them: entropy. I believe there is another way of seeing what life is and that is through the concept of memory.
