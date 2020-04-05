@@ -316,151 +316,151 @@ label.margin-toggle:not(.sidenote-number) {
   height: 100%;
 }
 
-        @media (max-width: 760px) {
-          body {
-            width: 84%;
-            padding-left: 8%;
-            padding-right: 8%;
+          @media (max-width: 760px) {
+            body {
+              width: 84%;
+              padding-left: 8%;
+              padding-right: 8%;
+            }
+
+            hr,
+            section>p,
+            section>footer,
+            section>table {
+              width: 100%;
+            }
+
+            pre>code {
+              width: 97%;
+            }
+
+            section>ol {
+              width: 90%;
+            }
+
+            section>ul {
+              width: 90%;
+            }
+
+            figure {
+              max-width: 90%;
+            }
+
+            figcaption,
+            figure.fullwidth figcaption {
+              margin-right: 0%;
+              max-width: none;
+            }
+
+            blockquote {
+              margin-left: 1.5em;
+              margin-right: 0em;
+            }
+
+            blockquote p,
+            blockquote footer {
+              width: 100%;
+            }
+
+            label.margin-toggle:not(.sidenote-number) {
+              display: inline;
+            }
+
+            .sidenote,
+            .marginnote {
+              display: none;
+            }
+
+            .margin-toggle:checked+.sidenote,
+            .margin-toggle:checked+.marginnote {
+              display: block;
+              float: left;
+              left: 1rem;
+              clear: both;
+              width: 95%;
+              margin: 1rem 2.5%;
+              vertical-align: baseline;
+              position: relative;
+            }
+
+            label {
+              cursor: pointer;
+            }
+
+            div.table-wrapper,
+            table {
+              width: 85%;
+            }
+
+            img {
+              width: 100%;
+            }
           }
 
-          hr,
-          section>p,
-          section>footer,
-          section>table {
-            width: 100%;
-          }
-
-          pre>code {
-            width: 97%;
-          }
-
-          section>ol {
-            width: 90%;
-          }
-
-          section>ul {
-            width: 90%;
-          }
-
-          figure {
-            max-width: 90%;
-          }
-
-          figcaption,
-          figure.fullwidth figcaption {
-            margin-right: 0%;
-            max-width: none;
-          }
-
-          blockquote {
-            margin-left: 1.5em;
-            margin-right: 0em;
-          }
-
-          blockquote p,
-          blockquote footer {
-            width: 100%;
-          }
-
-          label.margin-toggle:not(.sidenote-number) {
-            display: inline;
-          }
-
-          .sidenote,
-          .marginnote {
-            display: none;
-          }
-
-          .margin-toggle:checked+.sidenote,
-          .margin-toggle:checked+.marginnote {
-            display: block;
-            float: left;
-            left: 1rem;
-            clear: both;
-            width: 95%;
-            margin: 1rem 2.5%;
-            vertical-align: baseline;
+          .latex-sub,
+          .latex-sup {
+            text-transform: uppercase;
+            font-size: smaller;
             position: relative;
           }
 
-          label {
-            cursor: pointer;
+          .latex-sub {
+            top: 0.2rem;
+            margin-left: -0.1667rem;
+            margin-right: -0.125rem;
           }
 
-          div.table-wrapper,
-          table {
-            width: 85%;
+          .latex-sup {
+            top: -0.2rem;
+            margin-left: -0.36rem;
+            margin-right: -0.15rem;
+            text-shadow: none;
           }
 
-          img {
+          .latex::selection,
+          .latex span:not(.latex-sup)::selection {
+            text-shadow: 0.03em 0 #b4d5fe, -0.03em 0 #b4d5fe, 0 0.03em #b4d5fe, 0 -0.03em #b4d5fe, 0.06em 0 #b4d5fe, -0.06em 0 #b4d5fe, 0.09em 0 #b4d5fe, -0.09em 0 #b4d5fe, 0.12em 0 #b4d5fe, -0.12em 0 #b4d5fe, 0.15em 0 #b4d5fe, -0.15em 0 #b4d5fe;
+            background: #b4d5fe;
+          }
+
+          .latex::-moz-selection,
+          .latex span:not(.latex-sup)::-moz-selection {
+            text-shadow: 0.03em 0 #b4d5fe, -0.03em 0 #b4d5fe, 0 0.03em #b4d5fe, 0 -0.03em #b4d5fe, 0.06em 0 #b4d5fe, -0.06em 0 #b4d5fe, 0.09em 0 #b4d5fe, -0.09em 0 #b4d5fe, 0.12em 0 #b4d5fe, -0.12em 0 #b4d5fe, 0.15em 0 #b4d5fe, -0.15em 0 #b4d5fe;
+            background: #b4d5fe;
+          }
+          a:link,
+          a:hover,
+          a:visited,
+          a:active {
+            color: #333;
+            text-decoration: none;
+          }
+          .italic { font-style: italic; }
+          .float-right { float: right; }
+          .uppercase { text-transform: uppercase; }
+          .callout {
+            padding: 8px 8px 8px 6px;
+            display: flex;
             width: 100%;
+            border-radius: 3px;
+            border-width: 1px;
+            border-style: solid;
+            border-color: transparent;
+            align-items: center;
           }
-        }
-
-        .latex-sub,
-        .latex-sup {
-          text-transform: uppercase;
-          font-size: smaller;
-          position: relative;
-        }
-
-        .latex-sub {
-          top: 0.2rem;
-          margin-left: -0.1667rem;
-          margin-right: -0.125rem;
-        }
-
-        .latex-sup {
-          top: -0.2rem;
-          margin-left: -0.36rem;
-          margin-right: -0.15rem;
-          text-shadow: none;
-        }
-
-        .latex::selection,
-        .latex span:not(.latex-sup)::selection {
-          text-shadow: 0.03em 0 #b4d5fe, -0.03em 0 #b4d5fe, 0 0.03em #b4d5fe, 0 -0.03em #b4d5fe, 0.06em 0 #b4d5fe, -0.06em 0 #b4d5fe, 0.09em 0 #b4d5fe, -0.09em 0 #b4d5fe, 0.12em 0 #b4d5fe, -0.12em 0 #b4d5fe, 0.15em 0 #b4d5fe, -0.15em 0 #b4d5fe;
-          background: #b4d5fe;
-        }
-
-        .latex::-moz-selection,
-        .latex span:not(.latex-sup)::-moz-selection {
-          text-shadow: 0.03em 0 #b4d5fe, -0.03em 0 #b4d5fe, 0 0.03em #b4d5fe, 0 -0.03em #b4d5fe, 0.06em 0 #b4d5fe, -0.06em 0 #b4d5fe, 0.09em 0 #b4d5fe, -0.09em 0 #b4d5fe, 0.12em 0 #b4d5fe, -0.12em 0 #b4d5fe, 0.15em 0 #b4d5fe, -0.15em 0 #b4d5fe;
-          background: #b4d5fe;
-        }
-        a:link,
-        a:hover,
-        a:visited,
-        a:active {
-          color: #333;
-          text-decoration: none;
-        }
-        .italic { font-style: italic; }
-        .float-right { float: right; }
-        .uppercase { text-transform: uppercase; }
-        .callout {
-          padding: 8px 8px 8px 6px;
-          display: flex;
-          width: 100%;
-          border-radius: 3px;
-          border-width: 1px;
-          border-style: solid;
-          border-color: transparent;
-          align-items: center;
-        }
-        .callout .idea {
-          user-select: none;
-          transition: background 120ms ease-in 0s;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          height: 24px;
-          width: 24px;
-          border-radius: 3px;
-          flex-shrink: 0;
-          margin-right: 6px;
-        }
+          .callout .idea {
+            user-select: none;
+            transition: background 120ms ease-in 0s;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 24px;
+            width: 24px;
+            border-radius: 3px;
+            flex-shrink: 0;
+            margin-right: 6px;
+          }
     </style>
   </head>
   <body>
@@ -469,6 +469,42 @@ label.margin-toggle:not(.sidenote-number) {
     </p>
 
     <hr/>
+
+    <article>
+      <h1 id="cette-chose-sous-le-tapis">Cette Chose sous le Tapis <a class="float-right" href="#disclaimer">^</a></h1>
+      <p class="subtitlte"><blockquote>La vie ne mérite d'être vécue que pour les délices qui fleurissent sur ses ruines.</blockquote></p>
+      <section>
+        <p>
+          Les gens pensent que le sexe est tout. Je pense que c'est une solution ou une intention de continuer à cacher la "chose" sous le tapis.
+        </p>
+        <p>
+          Avez-vous déjà compté combien de noms nous avons pour la merde? Avez-vous déjà compté combien de noms nous avons pour tout ce que nous trouvons inapproprié?
+        </p>
+        <p>
+          C'est presque comme si nous essayions de nier son existence en ne reconnaissant pas avec un simple nom. Nous avons des noms ludiques pour adoucir le sens dur des choses interdites. Nous avons des noms scientifiques pour nous faire sentir objectifs quand nous n'avons même pas de mots purs.
+        </p>
+        <div class="callout">
+          <div class="idea">
+            💡
+          </div>
+          <div>
+            Essayez de trouver une définition d'un mot. Vous ne trouverez pas la fin de ce <b>putain</b> de trou du lapin.
+          </div>
+        </div>
+        <p>
+          Il semble que nous ayons créé des dieux dans nos images parce que nous ne pouvons pas gérer notre mortalité. Donc, merde, nous pourrions aussi bien détruire comme des dieux.
+        </p>
+        <p>
+          Je ne pense pas que ce soit une question de sexe, c'est quelque chose que nous mettons sous le tapis.
+        </p>
+        <p>A.</p>
+        <p>Chaque.</p>
+        <p>Fois.</p>
+        </p>
+      </section>
+    </article>
+
+    <hr />
 
     <article>
       <h1 id="we-made-it">We made it <a class="float-right" href="#disclaimer">^</a></h1>
