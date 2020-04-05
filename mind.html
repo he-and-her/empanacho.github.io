@@ -316,128 +316,151 @@ label.margin-toggle:not(.sidenote-number) {
   height: 100%;
 }
 
-  @media (max-width: 760px) {
-    body {
-      width: 84%;
-      padding-left: 8%;
-      padding-right: 8%;
-    }
+        @media (max-width: 760px) {
+          body {
+            width: 84%;
+            padding-left: 8%;
+            padding-right: 8%;
+          }
 
-    hr,
-    section>p,
-    section>footer,
-    section>table {
-      width: 100%;
-    }
+          hr,
+          section>p,
+          section>footer,
+          section>table {
+            width: 100%;
+          }
 
-    pre>code {
-      width: 97%;
-    }
+          pre>code {
+            width: 97%;
+          }
 
-    section>ol {
-      width: 90%;
-    }
+          section>ol {
+            width: 90%;
+          }
 
-    section>ul {
-      width: 90%;
-    }
+          section>ul {
+            width: 90%;
+          }
 
-    figure {
-      max-width: 90%;
-    }
+          figure {
+            max-width: 90%;
+          }
 
-    figcaption,
-    figure.fullwidth figcaption {
-      margin-right: 0%;
-      max-width: none;
-    }
+          figcaption,
+          figure.fullwidth figcaption {
+            margin-right: 0%;
+            max-width: none;
+          }
 
-    blockquote {
-      margin-left: 1.5em;
-      margin-right: 0em;
-    }
+          blockquote {
+            margin-left: 1.5em;
+            margin-right: 0em;
+          }
 
-    blockquote p,
-    blockquote footer {
-      width: 100%;
-    }
+          blockquote p,
+          blockquote footer {
+            width: 100%;
+          }
 
-    label.margin-toggle:not(.sidenote-number) {
-      display: inline;
-    }
+          label.margin-toggle:not(.sidenote-number) {
+            display: inline;
+          }
 
-    .sidenote,
-    .marginnote {
-      display: none;
-    }
+          .sidenote,
+          .marginnote {
+            display: none;
+          }
 
-    .margin-toggle:checked+.sidenote,
-    .margin-toggle:checked+.marginnote {
-      display: block;
-      float: left;
-      left: 1rem;
-      clear: both;
-      width: 95%;
-      margin: 1rem 2.5%;
-      vertical-align: baseline;
-      position: relative;
-    }
+          .margin-toggle:checked+.sidenote,
+          .margin-toggle:checked+.marginnote {
+            display: block;
+            float: left;
+            left: 1rem;
+            clear: both;
+            width: 95%;
+            margin: 1rem 2.5%;
+            vertical-align: baseline;
+            position: relative;
+          }
 
-    label {
-      cursor: pointer;
-    }
+          label {
+            cursor: pointer;
+          }
 
-    div.table-wrapper,
-    table {
-      width: 85%;
-    }
+          div.table-wrapper,
+          table {
+            width: 85%;
+          }
 
-    img {
-      width: 100%;
-    }
-  }
+          img {
+            width: 100%;
+          }
+        }
 
-  .latex-sub,
-  .latex-sup {
-    text-transform: uppercase;
-    font-size: smaller;
-    position: relative;
-  }
+        .latex-sub,
+        .latex-sup {
+          text-transform: uppercase;
+          font-size: smaller;
+          position: relative;
+        }
 
-  .latex-sub {
-    top: 0.2rem;
-    margin-left: -0.1667rem;
-    margin-right: -0.125rem;
-  }
+        .latex-sub {
+          top: 0.2rem;
+          margin-left: -0.1667rem;
+          margin-right: -0.125rem;
+        }
 
-  .latex-sup {
-    top: -0.2rem;
-    margin-left: -0.36rem;
-    margin-right: -0.15rem;
-    text-shadow: none;
-  }
+        .latex-sup {
+          top: -0.2rem;
+          margin-left: -0.36rem;
+          margin-right: -0.15rem;
+          text-shadow: none;
+        }
 
-  .latex::selection,
-  .latex span:not(.latex-sup)::selection {
-    text-shadow: 0.03em 0 #b4d5fe, -0.03em 0 #b4d5fe, 0 0.03em #b4d5fe, 0 -0.03em #b4d5fe, 0.06em 0 #b4d5fe, -0.06em 0 #b4d5fe, 0.09em 0 #b4d5fe, -0.09em 0 #b4d5fe, 0.12em 0 #b4d5fe, -0.12em 0 #b4d5fe, 0.15em 0 #b4d5fe, -0.15em 0 #b4d5fe;
-    background: #b4d5fe;
-  }
+        .latex::selection,
+        .latex span:not(.latex-sup)::selection {
+          text-shadow: 0.03em 0 #b4d5fe, -0.03em 0 #b4d5fe, 0 0.03em #b4d5fe, 0 -0.03em #b4d5fe, 0.06em 0 #b4d5fe, -0.06em 0 #b4d5fe, 0.09em 0 #b4d5fe, -0.09em 0 #b4d5fe, 0.12em 0 #b4d5fe, -0.12em 0 #b4d5fe, 0.15em 0 #b4d5fe, -0.15em 0 #b4d5fe;
+          background: #b4d5fe;
+        }
 
-  .latex::-moz-selection,
-  .latex span:not(.latex-sup)::-moz-selection {
-    text-shadow: 0.03em 0 #b4d5fe, -0.03em 0 #b4d5fe, 0 0.03em #b4d5fe, 0 -0.03em #b4d5fe, 0.06em 0 #b4d5fe, -0.06em 0 #b4d5fe, 0.09em 0 #b4d5fe, -0.09em 0 #b4d5fe, 0.12em 0 #b4d5fe, -0.12em 0 #b4d5fe, 0.15em 0 #b4d5fe, -0.15em 0 #b4d5fe;
-    background: #b4d5fe;
-  }
-  a:link,
-  a:hover,
-  a:visited,
-  a:active {
-    color: #333;
-    text-decoration: none;
-  }
-  .italic { font-style: italic; }
-  .float-right { float: right; }
-  .uppercase { text-transform: uppercase; }
+        .latex::-moz-selection,
+        .latex span:not(.latex-sup)::-moz-selection {
+          text-shadow: 0.03em 0 #b4d5fe, -0.03em 0 #b4d5fe, 0 0.03em #b4d5fe, 0 -0.03em #b4d5fe, 0.06em 0 #b4d5fe, -0.06em 0 #b4d5fe, 0.09em 0 #b4d5fe, -0.09em 0 #b4d5fe, 0.12em 0 #b4d5fe, -0.12em 0 #b4d5fe, 0.15em 0 #b4d5fe, -0.15em 0 #b4d5fe;
+          background: #b4d5fe;
+        }
+        a:link,
+        a:hover,
+        a:visited,
+        a:active {
+          color: #333;
+          text-decoration: none;
+        }
+        .italic { font-style: italic; }
+        .float-right { float: right; }
+        .uppercase { text-transform: uppercase; }
+        .callout {
+          padding: 8px 8px 8px 6px;
+          display: flex;
+          width: 100%;
+          border-radius: 3px;
+          border-width: 1px;
+          border-style: solid;
+          border-color: transparent;
+          align-items: center;
+        }
+        .callout .idea {
+          user-select: none;
+          transition: background 120ms ease-in 0s;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 24px;
+          width: 24px;
+          border-radius: 3px;
+          flex-shrink: 0;
+          margin-right: 6px;
+        }
     </style>
   </head>
   <body>
@@ -458,8 +481,16 @@ label.margin-toggle:not(.sidenote-number) {
           One force that most people dislike is work (to work). You can find many profiles in the Internet where people declare their loves for things like travel, sports and so on. They tell the amazing things they do or experience in their doings. 
         </p>
         <p>
-          If we try to map that to early stages of the human civilization, we'll find out that we have so much liberties that we can <b>explore</b> things within the context of the civilization. If those things temper the foundation of the human civilization, well, you shouldn't, nobody like an angel of <em>chaos</em> (do you know the opposite word for <b>chaos</b>? It's <b>cosmos</b>. <em>Are you seeing it now?</em>).
+          If we try to map that to early stages of the human civilization, we'll find out that we have so much liberties that we can <b>explore</b> things within the context of the civilization. If those things temper the foundation of the human civilization, well, you shouldn't, nobody like an angel of <em>chaos</em>.
         </p>
+        <div class="callout">
+          <div class="idea">
+            💡
+          </div>
+          <div>
+            do you know the opposite word for <b>chaos</b>? It's <b>cosmos</b>. <em>Are you seeing it now?</em>
+          </div>
+        </div>
         <p>
           Of course the civilization is not perfect. We have some many movements around the planet. Feminists. Environmentlists. Anarchists. Vegan Anarchists. Neoliberails. Marxists. Neonazis. And so on. The list is quite big. Some of them are subsets of others. Some of them are way too radical. In the end, I see all those movements part of the same category (category in the context of <a href="https://plato.stanford.edu/entries/category-theory/#PhilSign">category theory</a>).
         </p>
@@ -467,7 +498,7 @@ label.margin-toggle:not(.sidenote-number) {
           But one thing seems to be fine, the progress that civilization has given to humans. I'm not so sure anymore about that. For one, I find very hard to define progress. And it gets worse, I think progress is defined within the boundaries of the context itsefl. For example, there is a joke from Eddie Izzard that says 
         </p>
         <blockquote class="italic">
-          we built empires. We stole countries. We stole countries with the cunning use of flags. Just sail around the workd and stick a flag in. I claim India for Britain. And the Indians go you can't claim as we live in 500 millions of us. Do you have a flag?
+          We built empires. We stole countries. We stole countries with the cunning use of flags. Just sail around the workd and stick a flag in. I claim India for Britain. And the Indians go you can't claim as we live in 500 millions of us. Do you have a flag?
         </blockquote>
         <p>
           The punch line expresses my point. From the perspective of Britain, it makes senses. Although it only make sense in their context. And that same way, progress is understood and justified by the same thing it defines it. NÄTURLICH!
