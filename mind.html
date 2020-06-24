@@ -468,14 +468,44 @@ label.margin-toggle:not(.sidenote-number) {
       <a href="/"> < </a><b>DISCLAIMER: </b> These are things in my head, don't take them too seriously. Bear in mind that, actually, I have no idea what I am saying.
     </p>
 
-    <hr/>
-
     <article>
-      <h1 id="one"><a class="float-right" href="#disclaimer">^</a></h1> 
+      <h1 id="one">builder<a class="float-right" href="#disclaimer">^</a></h1> 
       <section>
-        <p></p>
+        <p>a simple implementation of a builder pattern in go</p>
+        <pre>
+           [1]  package computer
+           [2]
+           [3]  type Color string
+           [4]
+           [5]  const (
+           [6]      Black Color = "black"
+           [7]      White       = "white"
+           [8]  )
+           [9]
+          [10]  type Size string
+          [11]  
+          [12]  const (
+          [13]      Small Size = "small"
+          [14]      Big        = "big"
+          [15]  )
+          [16]  type Builder interface {
+          [17]      Color(Color) Builder
+          [18]      Size(Size)   Builder
+          [19]      Build()      Interface
+          [20]  }
+          [21]
+          [22]  type Interface interface {
+          [23]      Compute() error
+          [24]  }
+          [25]
+        </pre>
+        <p>usage</p>
+        <pre>
+           [1]  assembly := computer.NewBuilder().Paint(computer.Black)
+           [2]  smallBlackComputer := assembly.Size(computer.Small).Build()
+           [3]  smallBlackComputer.Compute()
+        </pre>
       </section>
     </article>
-    <hr />
   </body>
 </html>
