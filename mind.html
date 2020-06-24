@@ -317,326 +317,165 @@ label.margin-toggle:not(.sidenote-number) {
   height: 100%;
 }
 
-          @media (max-width: 760px) {
-            body {
-              width: 84%;
-              padding-left: 8%;
-              padding-right: 8%;
+            @media (max-width: 760px) {
+              body {
+                width: 84%;
+                padding-left: 8%;
+                padding-right: 8%;
+              }
+
+              hr,
+              section>p,
+              section>footer,
+              section>table {
+                width: 100%;
+              }
+
+              pre>code {
+                width: 97%;
+              }
+
+              section>ol {
+                width: 90%;
+              }
+
+              section>ul {
+                width: 90%;
+              }
+
+              figure {
+                max-width: 90%;
+              }
+
+              figcaption,
+              figure.fullwidth figcaption {
+                margin-right: 0%;
+                max-width: none;
+              }
+
+              blockquote {
+                margin-left: 1.5em;
+                margin-right: 0em;
+              }
+
+              blockquote p,
+              blockquote footer {
+                width: 100%;
+              }
+
+              label.margin-toggle:not(.sidenote-number) {
+                display: inline;
+              }
+
+              .sidenote,
+              .marginnote {
+                display: none;
+              }
+
+              .margin-toggle:checked+.sidenote,
+              .margin-toggle:checked+.marginnote {
+                display: block;
+                float: left;
+                left: 1rem;
+                clear: both;
+                width: 95%;
+                margin: 1rem 2.5%;
+                vertical-align: baseline;
+                position: relative;
+              }
+
+              label {
+                cursor: pointer;
+              }
+
+              div.table-wrapper,
+              table {
+                width: 85%;
+              }
+
+              img {
+                width: 100%;
+              }
             }
 
-            hr,
-            section>p,
-            section>footer,
-            section>table {
-              width: 100%;
-            }
-
-            pre>code {
-              width: 97%;
-            }
-
-            section>ol {
-              width: 90%;
-            }
-
-            section>ul {
-              width: 90%;
-            }
-
-            figure {
-              max-width: 90%;
-            }
-
-            figcaption,
-            figure.fullwidth figcaption {
-              margin-right: 0%;
-              max-width: none;
-            }
-
-            blockquote {
-              margin-left: 1.5em;
-              margin-right: 0em;
-            }
-
-            blockquote p,
-            blockquote footer {
-              width: 100%;
-            }
-
-            label.margin-toggle:not(.sidenote-number) {
-              display: inline;
-            }
-
-            .sidenote,
-            .marginnote {
-              display: none;
-            }
-
-            .margin-toggle:checked+.sidenote,
-            .margin-toggle:checked+.marginnote {
-              display: block;
-              float: left;
-              left: 1rem;
-              clear: both;
-              width: 95%;
-              margin: 1rem 2.5%;
-              vertical-align: baseline;
+            .latex-sub,
+            .latex-sup {
+              text-transform: uppercase;
+              font-size: smaller;
               position: relative;
             }
 
-            label {
-              cursor: pointer;
+            .latex-sub {
+              top: 0.2rem;
+              margin-left: -0.1667rem;
+              margin-right: -0.125rem;
             }
 
-            div.table-wrapper,
-            table {
-              width: 85%;
+            .latex-sup {
+              top: -0.2rem;
+              margin-left: -0.36rem;
+              margin-right: -0.15rem;
+              text-shadow: none;
             }
 
-            img {
+            .latex::selection,
+            .latex span:not(.latex-sup)::selection {
+              text-shadow: 0.03em 0 #b4d5fe, -0.03em 0 #b4d5fe, 0 0.03em #b4d5fe, 0 -0.03em #b4d5fe, 0.06em 0 #b4d5fe, -0.06em 0 #b4d5fe, 0.09em 0 #b4d5fe, -0.09em 0 #b4d5fe, 0.12em 0 #b4d5fe, -0.12em 0 #b4d5fe, 0.15em 0 #b4d5fe, -0.15em 0 #b4d5fe;
+              background: #b4d5fe;
+            }
+
+            .latex::-moz-selection,
+            .latex span:not(.latex-sup)::-moz-selection {
+              text-shadow: 0.03em 0 #b4d5fe, -0.03em 0 #b4d5fe, 0 0.03em #b4d5fe, 0 -0.03em #b4d5fe, 0.06em 0 #b4d5fe, -0.06em 0 #b4d5fe, 0.09em 0 #b4d5fe, -0.09em 0 #b4d5fe, 0.12em 0 #b4d5fe, -0.12em 0 #b4d5fe, 0.15em 0 #b4d5fe, -0.15em 0 #b4d5fe;
+              background: #b4d5fe;
+            }
+            a:link,
+            a:hover,
+            a:visited,
+            a:active {
+              color: #333;
+              text-decoration: none;
+            }
+            .italic { font-style: italic; }
+            .float-right { float: right; }
+            .uppercase { text-transform: uppercase; }
+            .callout {
+              padding: 8px 8px 8px 6px;
+              display: flex;
               width: 100%;
+              border-radius: 3px;
+              border-width: 1px;
+              border-style: solid;
+              border-color: transparent;
+              align-items: center;
+              background-color: rgba(255,255,224,0.2);  
             }
-          }
-
-          .latex-sub,
-          .latex-sup {
-            text-transform: uppercase;
-            font-size: smaller;
-            position: relative;
-          }
-
-          .latex-sub {
-            top: 0.2rem;
-            margin-left: -0.1667rem;
-            margin-right: -0.125rem;
-          }
-
-          .latex-sup {
-            top: -0.2rem;
-            margin-left: -0.36rem;
-            margin-right: -0.15rem;
-            text-shadow: none;
-          }
-
-          .latex::selection,
-          .latex span:not(.latex-sup)::selection {
-            text-shadow: 0.03em 0 #b4d5fe, -0.03em 0 #b4d5fe, 0 0.03em #b4d5fe, 0 -0.03em #b4d5fe, 0.06em 0 #b4d5fe, -0.06em 0 #b4d5fe, 0.09em 0 #b4d5fe, -0.09em 0 #b4d5fe, 0.12em 0 #b4d5fe, -0.12em 0 #b4d5fe, 0.15em 0 #b4d5fe, -0.15em 0 #b4d5fe;
-            background: #b4d5fe;
-          }
-
-          .latex::-moz-selection,
-          .latex span:not(.latex-sup)::-moz-selection {
-            text-shadow: 0.03em 0 #b4d5fe, -0.03em 0 #b4d5fe, 0 0.03em #b4d5fe, 0 -0.03em #b4d5fe, 0.06em 0 #b4d5fe, -0.06em 0 #b4d5fe, 0.09em 0 #b4d5fe, -0.09em 0 #b4d5fe, 0.12em 0 #b4d5fe, -0.12em 0 #b4d5fe, 0.15em 0 #b4d5fe, -0.15em 0 #b4d5fe;
-            background: #b4d5fe;
-          }
-          a:link,
-          a:hover,
-          a:visited,
-          a:active {
-            color: #333;
-            text-decoration: none;
-          }
-          .italic { font-style: italic; }
-          .float-right { float: right; }
-          .uppercase { text-transform: uppercase; }
-          .callout {
-            padding: 8px 8px 8px 6px;
-            display: flex;
-            width: 100%;
-            border-radius: 3px;
-            border-width: 1px;
-            border-style: solid;
-            border-color: transparent;
-            align-items: center;
-            background-color: rgba(255,255,224,0.2);  
-          }
-          .callout .idea {
-            user-select: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 24px;
-            width: 24px;
-            flex-shrink: 0;
-            margin-right: 6px;
-          }
+            .callout .idea {
+              user-select: none;
+              cursor: pointer;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              height: 24px;
+              width: 24px;
+              flex-shrink: 0;
+              margin-right: 6px;
+            }
     </style>
   </head>
   <body>
     <p class="italic uppercase" id="disclaimer">
-      <a href="/"> < </a><b>DISCLAIMER: </b> these are [quasi]micro essays to improve how my mind expresses itself, to improve my writing skills in 4 languages and to experiment. Bear in mind that, actually, I have no idea what I am saying.
+      <a href="/"> < </a><b>DISCLAIMER: </b> These are things in my head, don't take them too seriously. Bear in mind that, actually, I have no idea what I am saying.
     </p>
 
     <hr/>
-    
+
     <article>
-      <h1 id="memorias-del-futuro">Memorias del Futuro <a class="float-right" href="#disclaimer">^</a></h1> 
-      <p class="subtitle">
-        <blockquote>
-          Debido a las mentiras, podemos producir e inventar un mundo posible.
-        </blockquote>
-      </p>
+      <h1 id="one"><a class="float-right" href="#disclaimer">^</a></h1> 
       <section>
-        <p>A veces me pregunto si el futuro afecta el pasado o vice versa. A lo largo de mi vida he visto instancias del pasado conectados con mi presente.</p> 
-        <p>Tomemos por ejemplo mi presentes metas de vida. Varias de ellas tienen que ver con el lenguaje en diferentes capas.</p>
-        <p>En mi investigación sobre lenguajes me topé con el tema de la estructura del lenguaje y mientras leía el tema una memoria fue revivida de las catacumbas de mi cabeza.</p>
-        <br/>
-        <p>No es lo mismo Mondongo de Tapachula que Chula tápate el mondogo.</p>
-        <br/>
-        <p>Es un juego de palabras y unas cuantas no tan ligeras modificaciones que mi tío solía hacer y por alguna razón lo recordé.</p>
-        <p>Bueno, sí sé la razón pues en el momento estaba leyendo algo referente a eso pero me agrada <em>debrayar</em> de vez en cuando.</p>
-        <div class="callout">
-          <div class="idea">
-             💡   
-          </div>
-          <div>
-            Que yo sepa, <em>debrayar</em> no existe. Es una palabra que usabamos en la universidad para referirnos a pensar en cosa que parecen incoherentes.
-          </div>
-        </div>
+        <p></p>
       </section>
     </article>
-
     <hr />
-    <article>
-      <h1 id="wunschte-ich-konnte-ich-ein-nihilist-sein-jede-art-von-nihilist">Wünschte ich, könnte ich ein Nihilist sein, jede Art von Nihilist <a class="float-right" href="#disclaimer">^</a></h1> 
-      <p class="subtitle">
-        <blockquote>
-          Laß dir Alles geschehn:
-          Schönheit und Schrecken.
-          Man muß nur gehen:
-          Kein Gefühl ist das fernste.
-        </blockquote>
-      </p>
-      <section>
-        <p>Es ist offensichtlich, dass der Planet nicht in guter Verfassung ist. Zur Hölle, nicht einmal in einem schlechten Zustand.</p> 
-        <p>Wie kann man annehmen, in der Neuzeit ein Nihilist zu sein?</p>
-        <p>Wenn ich ein Etikett auswählen muss, denke ich, dass der nächste ein Pessimist ist. Ich sehe die Realität als einen grausamen Witz. Bewusstsein als größter Fehler der Natur. Warum haben wir die Ozeane verlassen? Gibt's keine Götter darum.</p>
-        <p>Das Schlimmste ist, dass es in Milliarden von Lichtjahren wahrscheinlich kein Leben gibt. Hier ist es uns egal.</p>
-        <div class="callout">
-          <div class="idea">
-             💡   
-          </div>
-          <div>
-            Warum habe ich mich nicht schon umgebracht? Ach!
-          </div>
-        </div>
-      </section>
-    </article>
-
-    <hr />
-
-    <article>
-      <h1 id="cette-chose-sous-le-tapis">Cette Chose sous le Tapis <a class="float-right" href="#disclaimer">^</a></h1>
-      <p class="subtitle"><blockquote>La vie ne mérite d'être vécue que pour les délices qui fleurissent sur ses ruines.</blockquote></p>
-      <section>
-        <p>
-          Les gens pensent que le sexe est tout. Je pense que c'est une solution ou une intention de continuer à cacher la "chose" sous le tapis.
-        </p>
-        <p>
-          Avez-vous déjà compté combien de noms nous avons pour la merde? Avez-vous déjà compté combien de noms nous avons pour tout ce que nous trouvons inapproprié?
-        </p>
-        <p>
-          C'est presque comme si nous essayions de nier son existence en ne reconnaissant pas avec un simple nom. Nous avons des noms ludiques pour adoucir le sens dur des choses interdites. Nous avons des noms scientifiques pour nous faire sentir objectifs quand nous n'avons même pas de mots purs.
-        </p>
-        <div class="callout">
-          <div class="idea">
-            💡
-          </div>
-          <div>
-            <em>Essayez</em> de trouver une définition d'un mot. Vous ne trouverez pas la fin de ce <b>putain</b> de trou du lapin.
-          </div>
-        </div>
-        <p>
-          Il semble que nous ayons créé des dieux dans nos images parce que nous ne pouvons pas gérer notre mortalité. Donc, merde, nous pourrions aussi bien détruire comme des dieux.
-        </p>
-        <p>
-          Je ne pense pas que ce soit une question de sexe, c'est quelque chose que nous mettons sous le tapis.
-        </p>
-        <p>A.</p>
-        <p>Chaque.</p>
-        <p>Fois.</p>
-        </p>
-      </section>
-    </article>
-
-    <hr />
-
-    <article>
-      <h1 id="we-made-it">We made it <a class="float-right" href="#disclaimer">^</a></h1>
-      <p class="subtitle"><blockquote class="italic">If you think this Universe is bad, you should see some of the others.</blockquote></p>
-      <section>
-        <p>
-          We created a civilization to keep things in <a class="italic" href="#a-series-of-ridiculous-attems-to-be-alive">order</a> and in a way, to deny our true money nature. But also, to keep things in control. The problems we had before getting down from the trees were just energy and survival. Now, we have a bunch of made of things to keep us away from the fact that soon this also shall pass. There is one more thing, though, I believe this civilization has become a form of slavery.
-        </p>
-        <p>
-          One force that most people dislike is work (to work). You can find many profiles in the Internet where people declare their loves for things like travel, sports and so on. They tell the amazing things they do or experience in their doings. 
-        </p>
-        <p>
-          If we try to map that to early stages of the human civilization, we'll find out that we have so much liberties that we can <b>explore</b> things within the context of the civilization. If those things temper the foundation of the human civilization, well, you shouldn't, nobody like an angel of <em>chaos</em>.
-        </p>
-        <div class="callout">
-          <div class="idea">
-            💡
-          </div>
-          <div>
-            Do you know the opposite word for <b>chaos</b>? It's <b>cosmos</b>. <em>Are you seeing it now?</em>
-          </div>
-        </div>
-        <p>
-          Of course the civilization is not perfect. We have some many movements around the planet. Feminists. Environmentlists. Anarchists. Vegan Anarchists. Neoliberails. Marxists. Neonazis. And so on. The list is quite big. Some of them are subsets of others. Some of them are way too radical. In the end, I see all those movements part of the same category (category in the context of <a href="https://plato.stanford.edu/entries/category-theory/#PhilSign">category theory</a>).
-        </p>
-        <p>
-          But one thing seems to be fine, the progress that civilization has given to humans. I'm not so sure anymore about that. For one, I find very hard to define progress. And it gets worse, I think progress is defined within the boundaries of the context itsefl. For example, there is a joke from Eddie Izzard that says 
-        </p>
-        <blockquote class="italic">
-          We built empires. We stole countries. We stole countries with the cunning use of flags. Just sail around the workd and stick a flag in. I claim India for Britain. And the Indians go you can't claim as we live in 500 millions of us. Do you have a flag?
-        </blockquote>
-        <p>
-          The punch line expresses my point. From the perspective of Britain, it makes senses. Although it only make sense in their context. And that same way, progress is understood and justified by the same thing it defines it. NÄTURLICH!
-        </p>
-        <p>
-          We made the thing that sustains itself and justifies itself damit wir das, was wir leugnen, unter den Teppich legen können. I think it's a trap. It's a form of slavery. We are seeing it now. We must, we have to get out of this planet. We are explorers for good or for bad. We are. We chained ourselves to cope with reality, I get it but we need to let our people go or we are going to collapse. We will collapse but let it be in another galaxy.
-        </p>
-      </section>
-    </article>
-
-    <hr/>
-
-    <article>
-      <h1 id="a-series-of-ridiculous-attemps-to-be-alive">A series of ridiculous attemps to be alive <a class="float-right" href="#disclaimer">^</a></h1>
-      <p class="subtitle"><blockquote class="italic">We are all in the gutter, but some of us are looking at the stars.</blockquote></p>
-      <section>
-        <p>
-          In a universe where there is no meaning <em>(why do we even want a purpose?)</em>, there is one way of living: just play the game. If you don't want to and you think what's the point you might as well stop living? Do. You have the right.
-        </p>
-        <p>
-          I have <em>le soupçon</em> that the only reason why we are so obssesed with finding/having meaning it is only because our brains evolved to find patterns. From A to B. Makes sense, to us. The universe seems to be a random, chaotic, sequence of meaningless events. If so, what to do?
-        </p>
-        <p>
-          We can play. We can make patterns. We can be. We can just play the game. Nature doing nature things. We can't take life too serious. We shouldn't. Let's make of existence another pattern, the End Game.
-        </p>
-      </section>
-    </article>
-
-    <hr />
-
-    <article>
-      <h1 id="leben-entropy-et-memoire">Leben, Entropy et Mémoire <a class="float-right" href="#disclaimer">^</a></h1>
-      <p class="subtitle"><blockquote class="italic">Just because something bears the aspect of the inevitable one should not, therefore, go along willingly with it.</blockquote></p>
-      <section>
-        <p>
-          What's a living thing? One can define Life in many ways only soon to find out that some things don't fit that definition very well and yet one will see them alive. One thing, though, seems to be common to all of them: entropy. I believe there is another way of seeing what life is and that is through the concept of memory.
-        </p>
-
-        <p>
-          My premise is very simple. There is no future. There is no past. The present is an illusion or at the very least quite ephemeral, ungraspable. When it comes to the human brain, its capacity is limited. It can't process all the information at once which means the present, to the brain, is reduced to a few microseconds. I don't know if the brain has the capacity to do some parallel processing but even if that's the case the limit exists at some level (and remember that we only process what the eyes see which is not 100% what's happening). The only way to move through time is by having some sort of record. In living things, DNA. In higher layer of consciousness, memory. This, I pressume, affects every thing in our brains including language. I find interesting that some languages don't have the concept of gerund (they're be-ing). Things are or will be but they are not on going. Some other languages associate time with space direction. Fascinating.
-        </p>
-
-        <p>
-          To be is only possible through the eyes of others. Reality is a relation. Memory is a relation between two points. Entropy is the many relations between spacetime points. And Life seems to be negative entropy that is only possible we keep track of things. 
-        </p>
-      </section>
-    </article>
   </body>
 </html>
