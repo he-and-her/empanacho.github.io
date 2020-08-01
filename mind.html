@@ -13,6 +13,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="/favicon.ico">
     <title>an independent scientist</title>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/default.min.css" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
     <style>
 html {
   font-size: 13px;
@@ -478,37 +481,41 @@ label.margin-toggle:not(.sidenote-number) {
       <section>
         <p>load a script into your web page</p>
         <pre>
-          function loadScript(url, callback) {
-            var script = document.createElement("script");
-            script.type = "text/javascript";
+        <code class="javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
 
-            if (script.readyState) {
-              script.onreadystatechange = function() {
-                if (script.readyState == "loaded" || script.readyState == "complete") {
-                  script.onreadystatechange = null;
-                  callback();
-                }
-              };
-            } else {
-              script.onload = function() {
-                callback();
-              };
-            }
+    if (script.readyState) {
+      script.onreadystatechange = function() {
+        if (script.readyState == "loaded" || script.readyState == "complete") {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else {
+      script.onload = function() {
+        callback();
+      };
+    }
             
-            script.src = url;
-            document.body.appendChild(script);
-          }
+    script.src = url;
+    document.body.appendChild(script);
+  }
+        </code>
         </pre>
         <p>Usage</p>
         <pre>
-          loadScript("https://unpkg.com/vue", function() {
-            console.log("Vue Loaded...");
-            console.log("Loading Vuetify...");
+        <code class="javascript">
+  loadScript("https://unpkg.com/vue", function() {
+    console.log("Vue Loaded...");
+    console.log("Loading Vuetify...");
 
-            loadScript("https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js", function() {
-              console.log("Vuefity Loaded...");
-            });
-          });
+    loadScript("https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js", function() {
+      console.log("Vuefity Loaded...");
+    });
+  });
+        </code>
         </pre>
       </section>
     </article>
