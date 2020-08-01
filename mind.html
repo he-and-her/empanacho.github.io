@@ -15,7 +15,7 @@
     <title>an independent scientist</title>
     <style>
 html {
-  font-size: 16px;
+  font-size: 13px;
 }
 
 body {
@@ -474,41 +474,41 @@ label.margin-toggle:not(.sidenote-number) {
     </p>
 
     <article>
-      <h1 id="one">builder<a class="float-right" href="#disclaimer">^</a></h1> 
+      <h1 id="one">load a script<a class="float-right" href="#disclaimer">^</a></h1> 
       <section>
-        <p>A simple implementation of a builder pattern in go</p>
+        <p>load a script into your web page</p>
         <pre>
-          [ 1]  package builder
-          [ 2]
-          [ 3]  type Color string
-          [ 4]
-          [ 5]  const (
-          [ 6]      Black Color = "black"
-          [ 7]      White       = "white"
-          [ 8]  )
-          [ 9]
-          [10]  type Size string
-          [11]  
-          [12]  const (
-          [13]      Small Size = "small"
-          [14]      Big        = "big"
-          [15]  )
-          [16]
-          [17]  type Builder interface {
-          [18]      Color(Color) Builder
-          [19]      Size(Size)   Builder
-          [20]      Build()      Interface
-          [21]  }
-          [22]
-          [23]  type Interface interface {
-          [24]      Compute() error
-          [25]  }
+          function loadScript(url, callback) {
+            var script = document.createElement("script");
+            script.type = "text/javascript";
+
+            if (script.readyState) {
+              script.onreadystatechange = function() {
+                if (script.readyState == "loaded" || script.readyState == "complete") {
+                  script.onreadystatechange = null;
+                  callback();
+                }
+              };
+            } else {
+              script.onload = function() {
+                callback();
+              };
+            }
+            
+            script.src = url;
+            document.body.appendChild(script);
+          }
         </pre>
         <p>Usage</p>
         <pre>
-           [1]  assembly := computer.NewBuilder().Paint(computer.Black)
-           [2]  smallBlackComputer := assembly.Size(computer.Small).Build()
-           [3]  smallBlackComputer.Compute()
+          loadScript("https://unpkg.com/vue", function() {
+            console.log("Vue Loaded...");
+            console.log("Loading Vuetify...");
+
+            loadScript("https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js", function() {
+              console.log("Vuefity Loaded...");
+            });
+          });
         </pre>
       </section>
     </article>
