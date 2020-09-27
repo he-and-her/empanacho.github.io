@@ -13,438 +13,207 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="/favicon.ico">
     <title>an independent scientist</title>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/default.min.css" />
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
-    <style>
-html {
-  font-size: 13px;
-}
-
-body {
-  width: 80ch;
-  margin-left: auto;
-  margin-right: auto;
-  font-family: 'Source Serif Pro',Baskerville,'Libre Baskerville',serif;
-  background-color: #ffffff;
-  color: #111;
-  counter-reset: sidenote-counter;
-}
-
-h1 {
-  font-weight: bold;
-  margin-top: 4rem;
-  margin-bottom: 1.5rem;
-  font-size: 2rem;
-  line-height: 1;
-}
-
-h2 {
-  font-style: italic;
-  font-weight: 400;
-  margin-top: 2.1rem;
-  margin-bottom: 1.4rem;
-  font-size: 2.2rem;
-  line-height: 1;
-}
-
-h3 {
-  font-style: italic;
-  font-weight: 400;
-  font-size: 1.7rem;
-  margin-top: 2rem;
-  margin-bottom: 1.4rem;
-  line-height: 1;
-}
-
-hr {
-  display: block;
-  height: 1px;
-  width: 55%;
-  border: 0;
-  border-top: 1px solid #ccc;
-  margin: 1em 0;
-  padding: 0;
-}
-
-p.subtitle {
-  font-style: italic;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  font-size: 1.5rem;
-  display: block;
-  line-height: 1;
-}
-
-.danger {
-  color: red;
-}
-
-article {
-  padding: 5rem 0rem;
-}
-
-section {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-}
-
-p,
-ol,
-ul {
-  font-size: 1.4rem;
-  line-height: 2rem;
-}
-
-p {
-  margin-top: 1.4rem;
-  margin-bottom: 1.4rem;
-  padding-right: 0;
-  vertical-align: baseline;
-}
-
-/* Chapter Epigraphs */
-div.epigraph {
-  margin: 5em 0;
-}
-
-div.epigraph>blockquote {
-  margin-top: 3em;
-  margin-bottom: 3em;
-}
-
-div.epigraph>blockquote,
-div.epigraph>blockquote>p {
-  font-style: italic;
-}
-
-div.epigraph>blockquote>footer {
-  font-style: normal;
-}
-
-div.epigraph>blockquote>footer>cite {
-  font-style: italic;
-}
-
-/* end chapter epigraphs styles */
-
-blockquote {
-  font-size: 1.4rem;
-  font-style: italic;
-}
-
-blockquote p {
-  width: 55%;
-  margin-right: 40px;
-}
-
-blockquote footer {
-  width: 55%;
-  font-size: 1.1rem;
-  text-align: right;
-}
-
-/* 50 + 5 == 55, to be the same width as paragraph */
-section>ol,
-section>ul {
-  width: 50%;
-  -webkit-padding-start: 5%;
-}
-
-li:not(:first-child) {
-  margin-top: 0.25rem;
-}
-
-figure {
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-  max-width: 55%;
-  -webkit-margin-start: 0;
-  -webkit-margin-end: 0;
-  margin: 0 0 3em 0;
-}
-
-figcaption {
-  float: right;
-  clear: right;
-  margin-top: 0;
-  margin-bottom: 0;
-  font-size: 1.1rem;
-  line-height: 1.6;
-  vertical-align: baseline;
-  position: relative;
-  max-width: 40%;
-}
-
-figure.fullwidth figcaption {
-  margin-right: 24%;
-}
-
-/* Sidenotes, margin notes, figures, captions */
-img {
-  max-width: 100%;
-}
-
-.sidenote,
-.marginnote {
-  float: right;
-  clear: right;
-  margin-right: -60%;
-  width: 50%;
-  margin-top: 0;
-  margin-bottom: 0;
-  font-size: 1.1rem;
-  line-height: 1.3;
-  vertical-align: baseline;
-  position: relative;
-}
-
-.sidenote-number {
-  counter-increment: sidenote-counter;
-}
-
-.sidenote-number:after,
-.sidenote:before {
-  font-family: monospace;
-  position: relative;
-  vertical-align: baseline;
-}
-
-.sidenote-number:after {
-  content: counter(sidenote-counter);
-  font-size: 1rem;
-  top: -0.5rem;
-  left: 0.1rem;
-}
-
-.sidenote:before {
-  content: counter(sidenote-counter) " ";
-  font-size: 1rem;
-  top: -0.5rem;
-}
-
-blockquote .sidenote,
-blockquote .marginnote {
-  margin-right: -82%;
-  min-width: 59%;
-  text-align: left;
-}
-
-div.fullwidth,
-table.fullwidth {
-  width: 100%;
-}
-
-div.table-wrapper {
-  overflow-x: auto;
-}
-
-.sans {
-  letter-spacing: .03em;
-}
-
-.fullwidth {
-  max-width: 90%;
-  clear: both;
-}
-
-span.newthought {
-  font-variant: small-caps;
-  font-size: 1.2em;
-}
-
-input.margin-toggle {
-  display: none;
-}
-
-label.sidenote-number {
-  display: inline;
-}
-
-label.margin-toggle:not(.sidenote-number) {
-  display: none;
-}
-
-.iframe-wrapper {
-  position: relative;
-  padding-bottom: 56.25%;
-  /* 16:9 */
-  padding-top: 25px;
-  height: 0;
-}
-
-.iframe-wrapper iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-            @media (max-width: 760px) {
-              body {
-                width: 84%;
-                padding-left: 8%;
-                padding-right: 8%;
-              }
-
-              hr,
-              section>p,
-              section>footer,
-              section>table {
-                width: 100%;
-              }
-
-              pre>code {
-                width: 97%;
-              }
-
-              section>ol {
-                width: 90%;
-              }
-
-              section>ul {
-                width: 90%;
-              }
-
-              figure {
-                max-width: 90%;
-              }
-
-              figcaption,
-              figure.fullwidth figcaption {
-                margin-right: 0%;
-                max-width: none;
-              }
-
-              blockquote {
-                margin-left: 1.5em;
-                margin-right: 0em;
-              }
-
-              blockquote p,
-              blockquote footer {
-                width: 100%;
-              }
-
-              label.margin-toggle:not(.sidenote-number) {
-                display: inline;
-              }
-
-              .sidenote,
-              .marginnote {
-                display: none;
-              }
-
-              .margin-toggle:checked+.sidenote,
-              .margin-toggle:checked+.marginnote {
-                display: block;
-                float: left;
-                left: 1rem;
-                clear: both;
-                width: 95%;
-                margin: 1rem 2.5%;
-                vertical-align: baseline;
-                position: relative;
-              }
-
-              label {
-                cursor: pointer;
-              }
-
-              div.table-wrapper,
-              table {
-                width: 85%;
-              }
-
-              img {
-                width: 100%;
-              }
-            }
-
-            .latex-sub,
-            .latex-sup {
-              text-transform: uppercase;
-              font-size: smaller;
-              position: relative;
-            }
-
-            .latex-sub {
-              top: 0.2rem;
-              margin-left: -0.1667rem;
-              margin-right: -0.125rem;
-            }
-
-            .latex-sup {
-              top: -0.2rem;
-              margin-left: -0.36rem;
-              margin-right: -0.15rem;
-              text-shadow: none;
-            }
-
-            .latex::selection,
-            .latex span:not(.latex-sup)::selection {
-              text-shadow: 0.03em 0 #b4d5fe, -0.03em 0 #b4d5fe, 0 0.03em #b4d5fe, 0 -0.03em #b4d5fe, 0.06em 0 #b4d5fe, -0.06em 0 #b4d5fe, 0.09em 0 #b4d5fe, -0.09em 0 #b4d5fe, 0.12em 0 #b4d5fe, -0.12em 0 #b4d5fe, 0.15em 0 #b4d5fe, -0.15em 0 #b4d5fe;
-              background: #b4d5fe;
-            }
-
-            .latex::-moz-selection,
-            .latex span:not(.latex-sup)::-moz-selection {
-              text-shadow: 0.03em 0 #b4d5fe, -0.03em 0 #b4d5fe, 0 0.03em #b4d5fe, 0 -0.03em #b4d5fe, 0.06em 0 #b4d5fe, -0.06em 0 #b4d5fe, 0.09em 0 #b4d5fe, -0.09em 0 #b4d5fe, 0.12em 0 #b4d5fe, -0.12em 0 #b4d5fe, 0.15em 0 #b4d5fe, -0.15em 0 #b4d5fe;
-              background: #b4d5fe;
-            }
-            a:link,
-            a:hover,
-            a:visited,
-            a:active {
-              color: #333;
-              text-decoration: none;
-            }
-            .italic { font-style: italic; }
-            .float-right { float: right; }
-            .uppercase { text-transform: uppercase; }
-            .callout {
-              padding: 8px 8px 8px 6px;
-              display: flex;
-              width: 100%;
-              border-radius: 3px;
-              border-width: 1px;
-              border-style: solid;
-              border-color: transparent;
-              align-items: center;
-              background-color: rgba(255,255,224,0.2);  
-            }
-            .callout .idea {
-              user-select: none;
-              cursor: pointer;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              height: 24px;
-              width: 24px;
-              flex-shrink: 0;
-              margin-right: 6px;
-            }
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <style type="text/css" media="all">
+body { background-color: white; }
     </style>
   </head>
   <body>
-    <p class="italic uppercase" id="disclaimer">
-      <a href="/"> < </a><b>DISCLAIMER: </b> These are things in my head, don't take them too seriously. Bear in mind that, actually, I have no idea what I am saying.
-    </p>
+    <h1>Thoughts & Such</h1>
+    <p class="author">A metavillain with metahero tendencies<br><mark>Laniakea Supercluster</mark></p>
+
+    <div class="abstract">
+      <h2>Disclaimer</h2>
+      <p>These are things in my head, don't take them too seriously. Bear in mind that, actually, I have no idea what I am saying.</p>
+    </div>
 
     <article>
-      <h1 id="to-meet-my-ada">To Meet a Ada<a class="float-right" href="#disclaimer">^</a></h1> 
-      <section>
-        <p>
-          I have this crazy goal. So crazy that I think I just went mental.
-        </p>
-        <p>
-          And the physics is not the hard part to solve but rather humans, how to take humanity the next level
-          and also be prepared for it... how?
-        </p>
+      <h2 id="automate or all tomate">Automate or All Tomato</h2>    
+      <p>
+        I like games. I like them very much. I recently had a tattoo made in my right forearm to illustrate my love and admiration for <a href="https://www.guerrilla-games.com/play/horizon" alt="Horizon: Zero Dawn"><em>Horizon: Zero Down</em></a>
+        specially for Aloy. If I were a woman, I would be Aloy hence a tattoo of her in my arm.
+      </p>
+      <p>
+        I also love games like <a href="http://www.zachtronics.com/shenzhen-io/" alt="Shenzhen I/O">Shenzhen I/O</a> and <a href="https://www.factorio.com/" alt="Factorio">Factorio</a> which leads me to automatization. I'm not sure
+        we want to automate everything anymore<label for="sn-8" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-8" class="sidenote-toggle">
+        <span class="sidenote">
+          I found this in <a href="https://blog.jessfraz.com/post/the-art-of-automation/">Jess's blog</a>. I'm sure she wasn't advocating to autumate everything but it got me thinking.
+        </span>.
+      </p>
+      <p>
+        <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+        <mi>t</mi>
+        <mi>i</mi>
+        <mi>m</mi>
+        <mi>e</mi>
+        <mtext>&#xA0;</mtext>
+        <mi>g</mi>
+        <mi>a</mi>
+        <mi>i</mi>
+        <mi>n</mi>
+        <mi>e</mi>
+        <mi>d</mi>
+        <mo>=</mo>
+        <mo stretchy="false">(</mo>
+        <mi>t</mi>
+        <mi>i</mi>
+        <mi>m</mi>
+        <mi>e</mi>
+        <mtext>&#xA0;</mtext>
+        <mi>d</mi>
+        <mi>o</mi>
+        <mi>i</mi>
+        <mi>n</mi>
+        <mi>g</mi>
+        <mtext>&#xA0;</mtext>
+        <mi>t</mi>
+        <mi>a</mi>
+        <mi>s</mi>
+        <mi>k</mi>
+        <mtext>&#xA0;</mtext>
+        <mi>m</mi>
+        <mi>a</mi>
+        <mi>n</mi>
+        <mi>u</mi>
+        <mi>a</mi>
+        <mi>l</mi>
+        <mi>l</mi>
+        <mi>y</mi>
+        <mo stretchy="false">)</mo>
+        <mo>&#x2212;</mo>
+        <mo stretchy="false">(</mo>
+        <mi>t</mi>
+        <mi>i</mi>
+        <mi>m</mi>
+        <mi>e</mi>
+        <mtext>&#xA0;</mtext>
+        <mi>t</mi>
+        <mi>o</mi>
+        <mtext>&#xA0;</mtext>
+        <mi>a</mi>
+        <mi>u</mi>
+        <mi>t</mi>
+        <mi>o</mi>
+        <mi>m</mi>
+        <mi>a</mi>
+        <mi>t</mi>
+        <mi>e</mi>
+        <mtext>&#xA0;</mtext>
+        <mi>t</mi>
+        <mi>a</mi>
+        <mi>s</mi>
+        <mi>k</mi>
+        <mo stretchy="false">)</mo>
+        </math>
+      </p>
+      <p>
+        We gain more time but my question is for what. Man könnte argumentieren for whatever you want
+        which sounds like a great answer and one could imagine all things we would wanted to be done but I don't think that's the case.
+      </p>
+      <p>
+        Why do you think new years resolutions are hard? 
+      </p>
+      <p>
+        Why do you think people need religion?
+      </p>
+      <p>
+        Why do you think <em>gringos</em> are afraid of robots or <mark>bad hombres</mark> taking their jobs?
+      </p>
+      <p>
+        I think the answer to all those questions comes from the same root: <ins>humans need meaning</ins>. 
+      </p>
+      <p>
+        They literally are made of meat but this is thinking meat. And the part that does this thinking is a 
+        pattern recognization machine. To work, it needs input. It has sensors of all kinds. But if you deprive
+        those sensors from input, it goes haywire.
+      </p>
+      <p>
+        It is not that simple since there are many layers but the underlying mechanics is like that. Finding meaning
+        or the act of finding meaning is in itself a pattern. From A to B. If there is no A nor B, then what to do?
+      </p>
+      <p>
+        The ape-descended being start asking questions... remember this is a thinking meat. But this thinking meat
+        most likely has no answers. And this is not good. It's not good because the thinking meat cannot go back
+        to not thinking unless it's a thinking meat monk or something.
+      </p>
+      <p>
+        So, back to automatization. People need to struggle. Then what to automate? What we need to leave untouched?
+        Keine Ahnung. But my bet is it will happening the same as we are currently living: a society where religion is disappearing
+        and humans are losing <mark>ground</mark> and most humans need a ground <em>or they will go haywire</em>.
+      </p>
+    </article>
+
+    <article>
+      <h2 id="hyperfocus"><mark>Hyperfocus</mark> or how I learned to stop worrying and appreciate my pitfalls</h2>
+      <p>
+        I like Dr. Strangelove. I find it to be a great satire not only of cold war but humans themselves<label for="sn-8" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-8" class="sidenote-toggle">
+        <span class="sidenote left">
+          I mean, think about it. We have three major problems in the past: energy (food, water), reproduction, and not be be eaten. Now, for non-poor people, you have all of them covered and somehow you are still miseable.
+          I think the trade-off was not justifiable. And if you go deeper, it might be the main reason of this overpopulation. Talk about denial of death, am I right, people? 
+        </span>.
+      </p>
+      <p>
+        That's the reason for the title <mark>+</mark> it fits perfectly. So, Los geht's.
+      </p>
+      <p>
+        In Nov 2019 I learned that I went to therapy when I was a child for 3 years. I don't recall any of that but 'Amá chose to share that piece of information before I moved to Germany.
+        Apparently, I have short burst of rage and lots of energy. I remember in kindergarden to be quite active and get bored easily... a lot.
+      </p>
+      <p>
+        In my teenage phase, I attributed all my issues to being a teenager. I was very sensitive to people comments about me. I got overwhelmed by crows regardless of relationship I had with them. I prefer
+        to be alone more importantly, to be alone on the roof watching the stars. I kept me calm. Computer games helped a lot but school was in the way, I only had interests in patterns (math). For the rest of the 
+        classes I was a bad student.
+      </p>
+      <p>
+        Then the time to go to university arrived. I was a still shy and lonely person but I made friends. These dudes where somehow like me. I studied physics. From time to time, there were parties but I couldn't stay longer,
+        I got weirded out. It was me of course but I dunno why I assumed that would faded it away.
+      </p>
+      <p>
+        Somehow, can't recall how, I learned to deal with my emotions and my sensitiveness. I learned to control my levels of energy. And I noticed that I liked coding, a lot. I learned that I can spend
+        hours in front of the computer just coding away... hours. So, I became a coder, programmer, a dude who whispers to computers.
+      </p>
+      <p>
+        Until Aug 2020, I gave me a present: a DND test for ancestry, diet and mental disorders. I did it out of curiosity. I already knew there was sefardic descendency. What I didn't know was that I also have ashkenazi descendency.
+        There is also Filipino, Manchurian, Coptic Egyptian, Senegambian and Angolan. Being mexican is truly a <mark>mezcolanza</mark><label for="sn-9" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-9" class="sidenote-toggle">
+        <span class="sidenote">
+          I wonder if that's what makes of the Cosmic Race. is there such thing as race?
+        </span>.
+      </p>
+      <p>
+        What got my attention was the mental disorder part<label for="sn-10" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-10" class="sidenote-toggle">
+        <span class="sidenote left">
+          The diet part too. Apparently for my genetics it's better to follow the Nordic Diet. I guess I was meant to move close to the North pole <em>jiggles</em>. 
+        </span>. The analizes says I have a lot of markers for ADHD, some for OCD and some other for Autism<label for="sn-11" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-11" class="sidenote-toggle">
+        <span class="sidenote">
+          I forgot to mention before but I also have a constant sort of depression. I battle that by working a lot and find ways to distract myself which it's hard since I get bored easily.
+        </span>. I did know those mental disorders but I wasn't aware of all the details of each one of them.
+      </p>
+      <p>
+        Let's start with OCD. It makes sense. Sometimes I have burst of making things in order, symmetrical and beautiful aesthetic to the point that the process most of the time people get annoyed by me, <em>I'm sorry</em>.
+        Autism. I might. I doubt it, though. The only thing I can think of it's when people say that I'm rude in some conversations. What they mean is I say things as they are instead of sugarcode them.
+        But the ADHD... this one makes quite a lot of sense. It brought me peace to many of my personal issues. It brought me resolution. It wasn't easy, thought. I was in denial for days. I wanted to be normal
+        even though I knew I was fucked up. 
+      </p>
+      <p>
+        After a few days I made peace with myself. I realized that it might not be so bad. I also realized this might be why I like coding. Coding is hyperfocus to me. Coding is heaven. Coding is my happy place just like
+        that roof and the stars. It can be a superpower, I just need to learn how to harness whenever I want.
+      </p>
+      <p>
+        So I stopped worrying.
+      </p>
+    </article>
+
+    <article>
+      <h2 id="modern-ada">Modern Ada</h2>
+      <p>
+        I have this crazy goal. So crazy that I think I just went mental.
+        And the physics is not the hard part to solve but rather humans, how to take humanity the next level
+        and also be prepared for it... how?<label for="sn-1" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-1" class="sidenote-toggle">
+        <span class="sidenote">
+          Obviously, to travel faster than light, to create wormholes, to contract the spacetime continuum, to find ways to get exotic matter, it is hard.
+          But if I'm saying humans are the big challenge, it's because in my head is more easier to solve technical problems than humans and their egos/biology.
+        </span>
         <p>
           And I have the crazy feeling that I won't solve any of the issues that goal presents. For obvious reason (I'm not smart) but the
           crazy feeling is that I'll be meeting the modern Ada Lovelace.
@@ -452,151 +221,156 @@ label.margin-toggle:not(.sidenote-number) {
         <p>
           Where?... How?... No fucking idea. It's just a feeling. A crazy feeling. And she will be the one who solves all my issues.
         </p>
-      </section>
-    </article>
-  
-    <article>
-      <h1 id="owming">Owning your Failures<a class="float-right" href="#disclaimer">^</a></h1> 
-      <section>
-        <p>
-          Just like history is written by the winners, I think the whole achievements thing is also the same. We hear about this and that and how great. But
-          rarely we hear about the failures. We hear about failures when it comes to shame someone or to feel superior.
-        </p>
-        <p>
-          That made me think that we are not teaching how to own your mistakes and failures. It took many years to finally start talking about them openly like it was nothing.
-          It's weird, don't you think? After all, we learn by failing.
-        </p>
-        <p>
-          Imagine doing that in job interviews? I did, just a couple of times. And as you probably expected, it wasn't a good thing. 
-          I mean, it wasn't seen as a good thing by the interviewer. I was totally fine with it.
-        </p>
-        <p>
-          So, yeah. I'll be owning my mistakes and failures instead of having metals and awards, not that I have any but still.
-        </p>
-      </section>
     </article>
 
     <article>
-      <h1 id="fallible">Fallibilis<a class="float-right" href="#disclaimer">^</a></h1> 
-      <section>
-        <p>
-          In these turbulent times, I can't help to feel deceived.
-        </p>
-        <p>
-          It's nobody's fault. I don't think that anyone has deceived humanity with bad intentions. 
-        </p>
-        <p>
-          Here I am listening to Kate Bush's Cloudbusting... and It makes me feel... It reminds me to that moment
-          when I learnt that adults are fallible. How fragile humanity is.
-        </p>
-        <p>
-          This is the moment when I wish there were gods and goddesses. Aliens, if you will.
-          Someone who could save us from our childish behavior and premature use of technology.
-        </p>
-        <p>
-          And yet I just know that something good is gonna happen.
-        </p>
-      </section>
-    </article>
-    
-    <article>
-      <h1 id="not-smart">Make a meaningful living<a class="float-right" href="#disclaimer">^</a></h1> 
-      <section>
-        <p>
-          Tomorrow it's my 37 Sun cycle which it's only special to me and probably my mom.
-        </p>
-        <p>
-          Like any other human being or sentient being, I broke some many bubbles so far. So many illusions
-          we have created as a civilization. A civilization being one of them. Gosh. So many lies.
-        </p>
-        <p>
-          However, I think that in a reality without meaning, you have the power and responsibility (if you want to be sane) to create
-          your own meaningful way of living.
-        </p>
-        <p>
-          In my case, it sums to the following GIF I made.
-        </p>
-        <img src="/me.gif" alt="I'll be a living god" />
-      </section>
-    </article>
-    <article>
-      <h1 id="not-smart">I'm not smart<a class="float-right" href="#disclaimer">^</a></h1> 
-      <section>
-        <p>
-          Like any developer, I have done a lot of interviews. The interviews are a bit diff, I think, 
-          since I have no computer science degree. I'm a physicist by training. Some people may think
-          that probably means I'm smart. I am not.
-        </p>
-        <p>
-          One of the things I learned as a child was that I'm not smart. I'm not wise. I'm not intelligent.
-          There is nothing special about me and there are far more better people than me in any area.
-          I forced myself to live with that. It's hard since family and friends say otherwise but that, I 
-          believe, does not help me at all.
-        </p>
-        <p>
-          At my age, I've learned to live with that. It's sort of sad since I know I'll be behind. I'll
-          be left behind. It's hard to accept that but I'm ok with the logic of how Nature/Reality seems to work.
-        </p>
-        <p>
-          I recently had to decline to continue with a process with a company because its process involved 
-          challenges like the ones you have at Facebook, Amazon, Google, Microsoft, you name it. They also
-          wanted to know how much time it took me to solve the problem. To me, the company wanted the best of
-          the best which, well, I am not. 
-        </p>
-        <p>
-          I could have fake it. Nowadays, you can find anything on the internet and I'm positive I could have 
-          found the solution. To what end? I'm not smart. Cheating won't make me smart, I think. It was not even
-          about being honest. I think I would cheat if along the way I got smart but I really doubted that's the case.
-        </p>
-        <p>
-          I like to believe that what I have cultivated is that for most things I don't need to be smart, I just 
-          have to be careful. I doubt I'm the best but I do think I best myself every day.
-        </p>
-      </section>
+      <h2 id="owning-your-failures">Owning your Failures</h2> 
+      <p>
+        Just like history is written by the winners, I think the whole achievements thing is also the same thing. We hear about this and that and how great. But
+        rarely we hear about the failures. We hear about failures when it comes to shame someone or to feel superior<label for="sn-2" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-2" class="sidenote-toggle">
+        <span class="sidenote left">
+          How you noticed is like there are people waiting to <mark>be offended</mark> or to jump into crazy conclusions just to <mark>denigrate</mark> someone? Jeez...
+        </span>.
+      </p>
+      <p>
+        That made me think that we are not teaching how to own your mistakes and failures. It took many years to finally start talking about them openly like it was nothing.
+        It's weird, don't you think? After all, we learn by failing<label for="sn-3" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-3" class="sidenote-toggle">
+        <span class="sidenote">
+          In fact, my bet is that we can only learning by failing or rather things are only things in comparison to something else. So, winning is one side of the coin and there can only be a coin with two sides hence failing. To things to be computable, to compute, there's gotta be more than two.
+        </span>.
+      </p>
+      <p>
+        Imagine doing that in job interviews? I did, just a couple of times. And as you probably expected, it wasn't a good thing. 
+        I mean, it wasn't seen as a good thing by the interviewer. I was totally fine with it.
+      </p>
     </article>
 
     <article>
-      <h1 id="script-tag-programmatically">Script Tag, Programmatically<a class="float-right" href="#disclaimer">^</a></h1> 
-      <section>
-        <p>load a script into your web page</p>
-        <pre>
-        <code class="javascript">
-  function loadScript(url, callback) {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
+      <h2 id="fallible">Fallibilis</h2> 
+      <p>
+        In these turbulent times, I can't help to feel deceived.
+      </p>
+      <p>
+        It's nobody's fault. I don't think that anyone has deceived humanity with bad intentions. 
+      </p>
+      <p>
+        Here I am listening to Kate Bush's Cloudbusting... and It makes me feel... It reminds me to that moment
+        when I learnt that adults are fallible. How fragile humanity is<label for="sn-4" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-4" class="sidenote-toggle">
+        <span class="sidenote left">
+          I happen to believe the ultimate greatest lie of this human civilization is... <mark>Progress</mark>.
+        </span>.
+      </p>
+      <p>
+        This is the moment when I wish there were gods and goddesses. Aliens, if you will.
+        Someone who could save us from our childish behavior and premature use of technology.
+      </p>
+      <p>
+        And yet I just know that something good is gonna happen.
+      </p>
+    </article>
 
-    if (script.readyState) {
-      script.onreadystatechange = function() {
-        if (script.readyState == "loaded" || script.readyState == "complete") {
-          script.onreadystatechange = null;
-          callback();
-        }
-      };
-    } else {
-      script.onload = function() {
-        callback();
-      };
-    }
-            
-    script.src = url;
-    document.body.appendChild(script);
-  }
-        </code>
+    <article>
+      <h2 id="not-smart">Make a meaningful living</h2> 
+      <p>
+        Tomorrow it's my 37 Sun cycle which it's only special to me and probably my mom<label for="sn-5" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-5" class="sidenote-toggle">
+        <span class="sidenote">
+          I don't recall having a birthday party. 'Amá tried to compensate that by giving me birthday parties later, It didn't work. I feel super awkward and overwhelmed. Although that might be because of something else in my head.
+        </span>.
+      </p>
+      <p>
+        Like any other human being or sentient being, I broke some many bubbles so far. So many illusions
+        we have created as a civilization. A civilization being one of them. Gosh. So many lies.
+      </p>
+      <p>
+        However, I think that in a reality without meaning, you have the power and responsibility (if you want to be sane) to create
+        your own meaningful way of living.
+      </p>
+      <p>
+        In my case, it sums to the following GIF I made.
+      </p>
+      <img src="/me.gif" alt="I'll be a living god" />
+    </article>
+    <article>
+      <h2 id="not-smart">I'm not smart</h2> 
+      <p>
+        Like any developer, I have done a lot of interviews. The interviews are a bit diff, I think, 
+        since I have no computer science degree. I'm a physicist by training. Some people may think
+        that probably means I'm smart. I am not.
+      </p>
+      <p>
+        One of the things I learned as a child was that I'm not smart. I'm not wise. I'm not intelligent.
+        There is nothing special about me and there are far more better people than me in any area.
+        I forced myself to live with that. It's hard since family and friends say otherwise but that, I 
+        believe, does not help me at all.
+      </p>
+      <p>
+        At my age, I've learned to live with that. It's sort of sad since I know I'll be behind. I'll
+        be left behind. It's hard to accept that but I'm ok with the logic of how Nature/Reality seems to work.
+      </p>
+      <p>
+        I recently had to decline to continue with a process with a company because its process involved 
+        challenges like the ones you have at Facebook, Amazon, Google, Microsoft, you name it. They also
+        wanted to know how much time it took me to solve the problem. To me, the company wanted the best of
+        the best which, well, I am not<label for="sn-6" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-6" class="sidenote-toggle">
+        <span class="sidenote left">
+          I have also the idea that those sort of interview processes provides so little information about the person but I think it's my ego trying to not to get hurt.
+        </span>. 
+      </p>
+      <p>
+        I could have fake it. Nowadays, you can find anything on the internet and I'm positive I could have 
+        found the solution. To what end? I'm not smart. Cheating won't make me smart, I think. It was not even
+        about being honest. I think I would cheat if along the way I got smart but I really doubt that's the case.
+      </p>
+      <p>
+        I like to believe that what I have cultivated is that for most things I don't need to be smart, I just 
+        have to be careful. I doubt I'm the best but I do think I best myself every day.
+      </p>
+    </article>
+
+    <article>
+      <h2 id="script-tag-programmatically">Script Tag, Programmatically</h2> 
+      <p>
+        A very hackish <label for="sn-7" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-7" class="sidenote-toggle">
+        <span class="sidenote">
+          I find it hackish too but things being hackish or impossible has never been a reason for me not to do it...
+        </span>way to get and insert a script and its content. I like it because what it represents in terms of physical space but I'm aware software engineers find it hackish.
+      </p>
+      <div style="background: #272822; overflow:auto;width:auto;color:white;border:solid gray;border-width:.1em .1em .1em .8em;">
+        <pre style="padding:2ch 2ch;background-color:transparent;margin: 0; line-height: 125%"><span style="color: #66d9ef">function</span> <span style="color: #a6e22e">loadScript</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">url</span><span style="color: #f8f8f2">,</span> <span style="color: #a6e22e">callback</span><span style="color: #f8f8f2">)</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #66d9ef">var</span> <span style="color: #a6e22e">script</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">document.</span><span style="color: #a6e22e">createElement</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;script&quot;</span><span style="color: #f8f8f2">);</span>
+  <span style="color: #a6e22e">script</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">type</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;text/javascript&quot;</span><span style="color: #f8f8f2">;</span>
+
+  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(</span><span style="color: #a6e22e">script</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">readyState</span><span style="color: #f8f8f2">)</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #a6e22e">script</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">onreadystatechange</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">function</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+      <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(</span><span style="color: #a6e22e">script</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">readyState</span> <span style="color: #f92672">==</span> <span style="color: #e6db74">&quot;loaded&quot;</span> <span style="color: #f92672">||</span> <span style="color: #a6e22e">script</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">readyState</span> <span style="color: #f92672">==</span> <span style="color: #e6db74">&quot;complete&quot;</span><span style="color: #f8f8f2">)</span> <span style="color: #f8f8f2">{</span>
+        <span style="color: #a6e22e">script</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">onreadystatechange</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">null</span><span style="color: #f8f8f2">;</span>
+        <span style="color: #a6e22e">callback</span><span style="color: #f8f8f2">();</span>
+      <span style="color: #f8f8f2">}</span>
+    <span style="color: #f8f8f2">};</span>
+  <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #a6e22e">script</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">onload</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">function</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+      <span style="color: #a6e22e">callback</span><span style="color: #f8f8f2">();</span>
+    <span style="color: #f8f8f2">};</span>
+  <span style="color: #f8f8f2">}</span>
+
+  <span style="color: #a6e22e">script</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">src</span> <span style="color: #f92672">=</span> <span style="color: #a6e22e">url</span><span style="color: #f8f8f2">;</span>
+  <span style="color: #f8f8f2">document.</span><span style="color: #a6e22e">body</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">appendChild</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">script</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">}</span>
         </pre>
-        <p>Usage</p>
-        <pre>
-        <code class="javascript">
-  loadScript("https://unpkg.com/vue", function() {
-    console.log("Vue Loaded...");
-    console.log("Loading Vuetify...");
+      </div>
+      </p>
+      <p>An example of how to use it</p>
+      <div style="background: #272822; overflow:auto;width:auto;color:white;border:solid gray;border-width:.1em .1em .1em .8em;">
+        <pre style="padding:2ch 2ch;background-color:transparent;margin: 0; line-height: 125%"><span style="color: #a6e22e">loadScript</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;https://unpkg.com/vue&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">function</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #a6e22e">console</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">log</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;Vue Loaded...&quot;</span><span style="color: #f8f8f2">);</span>
+  <span style="color: #a6e22e">console</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">log</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;Loading Vuetify...&quot;</span><span style="color: #f8f8f2">);</span>
 
-    loadScript("https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js", function() {
-      console.log("Vuefity Loaded...");
-    });
-  });
-        </code>
+  <span style="color: #a6e22e">loadScript</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">function</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #a6e22e">console</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">log</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;Vuefity Loaded...&quot;</span><span style="color: #f8f8f2">);</span>
+  <span style="color: #f8f8f2">});</span>
+<span style="color: #f8f8f2">});</span>
         </pre>
-      </section>
+      </div>
     </article>
   </body>
 </html>

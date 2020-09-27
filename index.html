@@ -14,83 +14,64 @@
     <link rel="icon" href="/favicon.ico">
     <title>an independent scientist</title>
     <style>
-      html, body { margin: 0;
-                   padding: 0;
-                   width: 100%;
-                   height: 100%;
-                   display: table; 
-                   font-size: 16px;
-                   font-family: 'Source Serif Pro',Baskerville,'Libre Baskerville',serif; }
+html, body { margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  display: table; }
 
       .sidebar { display: table-cell;
-                 vertical-align: middle; }
+        vertical-align: middle; }
 
-      a:link,
-      a:visited,
-      a:hover,
-      a:active { text-decoration:none;
-                 color:#333 }
-      .content { display: flex;
-                 margin: 0 auto;
-                 width: 80ch; 
-                 align-items: center; 
-                 justify-content: center; }
-      .photo { margin-right: 3.14ch; }
-      @media only screen and (max-width: 375px) {
-        .content { font-size: 0.85rem;
-                   width: 100%; }
-      }
+    .content { display: flex;
+      margin: 0 auto;
+      width: 80ch; 
+      align-items: center; 
+      justify-content: center; }
+  .photo { margin-right: 3.14ch; }
+  h3 {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  @media only screen and (max-width: 375px) {
+    .content { font-size: 0.85rem;
+      width: 100%; }
+  }
+    </style>
+    <link rel="stylesheet" href="style.css" />
+    <style type="text/css" media="all">
+a:link,
+a:visited,
+a:hover,
+a:active { text-decoration:none;
+  color:#333 }
     </style>
   </head>
   <body>
     <div class="sidebar">
       <div class="content">
         <div class="photo">
-          <img src="/thelastinuit.png" />
+          <img src="thelastinuit.png" />
         </div>
-        <div class="links">
-          <h3>
+        <article>
+          <h3 style="margin-top: 0; margin-bottom: 0;">
             an<br />
             |> independent<br />
             |> scientist
           </h3>
 
           <p>
-            [ <a href='mailto:email@luisignac.io'>email me</a>
-          </p>
-
-          <p>
-            , <a href='/resume.html'>resume</a> 
-          </p>
-
-          <p>
-            , <a href='https://a.co/e28ijxP'>buy me books</a>
-          </p>
-
-          <p>
-            , <a href='https://www.buymeacoffee.com/eQoyKMl'>buy me coffee</a>
-          </p>
-
-          <p>
-            , <a href='https://github.com/thelastinuit'>code </a><a href='https://gitlab.com/thelastinuit'>+ code</a>
-          </p>
-
-          <p>
-            , <a href='/thoughts-and-such'>thoughts + such</a>
-          </p>
-
-          <p>
-            , <a href='https://bunq.me/thelastinuit'>bunq me</a>
-          </p>
-
-          <p>
-            , <a href='https://keybase.io/thelastinuit/chat'>drop a line</a>
-          </p>
-
-          <p>
+            [ <a href='mailto:email@luisignac.io'>email me</a><br/>
+            , <a href='/resume.html'>resume</a><br/> 
+            , <a href='https://a.co/e28ijxP'>buy me books</a><br/>
+            , <a href='https://www.buymeacoffee.com/eQoyKMl'>buy me coffee</a><br/>
+            , <a href='https://github.com/thelastinuit'>code </a><a href='https://gitlab.com/thelastinuit'>+ code</a><br/>
+            , <a href='/thoughts-and-such'>thoughts + such</a><br/>
+            , <a href='https://bunq.me/thelastinuit'>bunq me</a><br/>
+            , <a href='https://keybase.io/thelastinuit/chat'>drop a line</a><br/>
             ]
           </p>
-        </div>
+        </article>
       </div>
     </div>
   </body>
