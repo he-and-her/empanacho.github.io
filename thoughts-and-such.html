@@ -29,6 +29,196 @@ body { background-color: white; }
     </div>
 
     <article>
+      <h2 id="class-module">Of Classes & Modules</h2>
+      <p>
+        In almost every project I end up using at some point the <a href="https://blog.appsignal.com/2020/06/17/using-service-objects-in-ruby-on-rails.html" alt="Service Object Pattern">Service Object pattern</a>. I like
+        because of the convention of naming the class with what the PORO<label for="sn-9" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-9" class="sidenote-toggle">
+        <span class="sidenote left">
+          Don't you love acronyms? I certainly do. To me, it's the similar abstraction like verbing nouns i.e. <ins>google it</ins> instead <em> of go to the internet and use the search engine Google to find it</em>. The word <em>Internet</em> is another one. This is fun.
+        </span> does: <code>CreateRefund.call</code>. You know by reading the class name what's happening in same or <em>what should be happening inside</em>.
+      </p>
+      <p>
+        However, I don't follow all the rules. For example, I don't create a <mark>class</mark> but rather a <mark>module</mark>. Instead of doing the following:
+      </p>
+      <div style="background: #272822; overflow:auto;width:auto;color:white;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;">
+        <pre style="background-color:transparent;margin: 0; line-height: 125%"><span style="color: #66d9ef">module</span> <span style="color: #f8f8f2">StripeServices</span>
+  <span style="color: #66d9ef">class</span> <span style="color: #a6e22e">CreateSubscription</span>
+    <span style="color: #66d9ef">def</span> <span style="color: #a6e22e">initialize</span><span style="color: #f8f8f2">(params)</span>
+      <span style="color: #f8f8f2">@subscription_params</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">params</span><span style="color: #f92672">[</span><span style="color: #e6db74">:subscription_params</span><span style="color: #f92672">]</span>
+    <span style="color: #66d9ef">end</span>
+
+    <span style="color: #66d9ef">def</span> <span style="color: #a6e22e">call</span>
+      <span style="color: #f8f8f2">subscription</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">Stripe</span><span style="color: #f8f8f2">:</span><span style="color: #e6db74">:Subscription</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">create(@subscription_params)</span>
+    <span style="color: #66d9ef">rescue</span> <span style="color: #e6db74">Stripe</span><span style="color: #f8f8f2">:</span><span style="color: #e6db74">:StripeError</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">e</span>
+      <span style="color: #66d9ef">OpenStruct</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">new({success?:</span> <span style="color: #66d9ef">false</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">error</span><span style="color: #f8f8f2">:</span> <span style="color: #f8f8f2">e})</span>
+    <span style="color: #66d9ef">else</span>
+      <span style="color: #66d9ef">OpenStruct</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">new({success?:</span> <span style="color: #66d9ef">true</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">payload</span><span style="color: #f8f8f2">:</span> <span style="color: #f8f8f2">subscription})</span>
+    <span style="color: #66d9ef">end</span>
+  <span style="color: #66d9ef">end</span>
+<span style="color: #66d9ef">end</span>
+        </pre>
+      </div>
+      <p>
+        I will use modules only:
+      </p>
+      <div style="background: #272822; overflow:auto;width:auto;color:white;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;">
+        <pre style="background-color:transparent;margin: 0; line-height: 125%"><span style="color: #66d9ef">module</span> <span style="color: #f8f8f2">Stripe</span>
+  <span style="color: #66d9ef">module</span> <span style="color: #f8f8f2">CreateSubscription</span>
+    <span style="color: #66d9ef">module_function</span>
+
+    <span style="color: #66d9ef">def</span> <span style="color: #a6e22e">call</span><span style="color: #f8f8f2">(subscription_params)</span>
+      <span style="color: #f8f8f2">subscription</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">Stripe</span><span style="color: #f8f8f2">:</span><span style="color: #e6db74">:Subscription</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">create(subscription_params)</span>
+    <span style="color: #66d9ef">rescue</span> <span style="color: #e6db74">Stripe</span><span style="color: #f8f8f2">:</span><span style="color: #e6db74">:StripeError</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">e</span>
+      <span style="color: #66d9ef">OpenStruct</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">new({success?:</span> <span style="color: #66d9ef">false</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">error</span><span style="color: #f8f8f2">:</span> <span style="color: #f8f8f2">e})</span>
+    <span style="color: #66d9ef">else</span>
+      <span style="color: #66d9ef">OpenStruct</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">new({success?:</span> <span style="color: #66d9ef">true</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">payload</span><span style="color: #f8f8f2">:</span> <span style="color: #f8f8f2">subscription})</span>
+    <span style="color: #66d9ef">end</span>
+  <span style="color: #66d9ef">end</span>
+<span style="color: #66d9ef">end</span>
+        </pre>
+      </div>
+      <p>
+        Notice that I try not to use the name of the pattern in the <a href="https://sender.cloudy.email/campaigns/paxjhchaiasjoifsiw/webversion/jdnapfbdgjegdqmdeduwc" alt="Don't Name Classes After Patterns. Mostly.">class name</a>.
+        The reason is because the pattern name will be visible in the backtrace. When it comes to your IDE, the class will be inside <code>app/services</code>. The redundancy is not needed there.
+      </p>
+      <p>
+        Now, why do I use module instead of a class? To be honest, my answer has not evidence to back it up. In fact, that's the reason of this post, to find out how my beliefs are wrong 
+        or perhaps right, I dunno. My reason to choose a module instead of a class was because I didn't want to initialize more objects (less object creation). 
+        I have never done the benchmarks. I only know that <em>modules</em> are not initialized. is it, though?
+      </p>
+      <p>
+        <img src="elders.gif" alt="The Elders of the Internet"/>
+      </p>
+      <p>
+        First, some benchmarks in with two dummy functions:
+      </p>
+      <div style="background: #272822; overflow:auto;width:auto;color:white;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;">
+        <pre style="background-color:transparent;margin: 0; line-height: 125%"><span style="color: #75715e">#!/usr/bin/env ruby</span>
+<span style="color: #75715e"># frozen_string_literal: true</span>
+
+<span style="color: #66d9ef">module</span> <span style="color: #f8f8f2">M</span>
+  <span style="color: #66d9ef">module</span> <span style="color: #f8f8f2">DivideToNumbers</span>
+    <span style="color: #66d9ef">module_function</span>
+
+    <span style="color: #66d9ef">def</span> <span style="color: #a6e22e">call</span><span style="color: #f8f8f2">(x,</span> <span style="color: #f8f8f2">y)</span>
+      <span style="color: #f8f8f2">x</span> <span style="color: #f92672">/</span> <span style="color: #f8f8f2">y</span>
+    <span style="color: #66d9ef">end</span>
+  <span style="color: #66d9ef">end</span>
+<span style="color: #66d9ef">end</span>
+
+<span style="color: #66d9ef">module</span> <span style="color: #f8f8f2">C</span>
+  <span style="color: #66d9ef">class</span> <span style="color: #a6e22e">DivideToNumbers</span>
+
+    <span style="color: #66d9ef">def</span> <span style="color: #a6e22e">initialize</span><span style="color: #f8f8f2">(x,</span> <span style="color: #f8f8f2">y)</span>
+      <span style="color: #f8f8f2">@x</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">x</span>
+      <span style="color: #f8f8f2">@y</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">y</span>
+    <span style="color: #66d9ef">end</span>
+
+    <span style="color: #66d9ef">def</span> <span style="color: #a6e22e">call</span>
+      <span style="color: #f8f8f2">@x</span> <span style="color: #f92672">/</span> <span style="color: #f8f8f2">@y</span>
+    <span style="color: #66d9ef">end</span>
+  <span style="color: #66d9ef">end</span>
+<span style="color: #66d9ef">end</span>
+
+<span style="color: #f8f8f2">require</span> <span style="color: #e6db74">&#39;benchmark&#39;</span>
+
+<span style="color: #66d9ef">Benchmark</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">bmbm</span> <span style="color: #66d9ef">do</span> <span style="color: #f92672">|</span><span style="color: #f8f8f2">x</span><span style="color: #f92672">|</span>
+  <span style="color: #f8f8f2">x</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">report(</span><span style="color: #e6db74">&quot;m &quot;</span><span style="color: #f8f8f2">)</span> <span style="color: #f8f8f2">{</span> <span style="color: #e6db74">M</span><span style="color: #f8f8f2">:</span><span style="color: #e6db74">:DivideToNumbers</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">call(</span><span style="color: #ae81ff">3</span><span style="color: #f92672">.</span><span style="color: #ae81ff">1415926535897932384626</span><span style="color: #f8f8f2">,</span> <span style="color: #ae81ff">1</span><span style="color: #f92672">.</span><span style="color: #ae81ff">61803398874989484820</span><span style="color: #f8f8f2">)</span> <span style="color: #f8f8f2">}</span>
+  <span style="color: #f8f8f2">x</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">report(</span><span style="color: #e6db74">&quot;c &quot;</span><span style="color: #f8f8f2">)</span> <span style="color: #f8f8f2">{</span> <span style="color: #e6db74">C</span><span style="color: #f8f8f2">:</span><span style="color: #e6db74">:DivideToNumbers</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">new(</span><span style="color: #ae81ff">3</span><span style="color: #f92672">.</span><span style="color: #ae81ff">1415926535897932384626</span><span style="color: #f8f8f2">,</span> <span style="color: #ae81ff">1</span><span style="color: #f92672">.</span><span style="color: #ae81ff">61803398874989484820</span><span style="color: #f8f8f2">)</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">call</span> <span style="color: #f8f8f2">}</span>
+<span style="color: #66d9ef">end</span>
+        </pre>
+      </div>
+      <p>
+        Huh! Ok, there is a difference. I'm more curious though in the amount of instantiated objects.
+
+      </p>
+      <div style="background: #272822; overflow:auto;width:auto;color:white;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;">
+        <pre style="background-color:transparent;margin: 0; line-height: 125%">Rehearsal --------------------------------------
+m    0.000011   0.000007   0.000018 <span style="color: #f92672">(</span>  0.000009<span style="color: #f92672">)</span>
+c    0.000009   0.000002   0.000011 <span style="color: #f92672">(</span>  0.000010<span style="color: #f92672">)</span>
+----------------------------- total: 0.000029sec
+
+         user     system      total        real
+m    0.000011   0.000002   0.000013 <span style="color: #f92672">(</span>  0.000006<span style="color: #f92672">)</span>
+c    0.000011   0.000002   0.000013 <span style="color: #f92672">(</span>  0.000008<span style="color: #f92672">)</span>
+        </pre>
+      </div>
+      <p>
+        The stats for the class approach are:
+      </p>
+      <div style="background: #272822; overflow:auto;width:auto;color:white;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;">
+        <pre style="background-color:transparent;margin: 0; line-height: 125%"><span style="color: #f8f8f2">{</span>
+  <span style="color: #e6db74">:TOTAL</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">17934</span><span style="color: #f8f8f2">,</span>
+  <span style="color: #e6db74">:FREE</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">283</span><span style="color: #f8f8f2">,</span>
+  <span style="color: #e6db74">:T_OBJECT</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">372</span><span style="color: #f8f8f2">,</span>
+  <span style="color: #e6db74">:T_CLASS</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">627</span><span style="color: #f8f8f2">,</span>
+  <span style="color: #e6db74">:T_MODULE</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">38</span><span style="color: #f8f8f2">,</span>
+  <span style="color: #e6db74">:T_FLOAT</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">4</span><span style="color: #f8f8f2">,</span>
+  <span style="color: #e6db74">:T_STRING</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">9797</span><span style="color: #f8f8f2">,</span>
+  <span style="color: #e6db74">:T_REGEXP</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">85</span><span style="color: #f8f8f2">,</span>
+  <span style="color: #e6db74">:T_ARRAY</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">1422</span><span style="color: #f8f8f2">,</span>
+  <span style="color: #e6db74">:T_HASH</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">120</span><span style="color: #f8f8f2">,</span>
+  <span style="color: #e6db74">:T_STRUCT</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">14</span><span style="color: #f8f8f2">,</span>
+  <span style="color: #e6db74">:T_BIGNUM</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">2</span><span style="color: #f8f8f2">,</span>
+  <span style="color: #e6db74">:T_FILE</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">23</span><span style="color: #f8f8f2">,</span>
+  <span style="color: #e6db74">:T_DATA</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">287</span><span style="color: #f8f8f2">,</span>
+  <span style="color: #e6db74">:T_MATCH</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">10</span><span style="color: #f8f8f2">,</span>
+  <span style="color: #e6db74">:T_COMPLEX</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">1</span><span style="color: #f8f8f2">,</span>
+  <span style="color: #e6db74">:T_SYMBOL</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">28</span><span style="color: #f8f8f2">,</span>
+  <span style="color: #e6db74">:T_IMEMO</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">4773</span><span style="color: #f8f8f2">,</span>
+  <span style="color: #e6db74">:T_ICLASS</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">48</span>
+<span style="color: #f8f8f2">}</span>
+        </pre>
+      </div>
+      <p>
+        and the stats for the module approach are:
+      </p>
+      <div style="background: #272822; overflow:auto;width:auto;color:white;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;">
+        <pre style="background-color:transparent;margin: 0; line-height: 125%"><span style="color: #f8f8f2">{</span>
+  <span style="color: #e6db74">:TOTAL</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">17938</span><span style="color: #f8f8f2">,</span> 
+  <span style="color: #e6db74">:FREE</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">302</span><span style="color: #f8f8f2">,</span> 
+  <span style="color: #e6db74">:T_OBJECT</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">371</span><span style="color: #f8f8f2">,</span> 
+  <span style="color: #e6db74">:T_CLASS</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">626</span><span style="color: #f8f8f2">,</span> 
+  <span style="color: #e6db74">:T_MODULE</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">39</span><span style="color: #f8f8f2">,</span> 
+  <span style="color: #e6db74">:T_FLOAT</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">4</span><span style="color: #f8f8f2">,</span> 
+  <span style="color: #e6db74">:T_STRING</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">9789</span><span style="color: #f8f8f2">,</span> 
+  <span style="color: #e6db74">:T_REGEXP</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">85</span><span style="color: #f8f8f2">,</span> 
+  <span style="color: #e6db74">:T_ARRAY</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">1419</span><span style="color: #f8f8f2">,</span> 
+  <span style="color: #e6db74">:T_HASH</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">120</span><span style="color: #f8f8f2">,</span> 
+  <span style="color: #e6db74">:T_STRUCT</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">14</span><span style="color: #f8f8f2">,</span> 
+  <span style="color: #e6db74">:T_BIGNUM</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">2</span><span style="color: #f8f8f2">,</span> 
+  <span style="color: #e6db74">:T_FILE</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">23</span><span style="color: #f8f8f2">,</span> 
+  <span style="color: #e6db74">:T_DATA</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">287</span><span style="color: #f8f8f2">,</span> 
+  <span style="color: #e6db74">:T_MATCH</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">10</span><span style="color: #f8f8f2">,</span> 
+  <span style="color: #e6db74">:T_COMPLEX</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">1</span><span style="color: #f8f8f2">,</span> 
+  <span style="color: #e6db74">:T_SYMBOL</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">28</span><span style="color: #f8f8f2">,</span> 
+  <span style="color: #e6db74">:T_IMEMO</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">4770</span><span style="color: #f8f8f2">,</span>
+  <span style="color: #e6db74">:T_ICLASS</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">48</span>
+<span style="color: #f8f8f2">}</span>
+        </pre>
+      </div>
+
+      <p>
+        ooooook! there was a difference in objects creation after all. My concern started because I realized of the following:
+      </p>
+
+      <div style="background: #272822; overflow:auto;width:auto;color:white;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="background-color:transparent;margin: 0; line-height: 125%"><span style="color: #f92672">[</span><span style="color: #ae81ff">2</span><span style="color: #f92672">.</span><span style="color: #ae81ff">7</span><span style="color: #f92672">.</span><span style="color: #ae81ff">0</span><span style="color: #f92672">]&gt;</span> <span style="color: #66d9ef">Module</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">class</span>
+<span style="color: #f92672">=&gt;</span> <span style="color: #66d9ef">Class</span>
+<span style="color: #f92672">[</span><span style="color: #ae81ff">2</span><span style="color: #f92672">.</span><span style="color: #ae81ff">7</span><span style="color: #f92672">.</span><span style="color: #ae81ff">0</span><span style="color: #f92672">]&gt;</span> <span style="color: #66d9ef">Module</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">superclass</span>
+<span style="color: #f92672">=&gt;</span> <span style="color: #66d9ef">Object</span>
+<span style="color: #f92672">[</span><span style="color: #ae81ff">2</span><span style="color: #f92672">.</span><span style="color: #ae81ff">7</span><span style="color: #f92672">.</span><span style="color: #ae81ff">0</span><span style="color: #f92672">]&gt;</span> <span style="color: #66d9ef">Class</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">class</span>
+<span style="color: #f92672">=&gt;</span> <span style="color: #66d9ef">Class</span>
+<span style="color: #f92672">[</span><span style="color: #ae81ff">2</span><span style="color: #f92672">.</span><span style="color: #ae81ff">7</span><span style="color: #f92672">.</span><span style="color: #ae81ff">0</span><span style="color: #f92672">]&gt;</span> <span style="color: #66d9ef">Class</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">superclass</span>
+<span style="color: #f92672">=&gt;</span> <span style="color: #66d9ef">Module</span>
+<span style="color: #f92672">[</span><span style="color: #ae81ff">2</span><span style="color: #f92672">.</span><span style="color: #ae81ff">7</span><span style="color: #f92672">.</span><span style="color: #ae81ff">0</span><span style="color: #f92672">]&gt;</span>
+</pre></div>
+      <p>
+        So, <em>Module</em> and <em>Class</em> have the same class. What does the superclass method do? <a href="https://ruby-doc.org/core-2.6.1/Class.html#method-i-superclass">Returns the superclass of class, or nil.</a> Although, the superclass method is only in <em>Class</em> not in <em>Module</em>.
+        And that's how this mystery appeared in the first place.
+      </p>
+    </article>
+
+    <article>
       <h2 id="automate or all tomate">Automate or All Tomato</h2>    
       <p>
         I like games. I like them very much. I recently had a tattoo made in my right forearm to illustrate my love and admiration for <a href="https://www.guerrilla-games.com/play/horizon" alt="Horizon: Zero Dawn"><em>Horizon: Zero Down</em></a>
@@ -38,7 +228,7 @@ body { background-color: white; }
         I also love games like <a href="http://www.zachtronics.com/shenzhen-io/" alt="Shenzhen I/O">Shenzhen I/O</a> and <a href="https://www.factorio.com/" alt="Factorio">Factorio</a> which leads me to automatization. I'm not sure
         we want to automate everything anymore<label for="sn-8" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-8" class="sidenote-toggle">
         <span class="sidenote">
-          I found this in <a href="https://blog.jessfraz.com/post/the-art-of-automation/">Jess's blog</a>. I'm sure she wasn't advocating to autumate everything but it got me thinking.
+          I found this in <a href="https://blog.jessfraz.com/post/the-art-of-automation/">Jess's blog</a>. I'm sure she wasn't advocating to automate everything but it got me thinking.
         </span>.
       </p>
       <p>
@@ -157,17 +347,17 @@ body { background-color: white; }
         That's the reason for the title <mark>+</mark> it fits perfectly. So, Los geht's.
       </p>
       <p>
-        In Nov 2019 I learned that I went to therapy when I was a child for 3 years. I don't recall any of that but 'Amá chose to share that piece of information before I moved to Germany.
+        In Nov 2019 I learned that I went to therapy when I was a child for like 3 years. I don't recall any of that but 'Amá chose to share that piece of information before I moved to Germany.
         Apparently, I have short burst of rage and lots of energy. I remember in kindergarden to be quite active and get bored easily... a lot.
       </p>
       <p>
-        In my teenage phase, I attributed all my issues to being a teenager. I was very sensitive to people comments about me. I got overwhelmed by crows regardless of relationship I had with them. I prefer
-        to be alone more importantly, to be alone on the roof watching the stars. I kept me calm. Computer games helped a lot but school was in the way, I only had interests in patterns (math). For the rest of the 
-        classes I was a bad student.
+        In my teenage phase, I attributed all my issues to being a teenager. I was very sensitive to people's comments about me. I got overwhelmed by crowds regardless of relationship I had with them. 
+        I prefer to be alone more importantly, to be alone on the roof watching the stars. I kept me calm. Computer games helped a lot but school was in the way, I only had interests in patterns (math). 
+        For the rest of the classes I was a bad student.
       </p>
       <p>
-        Then the time to go to university arrived. I was a still shy and lonely person but I made friends. These dudes where somehow like me. I studied physics. From time to time, there were parties but I couldn't stay longer,
-        I got weirded out. It was me of course but I dunno why I assumed that would faded it away.
+        Then the time to go to university arrived. I was a still shy and lonely person but I made friends. These dudes where somehow like me. I studied physics. 
+        From time to time, there were parties but I couldn't stay longer, I got weirded out. It was me of course but I dunno why I assumed that would faded it away.
       </p>
       <p>
         Somehow, can't recall how, I learned to deal with my emotions and my sensitiveness. I learned to control my levels of energy. And I noticed that I liked coding, a lot. I learned that I can spend
@@ -190,14 +380,14 @@ body { background-color: white; }
         </span>. I did know those mental disorders but I wasn't aware of all the details of each one of them.
       </p>
       <p>
-        Let's start with OCD. It makes sense. Sometimes I have burst of making things in order, symmetrical and beautiful aesthetic to the point that the process most of the time people get annoyed by me, <em>I'm sorry</em>.
+        Let's start with OCD. It makes sense. Sometimes I have burst of making things in order, symmetrical and beautiful aesthetic to the point that people get annoyed by me, <em>I'm sorry</em>.
         Autism. I might. I doubt it, though. The only thing I can think of it's when people say that I'm rude in some conversations. What they mean is I say things as they are instead of sugarcode them.
         But the ADHD... this one makes quite a lot of sense. It brought me peace to many of my personal issues. It brought me resolution. It wasn't easy, thought. I was in denial for days. I wanted to be normal
         even though I knew I was fucked up. 
       </p>
       <p>
         After a few days I made peace with myself. I realized that it might not be so bad. I also realized this might be why I like coding. Coding is hyperfocus to me. Coding is heaven. Coding is my happy place just like
-        that roof and the stars. It can be a superpower, I just need to learn how to harness whenever I want.
+        that roof and the stars. It can be a superpower, I just need to learn how to harness it.
       </p>
       <p>
         So I stopped worrying.
@@ -205,22 +395,16 @@ body { background-color: white; }
     </article>
 
     <article>
-      <h2 id="modern-ada">Modern Ada</h2>
+      <h2 id="humans">Humans, the final frontier</h2>
       <p>
         I have this crazy goal. So crazy that I think I just went mental.
-        And the physics is not the hard part to solve but rather humans, how to take humanity the next level
-        and also be prepared for it... how?<label for="sn-1" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-1" class="sidenote-toggle">
+        The physics of the goal is not the hard part to solve but rather humans, how to take humanity the next level
+        and also be prepared for it... htf?<label for="sn-1" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-1" class="sidenote-toggle">
         <span class="sidenote">
           Obviously, to travel faster than light, to create wormholes, to contract the spacetime continuum, to find ways to get exotic matter, it is hard.
           But if I'm saying humans are the big challenge, it's because in my head is more easier to solve technical problems than humans and their egos/biology.
         </span>
-        <p>
-          And I have the crazy feeling that I won't solve any of the issues that goal presents. For obvious reason (I'm not smart) but the
-          crazy feeling is that I'll be meeting the modern Ada Lovelace.
-        </p>
-        <p>
-          Where?... How?... No fucking idea. It's just a feeling. A crazy feeling. And she will be the one who solves all my issues.
-        </p>
+      </p>
     </article>
 
     <article>
@@ -229,14 +413,15 @@ body { background-color: white; }
         Just like history is written by the winners, I think the whole achievements thing is also the same thing. We hear about this and that and how great. But
         rarely we hear about the failures. We hear about failures when it comes to shame someone or to feel superior<label for="sn-2" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-2" class="sidenote-toggle">
         <span class="sidenote left">
-          How you noticed is like there are people waiting to <mark>be offended</mark> or to jump into crazy conclusions just to <mark>denigrate</mark> someone? Jeez...
+          How you noticed there are people waiting to <mark>be offended</mark> or to jump into crazy conclusions just to <mark>denigrate</mark> someone? Jeez...
         </span>.
       </p>
       <p>
         That made me think that we are not teaching how to own your mistakes and failures. It took many years to finally start talking about them openly like it was nothing.
         It's weird, don't you think? After all, we learn by failing<label for="sn-3" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-3" class="sidenote-toggle">
         <span class="sidenote">
-          In fact, my bet is that we can only learning by failing or rather things are only things in comparison to something else. So, winning is one side of the coin and there can only be a coin with two sides hence failing. To things to be computable, to compute, there's gotta be more than two.
+          In fact, my bet is that we can only learning by failing or rather things are only things in comparison to something else. 
+          So, winning is one side of the coin and there can only be a coin with two sides hence failing. To things to be computable, to compute, there's gotta be more than two.
         </span>.
       </p>
       <p>
@@ -274,7 +459,8 @@ body { background-color: white; }
       <p>
         Tomorrow it's my 37 Sun cycle which it's only special to me and probably my mom<label for="sn-5" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-5" class="sidenote-toggle">
         <span class="sidenote">
-          I don't recall having a birthday party. 'Amá tried to compensate that by giving me birthday parties later, It didn't work. I feel super awkward and overwhelmed. Although that might be because of something else in my head.
+          I don't recall having a birthday party. 'Amá tried to compensate that by giving me birthday parties lawter. It didn't work. I felt super awkward and overwhelmed. 
+          Although that might be because of something else in my head.
         </span>.
       </p>
       <p>
@@ -313,16 +499,16 @@ body { background-color: white; }
         wanted to know how much time it took me to solve the problem. To me, the company wanted the best of
         the best which, well, I am not<label for="sn-6" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-6" class="sidenote-toggle">
         <span class="sidenote left">
-          I have also the idea that those sort of interview processes provides so little information about the person but I think it's my ego trying to not to get hurt.
+          I have also the idea that those sort of interview processes provide so little information about the person but I think it's my ego trying to not to get hurt.
         </span>. 
       </p>
       <p>
         I could have fake it. Nowadays, you can find anything on the internet and I'm positive I could have 
         found the solution. To what end? I'm not smart. Cheating won't make me smart, I think. It was not even
-        about being honest. I think I would cheat if along the way I got smart but I really doubt that's the case.
+        about being honest. I doubt I'd be smart by cheating.
       </p>
       <p>
-        I like to believe that what I have cultivated is that for most things I don't need to be smart, I just 
+        I like to believe that what I have cultivated is, that for most things, I don't need to be smart, I just 
         have to be careful. I doubt I'm the best but I do think I best myself every day.
       </p>
     </article>
