@@ -54,211 +54,214 @@ body { background-color: white; }
             <p>
                 The code so far is pretty straight forward:
             </p>
-            <div style="background: #272822; overflow:auto;width:auto;color:white;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="background-color:transparent;margin: 0; line-height: 125%"><span style="color: #66d9ef">use</span> <span style="color: #f8f8f2">config</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">{Config,</span> <span style="color: #f8f8f2">ConfigError,</span> <span style="color: #f8f8f2">Environment,</span> <span style="color: #f8f8f2">File};</span>
-            <span style="color: #66d9ef">use</span> <span style="color: #f8f8f2">serde</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">Deserialize;</span>
-            <span style="color: #66d9ef">use</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">env;</span>
-            <span style="color: #66d9ef">use</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">path</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">PathBuf;</span>
-            <span style="color: #75715e">#[derive(Debug, Deserialize)]</span>
-            <span style="color: #66d9ef">struct</span> <span style="color: #f8f8f2">RedisConfig</span> <span style="color: #f8f8f2">{</span>
-                <span style="color: #f8f8f2">server_url</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">String,</span>
-                <span style="color: #f8f8f2">script</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">PathBuf,</span>
+<div style="background: #272822; overflow:auto;width:auto;color:white;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;">
+<pre style="background-color:transparent;margin: 0; line-height: 125%"><span style="color: #66d9ef">use</span> <span style="color: #f8f8f2">config</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">{Config,</span> <span style="color: #f8f8f2">ConfigError,</span> <span style="color: #f8f8f2">Environment,</span> <span style="color: #f8f8f2">File};</span>
+<span style="color: #66d9ef">use</span> <span style="color: #f8f8f2">serde</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">Deserialize;</span>
+<span style="color: #66d9ef">use</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">env;</span>
+<span style="color: #66d9ef">use</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">path</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">PathBuf;</span>
+<span style="color: #75715e">#[derive(Debug, Deserialize)]</span>
+<span style="color: #66d9ef">struct</span> <span style="color: #f8f8f2">RedisConfig</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #f8f8f2">server_url</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">String,</span>
+    <span style="color: #f8f8f2">script</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">PathBuf,</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #75715e">#[derive(Debug, Deserialize)]</span>
+<span style="color: #66d9ef">struct</span> <span style="color: #f8f8f2">Settings</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #f8f8f2">debug</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">bool,</span>
+    <span style="color: #f8f8f2">redis</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">RedisConfig,</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">impl</span> <span style="color: #f8f8f2">Settings</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #66d9ef">fn</span> <span style="color: #f8f8f2">new()</span> <span style="color: #f92672">-&gt;</span> <span style="color: #f8f8f2">Result</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">Self,</span> <span style="color: #f8f8f2">ConfigError</span><span style="color: #f92672">&gt;</span> <span style="color: #f8f8f2">{</span>
+        <span style="color: #66d9ef">let</span> <span style="color: #66d9ef">mut</span> <span style="color: #f8f8f2">s</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">Config</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">new();</span>
+        <span style="color: #f8f8f2">s.merge(File</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">with_name(</span><span style="color: #e6db74">&quot;config/default&quot;</span><span style="color: #f8f8f2">))</span><span style="color: #f92672">?</span><span style="color: #f8f8f2">;</span>
+        <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">env</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">env</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">var(</span><span style="color: #e6db74">&quot;RUN_MODE&quot;</span><span style="color: #f8f8f2">).unwrap_or(</span><span style="color: #e6db74">&quot;development&quot;</span><span style="color: #f8f8f2">.into());</span>
+        <span style="color: #f8f8f2">s.merge(File</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">with_name(</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">format</span><span style="color: #f92672">!</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;config/{}&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">env)).required(</span><span style="color: #66d9ef">false</span><span style="color: #f8f8f2">))</span><span style="color: #f92672">?</span><span style="color: #f8f8f2">;</span>
+        <span style="color: #f8f8f2">s.merge(File</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">with_name(</span><span style="color: #e6db74">&quot;config/local&quot;</span><span style="color: #f8f8f2">).required(</span><span style="color: #66d9ef">false</span><span style="color: #f8f8f2">))</span><span style="color: #f92672">?</span><span style="color: #f8f8f2">;</span>
+        <span style="color: #f8f8f2">s.merge(Environment</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">with_prefix(</span><span style="color: #e6db74">&quot;app&quot;</span><span style="color: #f8f8f2">))</span><span style="color: #f92672">?</span><span style="color: #f8f8f2">;</span>
+        <span style="color: #f8f8f2">s.try_into()</span>
+    <span style="color: #f8f8f2">}</span>
+
+    <span style="color: #66d9ef">fn</span> <span style="color: #f8f8f2">redis_script(</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">self)</span> <span style="color: #f92672">-&gt;</span> <span style="color: #f8f8f2">PathBuf</span> <span style="color: #f8f8f2">{</span>
+        <span style="color: #f8f8f2">self.redis.script.clone()</span>
+    <span style="color: #f8f8f2">}</span>
+
+    <span style="color: #66d9ef">fn</span> <span style="color: #f8f8f2">redis_url(</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">self)</span> <span style="color: #f92672">-&gt;</span> <span style="color: #f8f8f2">String</span> <span style="color: #f8f8f2">{</span>
+        <span style="color: #f8f8f2">self.redis.server_url.clone()</span>
+    <span style="color: #f8f8f2">}</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">use</span> <span style="color: #f8f8f2">redis</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">RedisError;</span>
+<span style="color: #75715e">#[derive(Debug)]</span>
+<span style="color: #66d9ef">enum</span> <span style="color: #f8f8f2">Error</span><span style="color: #f92672">&lt;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span><span style="color: #f92672">&gt;</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #f8f8f2">IncompatibleJson(</span><span style="color: #f92672">&amp;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span> <span style="color: #f8f8f2">Value),</span>
+    <span style="color: #f8f8f2">InvalidJson(</span><span style="color: #f92672">&amp;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span> <span style="color: #f8f8f2">Value),</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">impl</span><span style="color: #f92672">&lt;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span><span style="color: #f92672">&gt;</span> <span style="color: #f8f8f2">From</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">Error</span><span style="color: #f92672">&lt;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span><span style="color: #f92672">&gt;&gt;</span> <span style="color: #66d9ef">for</span> <span style="color: #f8f8f2">RedisError</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #66d9ef">fn</span> <span style="color: #f8f8f2">from(v</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">Error)</span> <span style="color: #f92672">-&gt;</span> <span style="color: #f8f8f2">RedisError</span> <span style="color: #f8f8f2">{</span>
+        <span style="color: #66d9ef">match</span> <span style="color: #f8f8f2">v</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">Error</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">IncompatibleJson(m)</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">RedisError</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">from((</span>
+                <span style="color: #f8f8f2">redis</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">ErrorKind</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">TypeError,</span>
+                <span style="color: #e6db74">&quot;Response was of incompatible type&quot;</span><span style="color: #f8f8f2">,</span>
+                <span style="color: #f8f8f2">format</span><span style="color: #f92672">!</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;Not JSON compatible (response was {:?})&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">m),</span>
+            <span style="color: #f8f8f2">)),</span>
+            <span style="color: #f8f8f2">Error</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">InvalidJson(m)</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">RedisError</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">from((</span>
+                <span style="color: #f8f8f2">redis</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">ErrorKind</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">TypeError,</span>
+                <span style="color: #e6db74">&quot;Response was of incompatible type&quot;</span><span style="color: #f8f8f2">,</span>
+                <span style="color: #f8f8f2">format</span><span style="color: #f92672">!</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;Not valid JSON (response was {:?})&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">m),</span>
+            <span style="color: #f8f8f2">)),</span>
+        <span style="color: #f8f8f2">}</span>
+    <span style="color: #f8f8f2">}</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">use</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">time</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">Duration;</span>
+<span style="color: #75715e">#[derive(Debug, Deserialize, PartialEq)]</span>
+<span style="color: #66d9ef">pub</span> <span style="color: #66d9ef">struct</span> <span style="color: #f8f8f2">BouncerStats</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #f8f8f2">old</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">String,</span>
+    <span style="color: #f8f8f2">current</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">String,</span>
+    <span style="color: #f8f8f2">since</span><span style="color: #f92672">:</span> <span style="color: #66d9ef">u8</span><span style="color: #f8f8f2">,</span>
+    <span style="color: #f8f8f2">wait</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">Duration,</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">impl</span> <span style="color: #f8f8f2">Default</span> <span style="color: #66d9ef">for</span> <span style="color: #f8f8f2">BouncerStats</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #66d9ef">fn</span> <span style="color: #f8f8f2">default()</span> <span style="color: #f92672">-&gt;</span> <span style="color: #f8f8f2">BouncerStats</span> <span style="color: #f8f8f2">{</span>
+        <span style="color: #f8f8f2">BouncerStats</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">current</span><span style="color: #f92672">:</span> <span style="color: #ae81ff">0.</span><span style="color: #f8f8f2">to_string(),</span>
+            <span style="color: #f8f8f2">old</span><span style="color: #f92672">:</span> <span style="color: #ae81ff">0.</span><span style="color: #f8f8f2">to_string(),</span>
+            <span style="color: #f8f8f2">since</span><span style="color: #f92672">:</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">,</span>
+            <span style="color: #f8f8f2">wait</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">Duration</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">from_millis(</span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">),</span>
+        <span style="color: #f8f8f2">}</span>
+    <span style="color: #f8f8f2">}</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">use</span> <span style="color: #f8f8f2">redis</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">{FromRedisValue,</span> <span style="color: #f8f8f2">Value};</span>
+<span style="color: #66d9ef">use</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">result</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">Result;</span>
+<span style="color: #66d9ef">use</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #66d9ef">str</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">from_utf8;</span>
+<span style="color: #66d9ef">impl</span> <span style="color: #f8f8f2">FromRedisValue</span> <span style="color: #66d9ef">for</span> <span style="color: #f8f8f2">BouncerStats</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #66d9ef">fn</span> <span style="color: #f8f8f2">from_redis_value(v</span><span style="color: #f92672">:</span> <span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">Value)</span> <span style="color: #f92672">-&gt;</span> <span style="color: #f8f8f2">RedisResult</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">BouncerStats</span><span style="color: #f92672">&gt;</span> <span style="color: #f8f8f2">{</span>
+        <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">rv</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">RedisResult</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">BouncerStats</span><span style="color: #f92672">&gt;</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">match</span> <span style="color: #f92672">*</span><span style="color: #f8f8f2">v</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">Value</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">Data(</span><span style="color: #66d9ef">ref</span> <span style="color: #f8f8f2">d)</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">{</span>
+                <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">result</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">Result</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">serde_json</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">Value,</span> <span style="color: #f8f8f2">serde_json</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">Error</span><span style="color: #f92672">&gt;</span> <span style="color: #f92672">=</span>
+                    <span style="color: #f8f8f2">serde_json</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">from_str(from_utf8(d)</span><span style="color: #f92672">?</span><span style="color: #f8f8f2">);</span>
+                <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">v</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">BouncerStats</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">match</span> <span style="color: #f8f8f2">result</span> <span style="color: #f8f8f2">{</span>
+                    <span style="color: #f8f8f2">Ok(value)</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">{</span>
+                        <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">array_wait</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">Vec</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">serde_json</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">Value</span><span style="color: #f92672">&gt;</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">match</span> <span style="color: #f8f8f2">value[</span><span style="color: #e6db74">&quot;wait&quot;</span><span style="color: #f8f8f2">].as_array()</span> <span style="color: #f8f8f2">{</span>
+                            <span style="color: #f8f8f2">Some(value)</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">value.to_vec(),</span>
+                            <span style="color: #f8f8f2">None</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">vec</span><span style="color: #f92672">!</span><span style="color: #f8f8f2">[</span>
+                                <span style="color: #f8f8f2">serde_json</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">Value</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">Number(serde_json</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">Number</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">from(</span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">)),</span>
+                                <span style="color: #f8f8f2">serde_json</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">Value</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">Number(serde_json</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">Number</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">from(</span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">)),</span>
+                            <span style="color: #f8f8f2">],</span>
+                        <span style="color: #f8f8f2">};</span>
+                        <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">seconds</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">array_wait[</span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">].as_u64().unwrap();</span>
+                        <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">microseconds</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">array_wait[</span><span style="color: #ae81ff">1</span><span style="color: #f8f8f2">].as_u64().unwrap()</span> <span style="color: #f92672">/</span> <span style="color: #ae81ff">1_000_000</span><span style="color: #f8f8f2">;</span>
+                        <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">duration</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">Duration</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">from_millis((seconds</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">microseconds)</span> <span style="color: #66d9ef">as</span> <span style="color: #66d9ef">u64</span><span style="color: #f8f8f2">);</span>
+                        <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">current</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">match</span> <span style="color: #f8f8f2">value[</span><span style="color: #e6db74">&quot;current&quot;</span><span style="color: #f8f8f2">].as_str()</span> <span style="color: #f8f8f2">{</span>
+                            <span style="color: #f8f8f2">Some(value)</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">value.to_string(),</span>
+                            <span style="color: #f8f8f2">None</span> <span style="color: #f92672">=&gt;</span> <span style="color: #e6db74">&quot;0&quot;</span><span style="color: #f8f8f2">.to_string(),</span>
+                        <span style="color: #f8f8f2">};</span>
+                        <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">old</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">match</span> <span style="color: #f8f8f2">value[</span><span style="color: #e6db74">&quot;old&quot;</span><span style="color: #f8f8f2">].as_str()</span> <span style="color: #f8f8f2">{</span>
+                            <span style="color: #f8f8f2">Some(value)</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">value.to_string(),</span>
+                            <span style="color: #f8f8f2">None</span> <span style="color: #f92672">=&gt;</span> <span style="color: #e6db74">&quot;0&quot;</span><span style="color: #f8f8f2">.to_string(),</span>
+                        <span style="color: #f8f8f2">};</span>
+                        <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">since</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">match</span> <span style="color: #f8f8f2">value[</span><span style="color: #e6db74">&quot;sice&quot;</span><span style="color: #f8f8f2">].as_u64()</span> <span style="color: #f8f8f2">{</span>
+                            <span style="color: #f8f8f2">Some(value)</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">value</span> <span style="color: #66d9ef">as</span> <span style="color: #66d9ef">u8</span><span style="color: #f8f8f2">,</span>
+                            <span style="color: #f8f8f2">None</span> <span style="color: #f92672">=&gt;</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">,</span>
+                        <span style="color: #f8f8f2">};</span>
+                        <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">bouncer_stats</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">BouncerStats</span> <span style="color: #f8f8f2">{</span>
+                            <span style="color: #f8f8f2">current</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">current,</span>
+                            <span style="color: #f8f8f2">old</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">old,</span>
+                            <span style="color: #f8f8f2">since</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">since,</span>
+                            <span style="color: #f8f8f2">wait</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">duration,</span>
+                        <span style="color: #f8f8f2">};</span>
+                        <span style="color: #f8f8f2">bouncer_stats</span>
+                    <span style="color: #f8f8f2">}</span>
+                    <span style="color: #f8f8f2">Err(_)</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">BouncerStats</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">default(),</span>
+                <span style="color: #f8f8f2">};</span>
+                <span style="color: #f8f8f2">Ok(v)</span>
             <span style="color: #f8f8f2">}</span>
+            <span style="color: #f8f8f2">_</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">Result</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">Err(Error</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">IncompatibleJson(v))</span><span style="color: #f92672">?</span><span style="color: #f8f8f2">,</span>
+        <span style="color: #f8f8f2">};</span>
+        <span style="color: #66d9ef">match</span> <span style="color: #f8f8f2">rv</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">Ok(value)</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">Ok(value),</span>
+            <span style="color: #f8f8f2">Err(_)</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">Result</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">Err(Error</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">InvalidJson(v))</span><span style="color: #f92672">?</span><span style="color: #f8f8f2">,</span>
+        <span style="color: #f8f8f2">}</span>
+    <span style="color: #f8f8f2">}</span>
+<span style="color: #f8f8f2">}</span>
 
-            <span style="color: #75715e">#[derive(Debug, Deserialize)]</span>
-            <span style="color: #66d9ef">struct</span> <span style="color: #f8f8f2">Settings</span> <span style="color: #f8f8f2">{</span>
-                <span style="color: #f8f8f2">debug</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">bool,</span>
-                <span style="color: #f8f8f2">redis</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">RedisConfig,</span>
-            <span style="color: #f8f8f2">}</span>
+<span style="color: #66d9ef">use</span> <span style="color: #f8f8f2">redis</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">{Client,</span> <span style="color: #f8f8f2">RedisResult,</span> <span style="color: #f8f8f2">Script};</span>
+<span style="color: #66d9ef">use</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">fs</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">read_to_string;</span>
+<span style="color: #66d9ef">use</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">thread;</span>
+<span style="color: #75715e">#[derive(Clone)]</span>
+<span style="color: #66d9ef">pub</span> <span style="color: #66d9ef">struct</span> <span style="color: #f8f8f2">Bouncer</span><span style="color: #f92672">&lt;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span><span style="color: #f92672">&gt;</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #66d9ef">pub</span> <span style="color: #f8f8f2">key</span><span style="color: #f92672">:</span> <span style="color: #66d9ef">u8</span><span style="color: #f8f8f2">,</span>
+    <span style="color: #66d9ef">pub</span> <span style="color: #f8f8f2">rate_limit</span><span style="color: #f92672">:</span> <span style="color: #66d9ef">u8</span><span style="color: #f8f8f2">,</span>
+    <span style="color: #66d9ef">pub</span> <span style="color: #f8f8f2">wait_time</span><span style="color: #f92672">:</span> <span style="color: #66d9ef">u8</span><span style="color: #f8f8f2">,</span>
+    <span style="color: #66d9ef">pub</span> <span style="color: #f8f8f2">block</span><span style="color: #f92672">:</span> <span style="color: #f92672">&amp;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span> <span style="color: #f8f8f2">dyn</span> <span style="color: #f8f8f2">Fn(),</span>
+<span style="color: #f8f8f2">}</span>
 
-            <span style="color: #66d9ef">impl</span> <span style="color: #f8f8f2">Settings</span> <span style="color: #f8f8f2">{</span>
-                <span style="color: #66d9ef">fn</span> <span style="color: #f8f8f2">new()</span> <span style="color: #f92672">-&gt;</span> <span style="color: #f8f8f2">Result</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">Self,</span> <span style="color: #f8f8f2">ConfigError</span><span style="color: #f92672">&gt;</span> <span style="color: #f8f8f2">{</span>
-                    <span style="color: #66d9ef">let</span> <span style="color: #66d9ef">mut</span> <span style="color: #f8f8f2">s</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">Config</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">new();</span>
-                    <span style="color: #f8f8f2">s.merge(File</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">with_name(</span><span style="color: #e6db74">&quot;config/default&quot;</span><span style="color: #f8f8f2">))</span><span style="color: #f92672">?</span><span style="color: #f8f8f2">;</span>
-                    <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">env</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">env</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">var(</span><span style="color: #e6db74">&quot;RUN_MODE&quot;</span><span style="color: #f8f8f2">).unwrap_or(</span><span style="color: #e6db74">&quot;development&quot;</span><span style="color: #f8f8f2">.into());</span>
-                    <span style="color: #f8f8f2">s.merge(File</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">with_name(</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">format</span><span style="color: #f92672">!</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;config/{}&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">env)).required(</span><span style="color: #66d9ef">false</span><span style="color: #f8f8f2">))</span><span style="color: #f92672">?</span><span style="color: #f8f8f2">;</span>
-                    <span style="color: #f8f8f2">s.merge(File</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">with_name(</span><span style="color: #e6db74">&quot;config/local&quot;</span><span style="color: #f8f8f2">).required(</span><span style="color: #66d9ef">false</span><span style="color: #f8f8f2">))</span><span style="color: #f92672">?</span><span style="color: #f8f8f2">;</span>
-                    <span style="color: #f8f8f2">s.merge(Environment</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">with_prefix(</span><span style="color: #e6db74">&quot;app&quot;</span><span style="color: #f8f8f2">))</span><span style="color: #f92672">?</span><span style="color: #f8f8f2">;</span>
-                    <span style="color: #f8f8f2">s.try_into()</span>
-                <span style="color: #f8f8f2">}</span>
+<span style="color: #66d9ef">impl</span><span style="color: #f92672">&lt;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span><span style="color: #f92672">&gt;</span> <span style="color: #f8f8f2">Default</span> <span style="color: #66d9ef">for</span> <span style="color: #f8f8f2">Bouncer</span><span style="color: #f92672">&lt;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span><span style="color: #f92672">&gt;</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #66d9ef">fn</span> <span style="color: #f8f8f2">default()</span> <span style="color: #f92672">-&gt;</span> <span style="color: #f8f8f2">Bouncer</span><span style="color: #f92672">&lt;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span><span style="color: #f92672">&gt;</span> <span style="color: #f8f8f2">{</span>
+        <span style="color: #f8f8f2">Bouncer</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">key</span><span style="color: #f92672">:</span> <span style="color: #ae81ff">1</span><span style="color: #f8f8f2">,</span>
+            <span style="color: #f8f8f2">rate_limit</span><span style="color: #f92672">:</span> <span style="color: #ae81ff">5</span><span style="color: #f8f8f2">,</span>
+            <span style="color: #f8f8f2">wait_time</span><span style="color: #f92672">:</span> <span style="color: #ae81ff">2</span><span style="color: #f8f8f2">,</span>
+            <span style="color: #f8f8f2">block</span><span style="color: #f92672">:</span> <span style="color: #f92672">&amp;||</span> <span style="color: #f8f8f2">println</span><span style="color: #f92672">!</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;Nothing to excucute&quot;</span><span style="color: #f8f8f2">),</span>
+        <span style="color: #f8f8f2">}</span>
+    <span style="color: #f8f8f2">}</span>
+<span style="color: #f8f8f2">}</span>
 
-                <span style="color: #66d9ef">fn</span> <span style="color: #f8f8f2">redis_script(</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">self)</span> <span style="color: #f92672">-&gt;</span> <span style="color: #f8f8f2">PathBuf</span> <span style="color: #f8f8f2">{</span>
-                    <span style="color: #f8f8f2">self.redis.script.clone()</span>
-                <span style="color: #f8f8f2">}</span>
+<span style="color: #66d9ef">impl</span><span style="color: #f92672">&lt;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span><span style="color: #f92672">&gt;</span> <span style="color: #f8f8f2">Bouncer</span><span style="color: #f92672">&lt;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span><span style="color: #f92672">&gt;</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #66d9ef">pub</span> <span style="color: #66d9ef">fn</span> <span style="color: #f8f8f2">new(block</span><span style="color: #f92672">:</span> <span style="color: #f92672">&amp;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span> <span style="color: #f8f8f2">dyn</span> <span style="color: #f8f8f2">Fn())</span> <span style="color: #f92672">-&gt;</span> <span style="color: #f8f8f2">Bouncer</span> <span style="color: #f8f8f2">{</span>
+        <span style="color: #66d9ef">let</span> <span style="color: #66d9ef">mut</span> <span style="color: #f8f8f2">bouncer</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">Bouncer</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">default();</span>
+        <span style="color: #f8f8f2">bouncer.block</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">block;</span>
+        <span style="color: #f8f8f2">bouncer</span>
+    <span style="color: #f8f8f2">}</span>
 
-                <span style="color: #66d9ef">fn</span> <span style="color: #f8f8f2">redis_url(</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">self)</span> <span style="color: #f92672">-&gt;</span> <span style="color: #f8f8f2">String</span> <span style="color: #f8f8f2">{</span>
-                    <span style="color: #f8f8f2">self.redis.server_url.clone()</span>
-                <span style="color: #f8f8f2">}</span>
-            <span style="color: #f8f8f2">}</span>
+    <span style="color: #66d9ef">pub</span> <span style="color: #66d9ef">fn</span> <span style="color: #f8f8f2">key(</span><span style="color: #f92672">&amp;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span> <span style="color: #66d9ef">mut</span> <span style="color: #f8f8f2">self,</span> <span style="color: #f8f8f2">key</span><span style="color: #f92672">:</span> <span style="color: #66d9ef">u8</span><span style="color: #f8f8f2">)</span> <span style="color: #f92672">-&gt;</span> <span style="color: #f92672">&amp;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span> <span style="color: #66d9ef">mut</span> <span style="color: #f8f8f2">Bouncer</span> <span style="color: #f8f8f2">{</span>
+        <span style="color: #f8f8f2">self.key</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">key;</span>
+        <span style="color: #f8f8f2">self</span>
+    <span style="color: #f8f8f2">}</span>
 
-            <span style="color: #66d9ef">use</span> <span style="color: #f8f8f2">redis</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">RedisError;</span>
-            <span style="color: #75715e">#[derive(Debug)]</span>
-            <span style="color: #66d9ef">enum</span> <span style="color: #f8f8f2">Error</span><span style="color: #f92672">&lt;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span><span style="color: #f92672">&gt;</span> <span style="color: #f8f8f2">{</span>
-                <span style="color: #f8f8f2">IncompatibleJson(</span><span style="color: #f92672">&amp;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span> <span style="color: #f8f8f2">Value),</span>
-                <span style="color: #f8f8f2">InvalidJson(</span><span style="color: #f92672">&amp;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span> <span style="color: #f8f8f2">Value),</span>
-            <span style="color: #f8f8f2">}</span>
+    <span style="color: #66d9ef">pub</span> <span style="color: #66d9ef">fn</span> <span style="color: #f8f8f2">rate_limit(</span><span style="color: #f92672">&amp;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span> <span style="color: #66d9ef">mut</span> <span style="color: #f8f8f2">self,</span> <span style="color: #f8f8f2">rate_limit</span><span style="color: #f92672">:</span> <span style="color: #66d9ef">u8</span><span style="color: #f8f8f2">)</span> <span style="color: #f92672">-&gt;</span> <span style="color: #f92672">&amp;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span> <span style="color: #66d9ef">mut</span> <span style="color: #f8f8f2">Bouncer</span> <span style="color: #f8f8f2">{</span>
+        <span style="color: #f8f8f2">self.rate_limit</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">rate_limit;</span>
+        <span style="color: #f8f8f2">self</span>
+    <span style="color: #f8f8f2">}</span>
 
-            <span style="color: #66d9ef">impl</span><span style="color: #f92672">&lt;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span><span style="color: #f92672">&gt;</span> <span style="color: #f8f8f2">From</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">Error</span><span style="color: #f92672">&lt;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span><span style="color: #f92672">&gt;&gt;</span> <span style="color: #66d9ef">for</span> <span style="color: #f8f8f2">RedisError</span> <span style="color: #f8f8f2">{</span>
-                <span style="color: #66d9ef">fn</span> <span style="color: #f8f8f2">from(v</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">Error)</span> <span style="color: #f92672">-&gt;</span> <span style="color: #f8f8f2">RedisError</span> <span style="color: #f8f8f2">{</span>
-                    <span style="color: #66d9ef">match</span> <span style="color: #f8f8f2">v</span> <span style="color: #f8f8f2">{</span>
-                        <span style="color: #f8f8f2">Error</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">IncompatibleJson(m)</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">RedisError</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">from((</span>
-                            <span style="color: #f8f8f2">redis</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">ErrorKind</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">TypeError,</span>
-                            <span style="color: #e6db74">&quot;Response was of incompatible type&quot;</span><span style="color: #f8f8f2">,</span>
-                            <span style="color: #f8f8f2">format</span><span style="color: #f92672">!</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;Not JSON compatible (response was {:?})&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">m),</span>
-                        <span style="color: #f8f8f2">)),</span>
-                        <span style="color: #f8f8f2">Error</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">InvalidJson(m)</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">RedisError</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">from((</span>
-                            <span style="color: #f8f8f2">redis</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">ErrorKind</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">TypeError,</span>
-                            <span style="color: #e6db74">&quot;Response was of incompatible type&quot;</span><span style="color: #f8f8f2">,</span>
-                            <span style="color: #f8f8f2">format</span><span style="color: #f92672">!</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;Not valid JSON (response was {:?})&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">m),</span>
-                        <span style="color: #f8f8f2">)),</span>
+    <span style="color: #66d9ef">pub</span> <span style="color: #66d9ef">fn</span> <span style="color: #f8f8f2">wait_time(</span><span style="color: #f92672">&amp;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span> <span style="color: #66d9ef">mut</span> <span style="color: #f8f8f2">self,</span> <span style="color: #f8f8f2">wait_time</span><span style="color: #f92672">:</span> <span style="color: #66d9ef">u8</span><span style="color: #f8f8f2">)</span> <span style="color: #f92672">-&gt;</span> <span style="color: #f92672">&amp;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span> <span style="color: #66d9ef">mut</span> <span style="color: #f8f8f2">Bouncer</span> <span style="color: #f8f8f2">{</span>
+        <span style="color: #f8f8f2">self.wait_time</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">wait_time;</span>
+        <span style="color: #f8f8f2">self</span>
+    <span style="color: #f8f8f2">}</span>
+
+    <span style="color: #66d9ef">pub</span> <span style="color: #66d9ef">fn</span> <span style="color: #f8f8f2">run(</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">self)</span> <span style="color: #f92672">-&gt;</span> <span style="color: #f8f8f2">RedisResult</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">BouncerStats</span><span style="color: #f92672">&gt;</span> <span style="color: #f8f8f2">{</span>
+        <span style="color: #66d9ef">match</span> <span style="color: #f8f8f2">Settings</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">new()</span> <span style="color: #f8f8f2">{</span>
+            <span style="color: #f8f8f2">Ok(settings)</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">{</span>
+                <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">raw_script</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">read_to_string(settings.redis_script())</span><span style="color: #f92672">?</span><span style="color: #f8f8f2">;</span>
+                <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">script</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">Script</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">new(raw_script.as_str());</span>
+                <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">client</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">Client</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">open(settings.redis_url())</span><span style="color: #f92672">?</span><span style="color: #f8f8f2">;</span>
+                <span style="color: #66d9ef">let</span> <span style="color: #66d9ef">mut</span> <span style="color: #f8f8f2">connection</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">client.get_connection()</span><span style="color: #f92672">?</span><span style="color: #f8f8f2">;</span>
+                <span style="color: #66d9ef">loop</span> <span style="color: #f8f8f2">{</span>
+                    <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">bouncer_stats</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">BouncerStats</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">script</span>
+                        <span style="color: #f8f8f2">.key(self.key)</span>
+                        <span style="color: #f8f8f2">.arg(self.rate_limit)</span>
+                        <span style="color: #f8f8f2">.arg(self.wait_time)</span>
+                        <span style="color: #f8f8f2">.invoke(</span><span style="color: #f92672">&amp;</span><span style="color: #66d9ef">mut</span> <span style="color: #f8f8f2">connection)</span>
+                        <span style="color: #f8f8f2">.unwrap();</span>
+                    <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">bouncer_stats</span> <span style="color: #f92672">==</span> <span style="color: #f8f8f2">BouncerStats</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">default()</span> <span style="color: #f8f8f2">{</span>
+                        <span style="color: #f8f8f2">(self.block)();</span>
+                        <span style="color: #66d9ef">break</span> <span style="color: #f8f8f2">Ok(bouncer_stats);</span>
+                    <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+                        <span style="color: #f8f8f2">thread</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">sleep(bouncer_stats.wait)</span>
                     <span style="color: #f8f8f2">}</span>
                 <span style="color: #f8f8f2">}</span>
             <span style="color: #f8f8f2">}</span>
+            <span style="color: #f8f8f2">Err(error)</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">panic</span><span style="color: #f92672">!</span><span style="color: #f8f8f2">(error),</span>
+        <span style="color: #f8f8f2">}</span>
+    <span style="color: #f8f8f2">}</span>
+<span style="color: #f8f8f2">}</span>
+</pre>
+</div>
 
-            <span style="color: #66d9ef">use</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">time</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">Duration;</span>
-            <span style="color: #75715e">#[derive(Debug, Deserialize, PartialEq)]</span>
-            <span style="color: #66d9ef">pub</span> <span style="color: #66d9ef">struct</span> <span style="color: #f8f8f2">BouncerStats</span> <span style="color: #f8f8f2">{</span>
-                <span style="color: #f8f8f2">old</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">String,</span>
-                <span style="color: #f8f8f2">current</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">String,</span>
-                <span style="color: #f8f8f2">since</span><span style="color: #f92672">:</span> <span style="color: #66d9ef">u8</span><span style="color: #f8f8f2">,</span>
-                <span style="color: #f8f8f2">wait</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">Duration,</span>
-            <span style="color: #f8f8f2">}</span>
-
-            <span style="color: #66d9ef">impl</span> <span style="color: #f8f8f2">Default</span> <span style="color: #66d9ef">for</span> <span style="color: #f8f8f2">BouncerStats</span> <span style="color: #f8f8f2">{</span>
-                <span style="color: #66d9ef">fn</span> <span style="color: #f8f8f2">default()</span> <span style="color: #f92672">-&gt;</span> <span style="color: #f8f8f2">BouncerStats</span> <span style="color: #f8f8f2">{</span>
-                    <span style="color: #f8f8f2">BouncerStats</span> <span style="color: #f8f8f2">{</span>
-                        <span style="color: #f8f8f2">current</span><span style="color: #f92672">:</span> <span style="color: #ae81ff">0.</span><span style="color: #f8f8f2">to_string(),</span>
-                        <span style="color: #f8f8f2">old</span><span style="color: #f92672">:</span> <span style="color: #ae81ff">0.</span><span style="color: #f8f8f2">to_string(),</span>
-                        <span style="color: #f8f8f2">since</span><span style="color: #f92672">:</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">,</span>
-                        <span style="color: #f8f8f2">wait</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">Duration</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">from_millis(</span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">),</span>
-                    <span style="color: #f8f8f2">}</span>
-                <span style="color: #f8f8f2">}</span>
-            <span style="color: #f8f8f2">}</span>
-
-            <span style="color: #66d9ef">use</span> <span style="color: #f8f8f2">redis</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">{FromRedisValue,</span> <span style="color: #f8f8f2">Value};</span>
-            <span style="color: #66d9ef">use</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">result</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">Result;</span>
-            <span style="color: #66d9ef">use</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #66d9ef">str</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">from_utf8;</span>
-            <span style="color: #66d9ef">impl</span> <span style="color: #f8f8f2">FromRedisValue</span> <span style="color: #66d9ef">for</span> <span style="color: #f8f8f2">BouncerStats</span> <span style="color: #f8f8f2">{</span>
-                <span style="color: #66d9ef">fn</span> <span style="color: #f8f8f2">from_redis_value(v</span><span style="color: #f92672">:</span> <span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">Value)</span> <span style="color: #f92672">-&gt;</span> <span style="color: #f8f8f2">RedisResult</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">BouncerStats</span><span style="color: #f92672">&gt;</span> <span style="color: #f8f8f2">{</span>
-                    <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">rv</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">RedisResult</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">BouncerStats</span><span style="color: #f92672">&gt;</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">match</span> <span style="color: #f92672">*</span><span style="color: #f8f8f2">v</span> <span style="color: #f8f8f2">{</span>
-                        <span style="color: #f8f8f2">Value</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">Data(</span><span style="color: #66d9ef">ref</span> <span style="color: #f8f8f2">d)</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">{</span>
-                            <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">result</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">Result</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">serde_json</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">Value,</span> <span style="color: #f8f8f2">serde_json</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">Error</span><span style="color: #f92672">&gt;</span> <span style="color: #f92672">=</span>
-                                <span style="color: #f8f8f2">serde_json</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">from_str(from_utf8(d)</span><span style="color: #f92672">?</span><span style="color: #f8f8f2">);</span>
-                            <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">v</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">BouncerStats</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">match</span> <span style="color: #f8f8f2">result</span> <span style="color: #f8f8f2">{</span>
-                                <span style="color: #f8f8f2">Ok(value)</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">{</span>
-                                    <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">array_wait</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">Vec</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">serde_json</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">Value</span><span style="color: #f92672">&gt;</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">match</span> <span style="color: #f8f8f2">value[</span><span style="color: #e6db74">&quot;wait&quot;</span><span style="color: #f8f8f2">].as_array()</span> <span style="color: #f8f8f2">{</span>
-                                        <span style="color: #f8f8f2">Some(value)</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">value.to_vec(),</span>
-                                        <span style="color: #f8f8f2">None</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">vec</span><span style="color: #f92672">!</span><span style="color: #f8f8f2">[</span>
-                                            <span style="color: #f8f8f2">serde_json</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">Value</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">Number(serde_json</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">Number</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">from(</span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">)),</span>
-                                            <span style="color: #f8f8f2">serde_json</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">Value</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">Number(serde_json</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">Number</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">from(</span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">)),</span>
-                                        <span style="color: #f8f8f2">],</span>
-                                    <span style="color: #f8f8f2">};</span>
-                                    <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">seconds</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">array_wait[</span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">].as_u64().unwrap();</span>
-                                    <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">microseconds</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">array_wait[</span><span style="color: #ae81ff">1</span><span style="color: #f8f8f2">].as_u64().unwrap()</span> <span style="color: #f92672">/</span> <span style="color: #ae81ff">1_000_000</span><span style="color: #f8f8f2">;</span>
-                                    <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">duration</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">Duration</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">from_millis((seconds</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">microseconds)</span> <span style="color: #66d9ef">as</span> <span style="color: #66d9ef">u64</span><span style="color: #f8f8f2">);</span>
-                                    <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">current</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">match</span> <span style="color: #f8f8f2">value[</span><span style="color: #e6db74">&quot;current&quot;</span><span style="color: #f8f8f2">].as_str()</span> <span style="color: #f8f8f2">{</span>
-                                        <span style="color: #f8f8f2">Some(value)</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">value.to_string(),</span>
-                                        <span style="color: #f8f8f2">None</span> <span style="color: #f92672">=&gt;</span> <span style="color: #e6db74">&quot;0&quot;</span><span style="color: #f8f8f2">.to_string(),</span>
-                                    <span style="color: #f8f8f2">};</span>
-                                    <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">old</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">match</span> <span style="color: #f8f8f2">value[</span><span style="color: #e6db74">&quot;old&quot;</span><span style="color: #f8f8f2">].as_str()</span> <span style="color: #f8f8f2">{</span>
-                                        <span style="color: #f8f8f2">Some(value)</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">value.to_string(),</span>
-                                        <span style="color: #f8f8f2">None</span> <span style="color: #f92672">=&gt;</span> <span style="color: #e6db74">&quot;0&quot;</span><span style="color: #f8f8f2">.to_string(),</span>
-                                    <span style="color: #f8f8f2">};</span>
-                                    <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">since</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">match</span> <span style="color: #f8f8f2">value[</span><span style="color: #e6db74">&quot;sice&quot;</span><span style="color: #f8f8f2">].as_u64()</span> <span style="color: #f8f8f2">{</span>
-                                        <span style="color: #f8f8f2">Some(value)</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">value</span> <span style="color: #66d9ef">as</span> <span style="color: #66d9ef">u8</span><span style="color: #f8f8f2">,</span>
-                                        <span style="color: #f8f8f2">None</span> <span style="color: #f92672">=&gt;</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">,</span>
-                                    <span style="color: #f8f8f2">};</span>
-                                    <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">bouncer_stats</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">BouncerStats</span> <span style="color: #f8f8f2">{</span>
-                                        <span style="color: #f8f8f2">current</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">current,</span>
-                                        <span style="color: #f8f8f2">old</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">old,</span>
-                                        <span style="color: #f8f8f2">since</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">since,</span>
-                                        <span style="color: #f8f8f2">wait</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">duration,</span>
-                                    <span style="color: #f8f8f2">};</span>
-                                    <span style="color: #f8f8f2">bouncer_stats</span>
-                                <span style="color: #f8f8f2">}</span>
-                                <span style="color: #f8f8f2">Err(_)</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">BouncerStats</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">default(),</span>
-                            <span style="color: #f8f8f2">};</span>
-                            <span style="color: #f8f8f2">Ok(v)</span>
-                        <span style="color: #f8f8f2">}</span>
-                        <span style="color: #f8f8f2">_</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">Result</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">Err(Error</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">IncompatibleJson(v))</span><span style="color: #f92672">?</span><span style="color: #f8f8f2">,</span>
-                    <span style="color: #f8f8f2">};</span>
-                    <span style="color: #66d9ef">match</span> <span style="color: #f8f8f2">rv</span> <span style="color: #f8f8f2">{</span>
-                        <span style="color: #f8f8f2">Ok(value)</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">Ok(value),</span>
-                        <span style="color: #f8f8f2">Err(_)</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">Result</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">Err(Error</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">InvalidJson(v))</span><span style="color: #f92672">?</span><span style="color: #f8f8f2">,</span>
-                    <span style="color: #f8f8f2">}</span>
-                <span style="color: #f8f8f2">}</span>
-            <span style="color: #f8f8f2">}</span>
-
-            <span style="color: #66d9ef">use</span> <span style="color: #f8f8f2">redis</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">{Client,</span> <span style="color: #f8f8f2">RedisResult,</span> <span style="color: #f8f8f2">Script};</span>
-            <span style="color: #66d9ef">use</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">fs</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">read_to_string;</span>
-            <span style="color: #66d9ef">use</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">thread;</span>
-            <span style="color: #75715e">#[derive(Clone)]</span>
-            <span style="color: #66d9ef">pub</span> <span style="color: #66d9ef">struct</span> <span style="color: #f8f8f2">Bouncer</span><span style="color: #f92672">&lt;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span><span style="color: #f92672">&gt;</span> <span style="color: #f8f8f2">{</span>
-                <span style="color: #66d9ef">pub</span> <span style="color: #f8f8f2">key</span><span style="color: #f92672">:</span> <span style="color: #66d9ef">u8</span><span style="color: #f8f8f2">,</span>
-                <span style="color: #66d9ef">pub</span> <span style="color: #f8f8f2">rate_limit</span><span style="color: #f92672">:</span> <span style="color: #66d9ef">u8</span><span style="color: #f8f8f2">,</span>
-                <span style="color: #66d9ef">pub</span> <span style="color: #f8f8f2">wait_time</span><span style="color: #f92672">:</span> <span style="color: #66d9ef">u8</span><span style="color: #f8f8f2">,</span>
-                <span style="color: #66d9ef">pub</span> <span style="color: #f8f8f2">block</span><span style="color: #f92672">:</span> <span style="color: #f92672">&amp;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span> <span style="color: #f8f8f2">dyn</span> <span style="color: #f8f8f2">Fn(),</span>
-            <span style="color: #f8f8f2">}</span>
-
-            <span style="color: #66d9ef">impl</span><span style="color: #f92672">&lt;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span><span style="color: #f92672">&gt;</span> <span style="color: #f8f8f2">Default</span> <span style="color: #66d9ef">for</span> <span style="color: #f8f8f2">Bouncer</span><span style="color: #f92672">&lt;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span><span style="color: #f92672">&gt;</span> <span style="color: #f8f8f2">{</span>
-                <span style="color: #66d9ef">fn</span> <span style="color: #f8f8f2">default()</span> <span style="color: #f92672">-&gt;</span> <span style="color: #f8f8f2">Bouncer</span><span style="color: #f92672">&lt;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span><span style="color: #f92672">&gt;</span> <span style="color: #f8f8f2">{</span>
-                    <span style="color: #f8f8f2">Bouncer</span> <span style="color: #f8f8f2">{</span>
-                        <span style="color: #f8f8f2">key</span><span style="color: #f92672">:</span> <span style="color: #ae81ff">1</span><span style="color: #f8f8f2">,</span>
-                        <span style="color: #f8f8f2">rate_limit</span><span style="color: #f92672">:</span> <span style="color: #ae81ff">5</span><span style="color: #f8f8f2">,</span>
-                        <span style="color: #f8f8f2">wait_time</span><span style="color: #f92672">:</span> <span style="color: #ae81ff">2</span><span style="color: #f8f8f2">,</span>
-                        <span style="color: #f8f8f2">block</span><span style="color: #f92672">:</span> <span style="color: #f92672">&amp;||</span> <span style="color: #f8f8f2">println</span><span style="color: #f92672">!</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;Nothing to excucute&quot;</span><span style="color: #f8f8f2">),</span>
-                    <span style="color: #f8f8f2">}</span>
-                <span style="color: #f8f8f2">}</span>
-            <span style="color: #f8f8f2">}</span>
-
-            <span style="color: #66d9ef">impl</span><span style="color: #f92672">&lt;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span><span style="color: #f92672">&gt;</span> <span style="color: #f8f8f2">Bouncer</span><span style="color: #f92672">&lt;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span><span style="color: #f92672">&gt;</span> <span style="color: #f8f8f2">{</span>
-                <span style="color: #66d9ef">pub</span> <span style="color: #66d9ef">fn</span> <span style="color: #f8f8f2">new(block</span><span style="color: #f92672">:</span> <span style="color: #f92672">&amp;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span> <span style="color: #f8f8f2">dyn</span> <span style="color: #f8f8f2">Fn())</span> <span style="color: #f92672">-&gt;</span> <span style="color: #f8f8f2">Bouncer</span> <span style="color: #f8f8f2">{</span>
-                    <span style="color: #66d9ef">let</span> <span style="color: #66d9ef">mut</span> <span style="color: #f8f8f2">bouncer</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">Bouncer</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">default();</span>
-                    <span style="color: #f8f8f2">bouncer.block</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">block;</span>
-                    <span style="color: #f8f8f2">bouncer</span>
-                <span style="color: #f8f8f2">}</span>
-
-                <span style="color: #66d9ef">pub</span> <span style="color: #66d9ef">fn</span> <span style="color: #f8f8f2">key(</span><span style="color: #f92672">&amp;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span> <span style="color: #66d9ef">mut</span> <span style="color: #f8f8f2">self,</span> <span style="color: #f8f8f2">key</span><span style="color: #f92672">:</span> <span style="color: #66d9ef">u8</span><span style="color: #f8f8f2">)</span> <span style="color: #f92672">-&gt;</span> <span style="color: #f92672">&amp;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span> <span style="color: #66d9ef">mut</span> <span style="color: #f8f8f2">Bouncer</span> <span style="color: #f8f8f2">{</span>
-                    <span style="color: #f8f8f2">self.key</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">key;</span>
-                    <span style="color: #f8f8f2">self</span>
-                <span style="color: #f8f8f2">}</span>
-
-                <span style="color: #66d9ef">pub</span> <span style="color: #66d9ef">fn</span> <span style="color: #f8f8f2">rate_limit(</span><span style="color: #f92672">&amp;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span> <span style="color: #66d9ef">mut</span> <span style="color: #f8f8f2">self,</span> <span style="color: #f8f8f2">rate_limit</span><span style="color: #f92672">:</span> <span style="color: #66d9ef">u8</span><span style="color: #f8f8f2">)</span> <span style="color: #f92672">-&gt;</span> <span style="color: #f92672">&amp;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span> <span style="color: #66d9ef">mut</span> <span style="color: #f8f8f2">Bouncer</span> <span style="color: #f8f8f2">{</span>
-                    <span style="color: #f8f8f2">self.rate_limit</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">rate_limit;</span>
-                    <span style="color: #f8f8f2">self</span>
-                <span style="color: #f8f8f2">}</span>
-
-                <span style="color: #66d9ef">pub</span> <span style="color: #66d9ef">fn</span> <span style="color: #f8f8f2">wait_time(</span><span style="color: #f92672">&amp;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span> <span style="color: #66d9ef">mut</span> <span style="color: #f8f8f2">self,</span> <span style="color: #f8f8f2">wait_time</span><span style="color: #f92672">:</span> <span style="color: #66d9ef">u8</span><span style="color: #f8f8f2">)</span> <span style="color: #f92672">-&gt;</span> <span style="color: #f92672">&amp;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span> <span style="color: #66d9ef">mut</span> <span style="color: #f8f8f2">Bouncer</span> <span style="color: #f8f8f2">{</span>
-                    <span style="color: #f8f8f2">self.wait_time</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">wait_time;</span>
-                    <span style="color: #f8f8f2">self</span>
-                <span style="color: #f8f8f2">}</span>
-
-                <span style="color: #66d9ef">pub</span> <span style="color: #66d9ef">fn</span> <span style="color: #f8f8f2">run(</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">self)</span> <span style="color: #f92672">-&gt;</span> <span style="color: #f8f8f2">RedisResult</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">BouncerStats</span><span style="color: #f92672">&gt;</span> <span style="color: #f8f8f2">{</span>
-                    <span style="color: #66d9ef">match</span> <span style="color: #f8f8f2">Settings</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">new()</span> <span style="color: #f8f8f2">{</span>
-                        <span style="color: #f8f8f2">Ok(settings)</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">{</span>
-                            <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">raw_script</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">read_to_string(settings.redis_script())</span><span style="color: #f92672">?</span><span style="color: #f8f8f2">;</span>
-                            <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">script</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">Script</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">new(raw_script.as_str());</span>
-                            <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">client</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">Client</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">open(settings.redis_url())</span><span style="color: #f92672">?</span><span style="color: #f8f8f2">;</span>
-                            <span style="color: #66d9ef">let</span> <span style="color: #66d9ef">mut</span> <span style="color: #f8f8f2">connection</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">client.get_connection()</span><span style="color: #f92672">?</span><span style="color: #f8f8f2">;</span>
-                            <span style="color: #66d9ef">loop</span> <span style="color: #f8f8f2">{</span>
-                                <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">bouncer_stats</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">BouncerStats</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">script</span>
-                                    <span style="color: #f8f8f2">.key(self.key)</span>
-                                    <span style="color: #f8f8f2">.arg(self.rate_limit)</span>
-                                    <span style="color: #f8f8f2">.arg(self.wait_time)</span>
-                                    <span style="color: #f8f8f2">.invoke(</span><span style="color: #f92672">&amp;</span><span style="color: #66d9ef">mut</span> <span style="color: #f8f8f2">connection)</span>
-                                    <span style="color: #f8f8f2">.unwrap();</span>
-                                <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">bouncer_stats</span> <span style="color: #f92672">==</span> <span style="color: #f8f8f2">BouncerStats</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">default()</span> <span style="color: #f8f8f2">{</span>
-                                    <span style="color: #f8f8f2">(self.block)();</span>
-                                    <span style="color: #66d9ef">break</span> <span style="color: #f8f8f2">Ok(bouncer_stats);</span>
-                                <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
-                                    <span style="color: #f8f8f2">thread</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">sleep(bouncer_stats.wait)</span>
-                                <span style="color: #f8f8f2">}</span>
-                            <span style="color: #f8f8f2">}</span>
-                        <span style="color: #f8f8f2">}</span>
-                        <span style="color: #f8f8f2">Err(error)</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">panic</span><span style="color: #f92672">!</span><span style="color: #f8f8f2">(error),</span>
-                    <span style="color: #f8f8f2">}</span>
-                <span style="color: #f8f8f2">}</span>
-            <span style="color: #f8f8f2">}</span>
-            </pre></div>
             <p>
                 The good thing about this project is that I've been mentored by <a href="https://twitter.com/yaahc_">Jane</a>, <mark>shout out to her!</mark>
             </p>
