@@ -1,47 +1,291 @@
 <!--
-  I like the idea of doing impossible things.
-  I like the idea that we can have the future we see in movies now.
-  I like to try and make it real.
-  Would you partake? 
-  Contact me.
+    I like the idea of doing impossible things.
+    I like the idea that we can have the future we see in movies now.
+    I like to try and make it real.
+    Would you partake? 
+    Contact me.
 -->
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv='X-UA-Compatible' content='IE=edge;chrome=1' />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="/favicon.ico">
-    <title>an independent scientist</title>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link rel="stylesheet" href="style.css" />
-    <style type="text/css" media="all">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv='X-UA-Compatible' content='IE=edge;chrome=1' />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="/favicon.ico">
+        <title>an independent scientist</title>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <link rel="stylesheet" href="style.css" />
+        <style type="text/css" media="all">
 body { background-color: white; }
-    </style>
-  </head>
-  <body>
-    <h1>Thoughts & Such</h1>
-    <p class="author">A metavillain with metahero tendencies<br><mark>Laniakea Supercluster</mark></p>
+        </style>
+    </head>
+    <body>
+        <h1>Thoughts & Such</h1>
+        <p class="author">A meta villain<br><mark>Laniakea Supercluster</mark></p>
 
-    <div class="abstract">
-      <h2>Disclaimer</h2>
-      <p>These are things in my head, don't take them too seriously. Bear in mind that, actually, I have no idea what I am saying.</p>
-    </div>
+        <div class="abstract">
+            <h2>Disclaimer</h2>
+            <p>These are things in my head, don't take them too seriously. Bear in mind that, actually, I have no idea what I am saying.</p>
+        </div>
 
-    <article>
-      <h2 id="class-module">Of Classes & Modules</h2>
-      <p>
-        In almost every project I end up using at some point the <a href="https://blog.appsignal.com/2020/06/17/using-service-objects-in-ruby-on-rails.html" alt="Service Object Pattern">Service Object pattern</a>. I like
-        because of the convention of naming the class with what the PORO<label for="sn-9" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-9" class="sidenote-toggle">
-        <span class="sidenote left">
-          Don't you love acronyms? I certainly do. To me, it's the similar abstraction like verbing nouns i.e. <ins>google it</ins> instead <em> of go to the internet and use the search engine Google to find it</em>. The word <em>Internet</em> is another one. This is fun.
-        </span> does: <code>CreateRefund.call</code>. You know by reading the class name what's happening in same or <em>what should be happening inside</em>.
-      </p>
-      <p>
-        However, I don't follow all the rules. For example, I don't create a <mark>class</mark> but rather a <mark>module</mark>. Instead of doing the following:
-      </p>
-      <div style="background: #272822; overflow:auto;width:auto;color:white;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;">
-        <pre style="background-color:transparent;margin: 0; line-height: 125%"><span style="color: #66d9ef">module</span> <span style="color: #f8f8f2">StripeServices</span>
+        <article>
+            <h2 id="rust-builder">The One About Builder Pattern in Rust [<mark>DRAFT</mark>]</h2>
+            <p>
+                I like <em>Rust lang</em> very much. I started using it a couple of years ago to create a <a href="https://crates.io/crates/ishmael">crate</a>. I'm pretty sure the 
+                code is the worst in the Rust community. I was learning after all. What I regret is that I just did the crate but I didn't continue using Rust at all. A few weeks ago I decided
+                to continue with Rust.
+            </p>
+            <p>
+                I started <a href="https://github.com/thelastinuit/bouncer">Bouncer</a>.
+            </p>
+            <figure>
+                <img src="https://raw.githubusercontent.com/thelastinuit/bouncer/master/bouncer.png">
+                <figcaption>
+                    Rupertou, one of my cats, by 
+                    <a href="https://marianinfa.mx/">Ninfa</a>.
+                </figcaption>
+            </figure>
+            <p>
+                The logic of the library is pretty simple: any request you make to a third-party service will be controlled by Bouncer. Bouncer will deal with delay/throttle request as needed.
+                It uses Redis as backend.
+            </p>
+            <p>
+                The code so far is pretty straight forward:
+            </p>
+            <div style="background: #272822; overflow:auto;width:auto;color:white;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="background-color:transparent;margin: 0; line-height: 125%"><span style="color: #66d9ef">use</span> <span style="color: #f8f8f2">config</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">{Config,</span> <span style="color: #f8f8f2">ConfigError,</span> <span style="color: #f8f8f2">Environment,</span> <span style="color: #f8f8f2">File};</span>
+            <span style="color: #66d9ef">use</span> <span style="color: #f8f8f2">serde</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">Deserialize;</span>
+            <span style="color: #66d9ef">use</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">env;</span>
+            <span style="color: #66d9ef">use</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">path</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">PathBuf;</span>
+            <span style="color: #75715e">#[derive(Debug, Deserialize)]</span>
+            <span style="color: #66d9ef">struct</span> <span style="color: #f8f8f2">RedisConfig</span> <span style="color: #f8f8f2">{</span>
+                <span style="color: #f8f8f2">server_url</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">String,</span>
+                <span style="color: #f8f8f2">script</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">PathBuf,</span>
+            <span style="color: #f8f8f2">}</span>
+
+            <span style="color: #75715e">#[derive(Debug, Deserialize)]</span>
+            <span style="color: #66d9ef">struct</span> <span style="color: #f8f8f2">Settings</span> <span style="color: #f8f8f2">{</span>
+                <span style="color: #f8f8f2">debug</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">bool,</span>
+                <span style="color: #f8f8f2">redis</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">RedisConfig,</span>
+            <span style="color: #f8f8f2">}</span>
+
+            <span style="color: #66d9ef">impl</span> <span style="color: #f8f8f2">Settings</span> <span style="color: #f8f8f2">{</span>
+                <span style="color: #66d9ef">fn</span> <span style="color: #f8f8f2">new()</span> <span style="color: #f92672">-&gt;</span> <span style="color: #f8f8f2">Result</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">Self,</span> <span style="color: #f8f8f2">ConfigError</span><span style="color: #f92672">&gt;</span> <span style="color: #f8f8f2">{</span>
+                    <span style="color: #66d9ef">let</span> <span style="color: #66d9ef">mut</span> <span style="color: #f8f8f2">s</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">Config</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">new();</span>
+                    <span style="color: #f8f8f2">s.merge(File</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">with_name(</span><span style="color: #e6db74">&quot;config/default&quot;</span><span style="color: #f8f8f2">))</span><span style="color: #f92672">?</span><span style="color: #f8f8f2">;</span>
+                    <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">env</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">env</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">var(</span><span style="color: #e6db74">&quot;RUN_MODE&quot;</span><span style="color: #f8f8f2">).unwrap_or(</span><span style="color: #e6db74">&quot;development&quot;</span><span style="color: #f8f8f2">.into());</span>
+                    <span style="color: #f8f8f2">s.merge(File</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">with_name(</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">format</span><span style="color: #f92672">!</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;config/{}&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">env)).required(</span><span style="color: #66d9ef">false</span><span style="color: #f8f8f2">))</span><span style="color: #f92672">?</span><span style="color: #f8f8f2">;</span>
+                    <span style="color: #f8f8f2">s.merge(File</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">with_name(</span><span style="color: #e6db74">&quot;config/local&quot;</span><span style="color: #f8f8f2">).required(</span><span style="color: #66d9ef">false</span><span style="color: #f8f8f2">))</span><span style="color: #f92672">?</span><span style="color: #f8f8f2">;</span>
+                    <span style="color: #f8f8f2">s.merge(Environment</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">with_prefix(</span><span style="color: #e6db74">&quot;app&quot;</span><span style="color: #f8f8f2">))</span><span style="color: #f92672">?</span><span style="color: #f8f8f2">;</span>
+                    <span style="color: #f8f8f2">s.try_into()</span>
+                <span style="color: #f8f8f2">}</span>
+
+                <span style="color: #66d9ef">fn</span> <span style="color: #f8f8f2">redis_script(</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">self)</span> <span style="color: #f92672">-&gt;</span> <span style="color: #f8f8f2">PathBuf</span> <span style="color: #f8f8f2">{</span>
+                    <span style="color: #f8f8f2">self.redis.script.clone()</span>
+                <span style="color: #f8f8f2">}</span>
+
+                <span style="color: #66d9ef">fn</span> <span style="color: #f8f8f2">redis_url(</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">self)</span> <span style="color: #f92672">-&gt;</span> <span style="color: #f8f8f2">String</span> <span style="color: #f8f8f2">{</span>
+                    <span style="color: #f8f8f2">self.redis.server_url.clone()</span>
+                <span style="color: #f8f8f2">}</span>
+            <span style="color: #f8f8f2">}</span>
+
+            <span style="color: #66d9ef">use</span> <span style="color: #f8f8f2">redis</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">RedisError;</span>
+            <span style="color: #75715e">#[derive(Debug)]</span>
+            <span style="color: #66d9ef">enum</span> <span style="color: #f8f8f2">Error</span><span style="color: #f92672">&lt;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span><span style="color: #f92672">&gt;</span> <span style="color: #f8f8f2">{</span>
+                <span style="color: #f8f8f2">IncompatibleJson(</span><span style="color: #f92672">&amp;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span> <span style="color: #f8f8f2">Value),</span>
+                <span style="color: #f8f8f2">InvalidJson(</span><span style="color: #f92672">&amp;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span> <span style="color: #f8f8f2">Value),</span>
+            <span style="color: #f8f8f2">}</span>
+
+            <span style="color: #66d9ef">impl</span><span style="color: #f92672">&lt;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span><span style="color: #f92672">&gt;</span> <span style="color: #f8f8f2">From</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">Error</span><span style="color: #f92672">&lt;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span><span style="color: #f92672">&gt;&gt;</span> <span style="color: #66d9ef">for</span> <span style="color: #f8f8f2">RedisError</span> <span style="color: #f8f8f2">{</span>
+                <span style="color: #66d9ef">fn</span> <span style="color: #f8f8f2">from(v</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">Error)</span> <span style="color: #f92672">-&gt;</span> <span style="color: #f8f8f2">RedisError</span> <span style="color: #f8f8f2">{</span>
+                    <span style="color: #66d9ef">match</span> <span style="color: #f8f8f2">v</span> <span style="color: #f8f8f2">{</span>
+                        <span style="color: #f8f8f2">Error</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">IncompatibleJson(m)</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">RedisError</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">from((</span>
+                            <span style="color: #f8f8f2">redis</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">ErrorKind</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">TypeError,</span>
+                            <span style="color: #e6db74">&quot;Response was of incompatible type&quot;</span><span style="color: #f8f8f2">,</span>
+                            <span style="color: #f8f8f2">format</span><span style="color: #f92672">!</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;Not JSON compatible (response was {:?})&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">m),</span>
+                        <span style="color: #f8f8f2">)),</span>
+                        <span style="color: #f8f8f2">Error</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">InvalidJson(m)</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">RedisError</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">from((</span>
+                            <span style="color: #f8f8f2">redis</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">ErrorKind</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">TypeError,</span>
+                            <span style="color: #e6db74">&quot;Response was of incompatible type&quot;</span><span style="color: #f8f8f2">,</span>
+                            <span style="color: #f8f8f2">format</span><span style="color: #f92672">!</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;Not valid JSON (response was {:?})&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">m),</span>
+                        <span style="color: #f8f8f2">)),</span>
+                    <span style="color: #f8f8f2">}</span>
+                <span style="color: #f8f8f2">}</span>
+            <span style="color: #f8f8f2">}</span>
+
+            <span style="color: #66d9ef">use</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">time</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">Duration;</span>
+            <span style="color: #75715e">#[derive(Debug, Deserialize, PartialEq)]</span>
+            <span style="color: #66d9ef">pub</span> <span style="color: #66d9ef">struct</span> <span style="color: #f8f8f2">BouncerStats</span> <span style="color: #f8f8f2">{</span>
+                <span style="color: #f8f8f2">old</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">String,</span>
+                <span style="color: #f8f8f2">current</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">String,</span>
+                <span style="color: #f8f8f2">since</span><span style="color: #f92672">:</span> <span style="color: #66d9ef">u8</span><span style="color: #f8f8f2">,</span>
+                <span style="color: #f8f8f2">wait</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">Duration,</span>
+            <span style="color: #f8f8f2">}</span>
+
+            <span style="color: #66d9ef">impl</span> <span style="color: #f8f8f2">Default</span> <span style="color: #66d9ef">for</span> <span style="color: #f8f8f2">BouncerStats</span> <span style="color: #f8f8f2">{</span>
+                <span style="color: #66d9ef">fn</span> <span style="color: #f8f8f2">default()</span> <span style="color: #f92672">-&gt;</span> <span style="color: #f8f8f2">BouncerStats</span> <span style="color: #f8f8f2">{</span>
+                    <span style="color: #f8f8f2">BouncerStats</span> <span style="color: #f8f8f2">{</span>
+                        <span style="color: #f8f8f2">current</span><span style="color: #f92672">:</span> <span style="color: #ae81ff">0.</span><span style="color: #f8f8f2">to_string(),</span>
+                        <span style="color: #f8f8f2">old</span><span style="color: #f92672">:</span> <span style="color: #ae81ff">0.</span><span style="color: #f8f8f2">to_string(),</span>
+                        <span style="color: #f8f8f2">since</span><span style="color: #f92672">:</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">,</span>
+                        <span style="color: #f8f8f2">wait</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">Duration</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">from_millis(</span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">),</span>
+                    <span style="color: #f8f8f2">}</span>
+                <span style="color: #f8f8f2">}</span>
+            <span style="color: #f8f8f2">}</span>
+
+            <span style="color: #66d9ef">use</span> <span style="color: #f8f8f2">redis</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">{FromRedisValue,</span> <span style="color: #f8f8f2">Value};</span>
+            <span style="color: #66d9ef">use</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">result</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">Result;</span>
+            <span style="color: #66d9ef">use</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #66d9ef">str</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">from_utf8;</span>
+            <span style="color: #66d9ef">impl</span> <span style="color: #f8f8f2">FromRedisValue</span> <span style="color: #66d9ef">for</span> <span style="color: #f8f8f2">BouncerStats</span> <span style="color: #f8f8f2">{</span>
+                <span style="color: #66d9ef">fn</span> <span style="color: #f8f8f2">from_redis_value(v</span><span style="color: #f92672">:</span> <span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">Value)</span> <span style="color: #f92672">-&gt;</span> <span style="color: #f8f8f2">RedisResult</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">BouncerStats</span><span style="color: #f92672">&gt;</span> <span style="color: #f8f8f2">{</span>
+                    <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">rv</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">RedisResult</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">BouncerStats</span><span style="color: #f92672">&gt;</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">match</span> <span style="color: #f92672">*</span><span style="color: #f8f8f2">v</span> <span style="color: #f8f8f2">{</span>
+                        <span style="color: #f8f8f2">Value</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">Data(</span><span style="color: #66d9ef">ref</span> <span style="color: #f8f8f2">d)</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">{</span>
+                            <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">result</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">Result</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">serde_json</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">Value,</span> <span style="color: #f8f8f2">serde_json</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">Error</span><span style="color: #f92672">&gt;</span> <span style="color: #f92672">=</span>
+                                <span style="color: #f8f8f2">serde_json</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">from_str(from_utf8(d)</span><span style="color: #f92672">?</span><span style="color: #f8f8f2">);</span>
+                            <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">v</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">BouncerStats</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">match</span> <span style="color: #f8f8f2">result</span> <span style="color: #f8f8f2">{</span>
+                                <span style="color: #f8f8f2">Ok(value)</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">{</span>
+                                    <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">array_wait</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">Vec</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">serde_json</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">Value</span><span style="color: #f92672">&gt;</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">match</span> <span style="color: #f8f8f2">value[</span><span style="color: #e6db74">&quot;wait&quot;</span><span style="color: #f8f8f2">].as_array()</span> <span style="color: #f8f8f2">{</span>
+                                        <span style="color: #f8f8f2">Some(value)</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">value.to_vec(),</span>
+                                        <span style="color: #f8f8f2">None</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">vec</span><span style="color: #f92672">!</span><span style="color: #f8f8f2">[</span>
+                                            <span style="color: #f8f8f2">serde_json</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">Value</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">Number(serde_json</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">Number</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">from(</span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">)),</span>
+                                            <span style="color: #f8f8f2">serde_json</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">Value</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">Number(serde_json</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">Number</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">from(</span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">)),</span>
+                                        <span style="color: #f8f8f2">],</span>
+                                    <span style="color: #f8f8f2">};</span>
+                                    <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">seconds</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">array_wait[</span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">].as_u64().unwrap();</span>
+                                    <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">microseconds</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">array_wait[</span><span style="color: #ae81ff">1</span><span style="color: #f8f8f2">].as_u64().unwrap()</span> <span style="color: #f92672">/</span> <span style="color: #ae81ff">1_000_000</span><span style="color: #f8f8f2">;</span>
+                                    <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">duration</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">Duration</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">from_millis((seconds</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">microseconds)</span> <span style="color: #66d9ef">as</span> <span style="color: #66d9ef">u64</span><span style="color: #f8f8f2">);</span>
+                                    <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">current</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">match</span> <span style="color: #f8f8f2">value[</span><span style="color: #e6db74">&quot;current&quot;</span><span style="color: #f8f8f2">].as_str()</span> <span style="color: #f8f8f2">{</span>
+                                        <span style="color: #f8f8f2">Some(value)</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">value.to_string(),</span>
+                                        <span style="color: #f8f8f2">None</span> <span style="color: #f92672">=&gt;</span> <span style="color: #e6db74">&quot;0&quot;</span><span style="color: #f8f8f2">.to_string(),</span>
+                                    <span style="color: #f8f8f2">};</span>
+                                    <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">old</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">match</span> <span style="color: #f8f8f2">value[</span><span style="color: #e6db74">&quot;old&quot;</span><span style="color: #f8f8f2">].as_str()</span> <span style="color: #f8f8f2">{</span>
+                                        <span style="color: #f8f8f2">Some(value)</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">value.to_string(),</span>
+                                        <span style="color: #f8f8f2">None</span> <span style="color: #f92672">=&gt;</span> <span style="color: #e6db74">&quot;0&quot;</span><span style="color: #f8f8f2">.to_string(),</span>
+                                    <span style="color: #f8f8f2">};</span>
+                                    <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">since</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">match</span> <span style="color: #f8f8f2">value[</span><span style="color: #e6db74">&quot;sice&quot;</span><span style="color: #f8f8f2">].as_u64()</span> <span style="color: #f8f8f2">{</span>
+                                        <span style="color: #f8f8f2">Some(value)</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">value</span> <span style="color: #66d9ef">as</span> <span style="color: #66d9ef">u8</span><span style="color: #f8f8f2">,</span>
+                                        <span style="color: #f8f8f2">None</span> <span style="color: #f92672">=&gt;</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">,</span>
+                                    <span style="color: #f8f8f2">};</span>
+                                    <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">bouncer_stats</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">BouncerStats</span> <span style="color: #f8f8f2">{</span>
+                                        <span style="color: #f8f8f2">current</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">current,</span>
+                                        <span style="color: #f8f8f2">old</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">old,</span>
+                                        <span style="color: #f8f8f2">since</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">since,</span>
+                                        <span style="color: #f8f8f2">wait</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">duration,</span>
+                                    <span style="color: #f8f8f2">};</span>
+                                    <span style="color: #f8f8f2">bouncer_stats</span>
+                                <span style="color: #f8f8f2">}</span>
+                                <span style="color: #f8f8f2">Err(_)</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">BouncerStats</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">default(),</span>
+                            <span style="color: #f8f8f2">};</span>
+                            <span style="color: #f8f8f2">Ok(v)</span>
+                        <span style="color: #f8f8f2">}</span>
+                        <span style="color: #f8f8f2">_</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">Result</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">Err(Error</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">IncompatibleJson(v))</span><span style="color: #f92672">?</span><span style="color: #f8f8f2">,</span>
+                    <span style="color: #f8f8f2">};</span>
+                    <span style="color: #66d9ef">match</span> <span style="color: #f8f8f2">rv</span> <span style="color: #f8f8f2">{</span>
+                        <span style="color: #f8f8f2">Ok(value)</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">Ok(value),</span>
+                        <span style="color: #f8f8f2">Err(_)</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">Result</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">Err(Error</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">InvalidJson(v))</span><span style="color: #f92672">?</span><span style="color: #f8f8f2">,</span>
+                    <span style="color: #f8f8f2">}</span>
+                <span style="color: #f8f8f2">}</span>
+            <span style="color: #f8f8f2">}</span>
+
+            <span style="color: #66d9ef">use</span> <span style="color: #f8f8f2">redis</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">{Client,</span> <span style="color: #f8f8f2">RedisResult,</span> <span style="color: #f8f8f2">Script};</span>
+            <span style="color: #66d9ef">use</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">fs</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">read_to_string;</span>
+            <span style="color: #66d9ef">use</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">thread;</span>
+            <span style="color: #75715e">#[derive(Clone)]</span>
+            <span style="color: #66d9ef">pub</span> <span style="color: #66d9ef">struct</span> <span style="color: #f8f8f2">Bouncer</span><span style="color: #f92672">&lt;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span><span style="color: #f92672">&gt;</span> <span style="color: #f8f8f2">{</span>
+                <span style="color: #66d9ef">pub</span> <span style="color: #f8f8f2">key</span><span style="color: #f92672">:</span> <span style="color: #66d9ef">u8</span><span style="color: #f8f8f2">,</span>
+                <span style="color: #66d9ef">pub</span> <span style="color: #f8f8f2">rate_limit</span><span style="color: #f92672">:</span> <span style="color: #66d9ef">u8</span><span style="color: #f8f8f2">,</span>
+                <span style="color: #66d9ef">pub</span> <span style="color: #f8f8f2">wait_time</span><span style="color: #f92672">:</span> <span style="color: #66d9ef">u8</span><span style="color: #f8f8f2">,</span>
+                <span style="color: #66d9ef">pub</span> <span style="color: #f8f8f2">block</span><span style="color: #f92672">:</span> <span style="color: #f92672">&amp;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span> <span style="color: #f8f8f2">dyn</span> <span style="color: #f8f8f2">Fn(),</span>
+            <span style="color: #f8f8f2">}</span>
+
+            <span style="color: #66d9ef">impl</span><span style="color: #f92672">&lt;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span><span style="color: #f92672">&gt;</span> <span style="color: #f8f8f2">Default</span> <span style="color: #66d9ef">for</span> <span style="color: #f8f8f2">Bouncer</span><span style="color: #f92672">&lt;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span><span style="color: #f92672">&gt;</span> <span style="color: #f8f8f2">{</span>
+                <span style="color: #66d9ef">fn</span> <span style="color: #f8f8f2">default()</span> <span style="color: #f92672">-&gt;</span> <span style="color: #f8f8f2">Bouncer</span><span style="color: #f92672">&lt;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span><span style="color: #f92672">&gt;</span> <span style="color: #f8f8f2">{</span>
+                    <span style="color: #f8f8f2">Bouncer</span> <span style="color: #f8f8f2">{</span>
+                        <span style="color: #f8f8f2">key</span><span style="color: #f92672">:</span> <span style="color: #ae81ff">1</span><span style="color: #f8f8f2">,</span>
+                        <span style="color: #f8f8f2">rate_limit</span><span style="color: #f92672">:</span> <span style="color: #ae81ff">5</span><span style="color: #f8f8f2">,</span>
+                        <span style="color: #f8f8f2">wait_time</span><span style="color: #f92672">:</span> <span style="color: #ae81ff">2</span><span style="color: #f8f8f2">,</span>
+                        <span style="color: #f8f8f2">block</span><span style="color: #f92672">:</span> <span style="color: #f92672">&amp;||</span> <span style="color: #f8f8f2">println</span><span style="color: #f92672">!</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;Nothing to excucute&quot;</span><span style="color: #f8f8f2">),</span>
+                    <span style="color: #f8f8f2">}</span>
+                <span style="color: #f8f8f2">}</span>
+            <span style="color: #f8f8f2">}</span>
+
+            <span style="color: #66d9ef">impl</span><span style="color: #f92672">&lt;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span><span style="color: #f92672">&gt;</span> <span style="color: #f8f8f2">Bouncer</span><span style="color: #f92672">&lt;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span><span style="color: #f92672">&gt;</span> <span style="color: #f8f8f2">{</span>
+                <span style="color: #66d9ef">pub</span> <span style="color: #66d9ef">fn</span> <span style="color: #f8f8f2">new(block</span><span style="color: #f92672">:</span> <span style="color: #f92672">&amp;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span> <span style="color: #f8f8f2">dyn</span> <span style="color: #f8f8f2">Fn())</span> <span style="color: #f92672">-&gt;</span> <span style="color: #f8f8f2">Bouncer</span> <span style="color: #f8f8f2">{</span>
+                    <span style="color: #66d9ef">let</span> <span style="color: #66d9ef">mut</span> <span style="color: #f8f8f2">bouncer</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">Bouncer</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">default();</span>
+                    <span style="color: #f8f8f2">bouncer.block</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">block;</span>
+                    <span style="color: #f8f8f2">bouncer</span>
+                <span style="color: #f8f8f2">}</span>
+
+                <span style="color: #66d9ef">pub</span> <span style="color: #66d9ef">fn</span> <span style="color: #f8f8f2">key(</span><span style="color: #f92672">&amp;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span> <span style="color: #66d9ef">mut</span> <span style="color: #f8f8f2">self,</span> <span style="color: #f8f8f2">key</span><span style="color: #f92672">:</span> <span style="color: #66d9ef">u8</span><span style="color: #f8f8f2">)</span> <span style="color: #f92672">-&gt;</span> <span style="color: #f92672">&amp;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span> <span style="color: #66d9ef">mut</span> <span style="color: #f8f8f2">Bouncer</span> <span style="color: #f8f8f2">{</span>
+                    <span style="color: #f8f8f2">self.key</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">key;</span>
+                    <span style="color: #f8f8f2">self</span>
+                <span style="color: #f8f8f2">}</span>
+
+                <span style="color: #66d9ef">pub</span> <span style="color: #66d9ef">fn</span> <span style="color: #f8f8f2">rate_limit(</span><span style="color: #f92672">&amp;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span> <span style="color: #66d9ef">mut</span> <span style="color: #f8f8f2">self,</span> <span style="color: #f8f8f2">rate_limit</span><span style="color: #f92672">:</span> <span style="color: #66d9ef">u8</span><span style="color: #f8f8f2">)</span> <span style="color: #f92672">-&gt;</span> <span style="color: #f92672">&amp;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span> <span style="color: #66d9ef">mut</span> <span style="color: #f8f8f2">Bouncer</span> <span style="color: #f8f8f2">{</span>
+                    <span style="color: #f8f8f2">self.rate_limit</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">rate_limit;</span>
+                    <span style="color: #f8f8f2">self</span>
+                <span style="color: #f8f8f2">}</span>
+
+                <span style="color: #66d9ef">pub</span> <span style="color: #66d9ef">fn</span> <span style="color: #f8f8f2">wait_time(</span><span style="color: #f92672">&amp;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span> <span style="color: #66d9ef">mut</span> <span style="color: #f8f8f2">self,</span> <span style="color: #f8f8f2">wait_time</span><span style="color: #f92672">:</span> <span style="color: #66d9ef">u8</span><span style="color: #f8f8f2">)</span> <span style="color: #f92672">-&gt;</span> <span style="color: #f92672">&amp;</span><span style="color: #960050; background-color: #1e0010">&#39;</span><span style="color: #f8f8f2">a</span> <span style="color: #66d9ef">mut</span> <span style="color: #f8f8f2">Bouncer</span> <span style="color: #f8f8f2">{</span>
+                    <span style="color: #f8f8f2">self.wait_time</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">wait_time;</span>
+                    <span style="color: #f8f8f2">self</span>
+                <span style="color: #f8f8f2">}</span>
+
+                <span style="color: #66d9ef">pub</span> <span style="color: #66d9ef">fn</span> <span style="color: #f8f8f2">run(</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">self)</span> <span style="color: #f92672">-&gt;</span> <span style="color: #f8f8f2">RedisResult</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">BouncerStats</span><span style="color: #f92672">&gt;</span> <span style="color: #f8f8f2">{</span>
+                    <span style="color: #66d9ef">match</span> <span style="color: #f8f8f2">Settings</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">new()</span> <span style="color: #f8f8f2">{</span>
+                        <span style="color: #f8f8f2">Ok(settings)</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">{</span>
+                            <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">raw_script</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">read_to_string(settings.redis_script())</span><span style="color: #f92672">?</span><span style="color: #f8f8f2">;</span>
+                            <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">script</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">Script</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">new(raw_script.as_str());</span>
+                            <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">client</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">Client</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">open(settings.redis_url())</span><span style="color: #f92672">?</span><span style="color: #f8f8f2">;</span>
+                            <span style="color: #66d9ef">let</span> <span style="color: #66d9ef">mut</span> <span style="color: #f8f8f2">connection</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">client.get_connection()</span><span style="color: #f92672">?</span><span style="color: #f8f8f2">;</span>
+                            <span style="color: #66d9ef">loop</span> <span style="color: #f8f8f2">{</span>
+                                <span style="color: #66d9ef">let</span> <span style="color: #f8f8f2">bouncer_stats</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">BouncerStats</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">script</span>
+                                    <span style="color: #f8f8f2">.key(self.key)</span>
+                                    <span style="color: #f8f8f2">.arg(self.rate_limit)</span>
+                                    <span style="color: #f8f8f2">.arg(self.wait_time)</span>
+                                    <span style="color: #f8f8f2">.invoke(</span><span style="color: #f92672">&amp;</span><span style="color: #66d9ef">mut</span> <span style="color: #f8f8f2">connection)</span>
+                                    <span style="color: #f8f8f2">.unwrap();</span>
+                                <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">bouncer_stats</span> <span style="color: #f92672">==</span> <span style="color: #f8f8f2">BouncerStats</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">default()</span> <span style="color: #f8f8f2">{</span>
+                                    <span style="color: #f8f8f2">(self.block)();</span>
+                                    <span style="color: #66d9ef">break</span> <span style="color: #f8f8f2">Ok(bouncer_stats);</span>
+                                <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+                                    <span style="color: #f8f8f2">thread</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">sleep(bouncer_stats.wait)</span>
+                                <span style="color: #f8f8f2">}</span>
+                            <span style="color: #f8f8f2">}</span>
+                        <span style="color: #f8f8f2">}</span>
+                        <span style="color: #f8f8f2">Err(error)</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">panic</span><span style="color: #f92672">!</span><span style="color: #f8f8f2">(error),</span>
+                    <span style="color: #f8f8f2">}</span>
+                <span style="color: #f8f8f2">}</span>
+            <span style="color: #f8f8f2">}</span>
+            </pre></div>
+            <p>
+                The good thing about this project is that I've been mentored by <a href="https://twitter.com/yaahc_">Jane</a>, <mark>shout out to her!</mark>
+            </p>
+            <p>
+                It's still a working in progress. I recently decided to cut out one of my incomes (which it need a whole post in its own), so I've working in demo for companies. And as we all know a day
+                only have 24 hrs...
+            </p>
+            <p>
+                <mark>TODO</mark> revisit the content.
+            </p>
+            <p>
+                <mark>TODO</mark> deconstruct the builder pattern.
+            </p>
+        </article>
+
+        <article>
+            <h2 id="class-module">Of Classes & Modules</h2>
+            <p>
+                In almost every project I end up using at some point the <a href="https://blog.appsignal.com/2020/06/17/using-service-objects-in-ruby-on-rails.html" alt="Service Object Pattern">Service Object pattern</a>. I like
+                because of the convention of naming the class with what the PORO<label for="sn-9" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-9" class="sidenote-toggle">
+                <span class="sidenote left">
+                    Don't you love acronyms? I certainly do. To me, it's the similar abstraction like verbing nouns i.e. <ins>google it</ins> instead <em> of go to the internet and use the search engine Google to find it</em>. The word <em>Internet</em> is another one. This is fun.
+                </span> does: <code>CreateRefund.call</code>. You know by reading the class name what's happening in same or <em>what should be happening inside</em>.
+            </p>
+            <p>
+                However, I don't follow all the rules. For example, I don't create a <mark>class</mark> but rather a <mark>module</mark>. Instead of doing the following:
+            </p>
+            <div style="background: #272822; overflow:auto;width:auto;color:white;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;">
+                <pre style="background-color:transparent;margin: 0; line-height: 125%"><span style="color: #66d9ef">module</span> <span style="color: #f8f8f2">StripeServices</span>
   <span style="color: #66d9ef">class</span> <span style="color: #a6e22e">CreateSubscription</span>
     <span style="color: #66d9ef">def</span> <span style="color: #a6e22e">initialize</span><span style="color: #f8f8f2">(params)</span>
       <span style="color: #f8f8f2">@subscription_params</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">params</span><span style="color: #f92672">[</span><span style="color: #e6db74">:subscription_params</span><span style="color: #f92672">]</span>
@@ -56,13 +300,13 @@ body { background-color: white; }
     <span style="color: #66d9ef">end</span>
   <span style="color: #66d9ef">end</span>
 <span style="color: #66d9ef">end</span>
-        </pre>
-      </div>
-      <p>
-        I will use modules only:
-      </p>
-      <div style="background: #272822; overflow:auto;width:auto;color:white;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;">
-        <pre style="background-color:transparent;margin: 0; line-height: 125%"><span style="color: #66d9ef">module</span> <span style="color: #f8f8f2">Stripe</span>
+                </pre>
+            </div>
+            <p>
+                I will use modules only:
+            </p>
+            <div style="background: #272822; overflow:auto;width:auto;color:white;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;">
+                <pre style="background-color:transparent;margin: 0; line-height: 125%"><span style="color: #66d9ef">module</span> <span style="color: #f8f8f2">Stripe</span>
   <span style="color: #66d9ef">module</span> <span style="color: #f8f8f2">CreateSubscription</span>
     <span style="color: #66d9ef">module_function</span>
 
@@ -75,25 +319,28 @@ body { background-color: white; }
     <span style="color: #66d9ef">end</span>
   <span style="color: #66d9ef">end</span>
 <span style="color: #66d9ef">end</span>
-        </pre>
-      </div>
-      <p>
-        Notice that I try not to use the name of the pattern in the <a href="https://sender.cloudy.email/campaigns/paxjhchaiasjoifsiw/webversion/jdnapfbdgjegdqmdeduwc" alt="Don't Name Classes After Patterns. Mostly.">class name</a>.
-        The reason is because the pattern name will be visible in the backtrace. When it comes to your IDE, the class will be inside <code>app/services</code>. The redundancy is not needed there.
-      </p>
-      <p>
-        Now, why do I use module instead of a class? To be honest, my answer has not evidence to back it up. In fact, that's the reason of this post, to find out how my beliefs are wrong 
-        or perhaps right, I dunno. My reason to choose a module instead of a class was because I didn't want to initialize more objects (less object creation). 
-        I have never done the benchmarks. I only know that <em>modules</em> are not initialized. is it, though?
-      </p>
-      <p>
-        <img src="elders.gif" alt="The Elders of the Internet"/>
-      </p>
-      <p>
-        First, some benchmarks in with two dummy functions:
-      </p>
-      <div style="background: #272822; overflow:auto;width:auto;color:white;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;">
-        <pre style="background-color:transparent;margin: 0; line-height: 125%"><span style="color: #75715e">#!/usr/bin/env ruby</span>
+                </pre>
+            </div>
+            <p>
+                Notice that I try not to use the name of the pattern in the <a href="https://sender.cloudy.email/campaigns/paxjhchaiasjoifsiw/webversion/jdnapfbdgjegdqmdeduwc" alt="Don't Name Classes After Patterns. Mostly.">class name</a>.
+                The reason is because the pattern name will be visible in the backtrace. When it comes to your IDE, the class will be inside <code>app/services</code>. The redundancy is not needed there.
+            </p>
+            <p>
+                Now, why do I use module instead of a class? To be honest, my answer has not evidence to back it up. In fact, that's the reason of this post, to find out how my beliefs are wrong 
+                or perhaps right, I dunno. My reason to choose a module instead of a class was because I didn't want to initialize more objects (less object creation). 
+                I have never done the benchmarks. I only know that <em>modules</em> are not initialized. is it, though?
+            </p>
+            <figure>
+                <img src="elders.gif" alt="The Elders of the Internet"/>
+                <figcaption>
+                    From IT Crowd TV show
+                </figcaption>
+            </figure>
+            <p>
+                First, some benchmarks in with two dummy functions:
+            </p>
+            <div style="background: #272822; overflow:auto;width:auto;color:white;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;">
+                <pre style="background-color:transparent;margin: 0; line-height: 125%"><span style="color: #75715e">#!/usr/bin/env ruby</span>
 <span style="color: #75715e"># frozen_string_literal: true</span>
 
 <span style="color: #66d9ef">module</span> <span style="color: #f8f8f2">M</span>
@@ -126,14 +373,14 @@ body { background-color: white; }
   <span style="color: #f8f8f2">x</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">report(</span><span style="color: #e6db74">&quot;m &quot;</span><span style="color: #f8f8f2">)</span> <span style="color: #f8f8f2">{</span> <span style="color: #e6db74">M</span><span style="color: #f8f8f2">:</span><span style="color: #e6db74">:DivideToNumbers</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">call(</span><span style="color: #ae81ff">3</span><span style="color: #f92672">.</span><span style="color: #ae81ff">1415926535897932384626</span><span style="color: #f8f8f2">,</span> <span style="color: #ae81ff">1</span><span style="color: #f92672">.</span><span style="color: #ae81ff">61803398874989484820</span><span style="color: #f8f8f2">)</span> <span style="color: #f8f8f2">}</span>
   <span style="color: #f8f8f2">x</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">report(</span><span style="color: #e6db74">&quot;c &quot;</span><span style="color: #f8f8f2">)</span> <span style="color: #f8f8f2">{</span> <span style="color: #e6db74">C</span><span style="color: #f8f8f2">:</span><span style="color: #e6db74">:DivideToNumbers</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">new(</span><span style="color: #ae81ff">3</span><span style="color: #f92672">.</span><span style="color: #ae81ff">1415926535897932384626</span><span style="color: #f8f8f2">,</span> <span style="color: #ae81ff">1</span><span style="color: #f92672">.</span><span style="color: #ae81ff">61803398874989484820</span><span style="color: #f8f8f2">)</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">call</span> <span style="color: #f8f8f2">}</span>
 <span style="color: #66d9ef">end</span>
-        </pre>
-      </div>
-      <p>
-        Huh! Ok, there is a difference. I'm more curious though in the amount of instantiated objects.
+                </pre>
+            </div>
+            <p>
+                Huh! Ok, there is a difference. I'm more curious though in the amount of instantiated objects.
 
-      </p>
-      <div style="background: #272822; overflow:auto;width:auto;color:white;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;">
-        <pre style="background-color:transparent;margin: 0; line-height: 125%">Rehearsal --------------------------------------
+            </p>
+            <div style="background: #272822; overflow:auto;width:auto;color:white;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;">
+                <pre style="background-color:transparent;margin: 0; line-height: 125%">Rehearsal --------------------------------------
 m    0.000011   0.000007   0.000018 <span style="color: #f92672">(</span>  0.000009<span style="color: #f92672">)</span>
 c    0.000009   0.000002   0.000011 <span style="color: #f92672">(</span>  0.000010<span style="color: #f92672">)</span>
 ----------------------------- total: 0.000029sec
@@ -141,13 +388,13 @@ c    0.000009   0.000002   0.000011 <span style="color: #f92672">(</span>  0.000
          user     system      total        real
 m    0.000011   0.000002   0.000013 <span style="color: #f92672">(</span>  0.000006<span style="color: #f92672">)</span>
 c    0.000011   0.000002   0.000013 <span style="color: #f92672">(</span>  0.000008<span style="color: #f92672">)</span>
-        </pre>
-      </div>
-      <p>
-        The stats for the class approach are:
-      </p>
-      <div style="background: #272822; overflow:auto;width:auto;color:white;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;">
-        <pre style="background-color:transparent;margin: 0; line-height: 125%"><span style="color: #f8f8f2">{</span>
+                </pre>
+            </div>
+            <p>
+                The stats for the class approach are:
+            </p>
+            <div style="background: #272822; overflow:auto;width:auto;color:white;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;">
+                <pre style="background-color:transparent;margin: 0; line-height: 125%"><span style="color: #f8f8f2">{</span>
   <span style="color: #e6db74">:TOTAL</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">17934</span><span style="color: #f8f8f2">,</span>
   <span style="color: #e6db74">:FREE</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">283</span><span style="color: #f8f8f2">,</span>
   <span style="color: #e6db74">:T_OBJECT</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">372</span><span style="color: #f8f8f2">,</span>
@@ -168,13 +415,13 @@ c    0.000011   0.000002   0.000013 <span style="color: #f92672">(</span>  0.000
   <span style="color: #e6db74">:T_IMEMO</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">4773</span><span style="color: #f8f8f2">,</span>
   <span style="color: #e6db74">:T_ICLASS</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">48</span>
 <span style="color: #f8f8f2">}</span>
-        </pre>
-      </div>
-      <p>
-        and the stats for the module approach are:
-      </p>
-      <div style="background: #272822; overflow:auto;width:auto;color:white;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;">
-        <pre style="background-color:transparent;margin: 0; line-height: 125%"><span style="color: #f8f8f2">{</span>
+                </pre>
+            </div>
+            <p>
+                and the stats for the module approach are:
+            </p>
+            <div style="background: #272822; overflow:auto;width:auto;color:white;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;">
+                <pre style="background-color:transparent;margin: 0; line-height: 125%"><span style="color: #f8f8f2">{</span>
   <span style="color: #e6db74">:TOTAL</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">17938</span><span style="color: #f8f8f2">,</span> 
   <span style="color: #e6db74">:FREE</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">302</span><span style="color: #f8f8f2">,</span> 
   <span style="color: #e6db74">:T_OBJECT</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">371</span><span style="color: #f8f8f2">,</span> 
@@ -195,14 +442,14 @@ c    0.000011   0.000002   0.000013 <span style="color: #f92672">(</span>  0.000
   <span style="color: #e6db74">:T_IMEMO</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">4770</span><span style="color: #f8f8f2">,</span>
   <span style="color: #e6db74">:T_ICLASS</span><span style="color: #f92672">=&gt;</span><span style="color: #ae81ff">48</span>
 <span style="color: #f8f8f2">}</span>
-        </pre>
-      </div>
+                </pre>
+            </div>
 
-      <p>
-        ooooook! there was a difference in objects creation after all. My concern started because I realized of the following:
-      </p>
+            <p>
+                ooooook! there was a difference in objects creation after all. My concern started because I realized of the following:
+            </p>
 
-      <div style="background: #272822; overflow:auto;width:auto;color:white;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="background-color:transparent;margin: 0; line-height: 125%"><span style="color: #f92672">[</span><span style="color: #ae81ff">2</span><span style="color: #f92672">.</span><span style="color: #ae81ff">7</span><span style="color: #f92672">.</span><span style="color: #ae81ff">0</span><span style="color: #f92672">]&gt;</span> <span style="color: #66d9ef">Module</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">class</span>
+            <div style="background: #272822; overflow:auto;width:auto;color:white;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="background-color:transparent;margin: 0; line-height: 125%"><span style="color: #f92672">[</span><span style="color: #ae81ff">2</span><span style="color: #f92672">.</span><span style="color: #ae81ff">7</span><span style="color: #f92672">.</span><span style="color: #ae81ff">0</span><span style="color: #f92672">]&gt;</span> <span style="color: #66d9ef">Module</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">class</span>
 <span style="color: #f92672">=&gt;</span> <span style="color: #66d9ef">Class</span>
 <span style="color: #f92672">[</span><span style="color: #ae81ff">2</span><span style="color: #f92672">.</span><span style="color: #ae81ff">7</span><span style="color: #f92672">.</span><span style="color: #ae81ff">0</span><span style="color: #f92672">]&gt;</span> <span style="color: #66d9ef">Module</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">superclass</span>
 <span style="color: #f92672">=&gt;</span> <span style="color: #66d9ef">Object</span>
@@ -211,318 +458,323 @@ c    0.000011   0.000002   0.000013 <span style="color: #f92672">(</span>  0.000
 <span style="color: #f92672">[</span><span style="color: #ae81ff">2</span><span style="color: #f92672">.</span><span style="color: #ae81ff">7</span><span style="color: #f92672">.</span><span style="color: #ae81ff">0</span><span style="color: #f92672">]&gt;</span> <span style="color: #66d9ef">Class</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">superclass</span>
 <span style="color: #f92672">=&gt;</span> <span style="color: #66d9ef">Module</span>
 <span style="color: #f92672">[</span><span style="color: #ae81ff">2</span><span style="color: #f92672">.</span><span style="color: #ae81ff">7</span><span style="color: #f92672">.</span><span style="color: #ae81ff">0</span><span style="color: #f92672">]&gt;</span>
-</pre></div>
-      <p>
-        So, <em>Module</em> and <em>Class</em> have the same class. What does the superclass method do? <a href="https://ruby-doc.org/core-2.6.1/Class.html#method-i-superclass">Returns the superclass of class, or nil.</a> Although, the superclass method is only in <em>Class</em> not in <em>Module</em>.
-        And that's how this mystery appeared in the first place.
-      </p>
-    </article>
+            </pre></div>
+            <p>
+                So, <em>Module</em> and <em>Class</em> have the same class. What does the superclass method do? <a href="https://ruby-doc.org/core-2.6.1/Class.html#method-i-superclass">Returns the superclass of class, or nil.</a> Although, the superclass method is only in <em>Class</em> not in <em>Module</em>.
+                And that's how this mystery appeared in the first place.
+            </p>
+        </article>
 
-    <article>
-      <h2 id="automate or all tomate">Automate or All Tomato</h2>    
-      <p>
-        I like games. I like them very much. I recently had a tattoo made in my right forearm to illustrate my love and admiration for <a href="https://www.guerrilla-games.com/play/horizon" alt="Horizon: Zero Dawn"><em>Horizon: Zero Down</em></a>
-        specially for Aloy. If I were a woman, I would be Aloy hence a tattoo of her in my arm.
-      </p>
-      <p>
-        I also love games like <a href="http://www.zachtronics.com/shenzhen-io/" alt="Shenzhen I/O">Shenzhen I/O</a> and <a href="https://www.factorio.com/" alt="Factorio">Factorio</a> which leads me to automatization. I'm not sure
-        we want to automate everything anymore<label for="sn-8" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-8" class="sidenote-toggle">
-        <span class="sidenote">
-          I found this in <a href="https://blog.jessfraz.com/post/the-art-of-automation/">Jess's blog</a>. I'm sure she wasn't advocating to automate everything but it got me thinking.
-        </span>.
-      </p>
-      <p>
-        <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
-        <mi>t</mi>
-        <mi>i</mi>
-        <mi>m</mi>
-        <mi>e</mi>
-        <mtext>&#xA0;</mtext>
-        <mi>g</mi>
-        <mi>a</mi>
-        <mi>i</mi>
-        <mi>n</mi>
-        <mi>e</mi>
-        <mi>d</mi>
-        <mo>=</mo>
-        <mo stretchy="false">(</mo>
-        <mi>t</mi>
-        <mi>i</mi>
-        <mi>m</mi>
-        <mi>e</mi>
-        <mtext>&#xA0;</mtext>
-        <mi>d</mi>
-        <mi>o</mi>
-        <mi>i</mi>
-        <mi>n</mi>
-        <mi>g</mi>
-        <mtext>&#xA0;</mtext>
-        <mi>t</mi>
-        <mi>a</mi>
-        <mi>s</mi>
-        <mi>k</mi>
-        <mtext>&#xA0;</mtext>
-        <mi>m</mi>
-        <mi>a</mi>
-        <mi>n</mi>
-        <mi>u</mi>
-        <mi>a</mi>
-        <mi>l</mi>
-        <mi>l</mi>
-        <mi>y</mi>
-        <mo stretchy="false">)</mo>
-        <mo>&#x2212;</mo>
-        <mo stretchy="false">(</mo>
-        <mi>t</mi>
-        <mi>i</mi>
-        <mi>m</mi>
-        <mi>e</mi>
-        <mtext>&#xA0;</mtext>
-        <mi>t</mi>
-        <mi>o</mi>
-        <mtext>&#xA0;</mtext>
-        <mi>a</mi>
-        <mi>u</mi>
-        <mi>t</mi>
-        <mi>o</mi>
-        <mi>m</mi>
-        <mi>a</mi>
-        <mi>t</mi>
-        <mi>e</mi>
-        <mtext>&#xA0;</mtext>
-        <mi>t</mi>
-        <mi>a</mi>
-        <mi>s</mi>
-        <mi>k</mi>
-        <mo stretchy="false">)</mo>
-        </math>
-      </p>
-      <p>
-        We gain more time but my question is for what. Man könnte argumentieren for whatever you want
-        which sounds like a great answer and one could imagine all things we would wanted to be done but I don't think that's the case.
-      </p>
-      <p>
-        Why do you think new years resolutions are hard? 
-      </p>
-      <p>
-        Why do you think people need religion?
-      </p>
-      <p>
-        Why do you think <em>gringos</em> are afraid of robots or <mark>bad hombres</mark> taking their jobs?
-      </p>
-      <p>
-        I think the answer to all those questions comes from the same root: <ins>humans need meaning</ins>. 
-      </p>
-      <p>
-        They literally are made of meat but this is thinking meat. And the part that does this thinking is a 
-        pattern recognization machine. To work, it needs input. It has sensors of all kinds. But if you deprive
-        those sensors from input, it goes haywire.
-      </p>
-      <p>
-        It is not that simple since there are many layers but the underlying mechanics is like that. Finding meaning
-        or the act of finding meaning is in itself a pattern. From A to B. If there is no A nor B, then what to do?
-      </p>
-      <p>
-        The ape-descended being start asking questions... remember this is a thinking meat. But this thinking meat
-        most likely has no answers. And this is not good. It's not good because the thinking meat cannot go back
-        to not thinking unless it's a thinking meat monk or something.
-      </p>
-      <p>
-        So, back to automatization. People need to struggle. Then what to automate? What we need to leave untouched?
-        Keine Ahnung. But my bet is it will happening the same as we are currently living: a society where religion is disappearing
-        and humans are losing <mark>ground</mark> and most humans need a ground <em>or they will go haywire</em>.
-      </p>
-    </article>
+        <article>
+            <h2 id="automate or all tomate">Automate or All Tomato</h2>    
+            <p>
+                I like games. I like them very much. I recently had a tattoo made in my right forearm to illustrate my love and admiration for <a href="https://www.guerrilla-games.com/play/horizon" alt="Horizon: Zero Dawn"><em>Horizon: Zero Down</em></a>
+                specially for Aloy. If I were a woman, I would be Aloy hence a tattoo of her in my arm.
+            </p>
+            <p>
+                I also love games like <a href="http://www.zachtronics.com/shenzhen-io/" alt="Shenzhen I/O">Shenzhen I/O</a> and <a href="https://www.factorio.com/" alt="Factorio">Factorio</a> which leads me to automatization. I'm not sure
+                we want to automate everything anymore<label for="sn-8" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-8" class="sidenote-toggle">
+                <span class="sidenote">
+                    I found this in <a href="https://blog.jessfraz.com/post/the-art-of-automation/">Jess's blog</a>. I'm sure she wasn't advocating to automate everything but it got me thinking.
+                </span>.
+            </p>
+            <p>
+                <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+                <mi>t</mi>
+                <mi>i</mi>
+                <mi>m</mi>
+                <mi>e</mi>
+                <mtext>&#xA0;</mtext>
+                <mi>g</mi>
+                <mi>a</mi>
+                <mi>i</mi>
+                <mi>n</mi>
+                <mi>e</mi>
+                <mi>d</mi>
+                <mo>=</mo>
+                <mo stretchy="false">(</mo>
+                <mi>t</mi>
+                <mi>i</mi>
+                <mi>m</mi>
+                <mi>e</mi>
+                <mtext>&#xA0;</mtext>
+                <mi>d</mi>
+                <mi>o</mi>
+                <mi>i</mi>
+                <mi>n</mi>
+                <mi>g</mi>
+                <mtext>&#xA0;</mtext>
+                <mi>t</mi>
+                <mi>a</mi>
+                <mi>s</mi>
+                <mi>k</mi>
+                <mtext>&#xA0;</mtext>
+                <mi>m</mi>
+                <mi>a</mi>
+                <mi>n</mi>
+                <mi>u</mi>
+                <mi>a</mi>
+                <mi>l</mi>
+                <mi>l</mi>
+                <mi>y</mi>
+                <mo stretchy="false">)</mo>
+                <mo>&#x2212;</mo>
+                <mo stretchy="false">(</mo>
+                <mi>t</mi>
+                <mi>i</mi>
+                <mi>m</mi>
+                <mi>e</mi>
+                <mtext>&#xA0;</mtext>
+                <mi>t</mi>
+                <mi>o</mi>
+                <mtext>&#xA0;</mtext>
+                <mi>a</mi>
+                <mi>u</mi>
+                <mi>t</mi>
+                <mi>o</mi>
+                <mi>m</mi>
+                <mi>a</mi>
+                <mi>t</mi>
+                <mi>e</mi>
+                <mtext>&#xA0;</mtext>
+                <mi>t</mi>
+                <mi>a</mi>
+                <mi>s</mi>
+                <mi>k</mi>
+                <mo stretchy="false">)</mo>
+                </math>
+            </p>
+            <p>
+                We gain more time but my question is for what. Man könnte argumentieren for whatever you want
+                which sounds like a great answer and one could imagine all things we would wanted to be done but I don't think that's the case.
+            </p>
+            <p>
+                Why do you think new years resolutions are hard? 
+            </p>
+            <p>
+                Why do you think people need religion?
+            </p>
+            <p>
+                Why do you think <em>gringos</em> are afraid of robots or <mark>bad hombres</mark> taking their jobs?
+            </p>
+            <p>
+                I think the answer to all those questions comes from the same root: <ins>humans need meaning</ins>. 
+            </p>
+            <p>
+                They literally are made of meat but this is thinking meat. And the part that does this thinking is a 
+                pattern recognization machine. To work, it needs input. It has sensors of all kinds. But if you deprive
+                those sensors from input, it goes haywire.
+            </p>
+            <p>
+                It is not that simple since there are many layers but the underlying mechanics is like that. Finding meaning
+                or the act of finding meaning is in itself a pattern. From A to B. If there is no A nor B, then what to do?
+            </p>
+            <p>
+                The ape-descended being start asking questions... remember this is a thinking meat. But this thinking meat
+                most likely has no answers. And this is not good. It's not good because the thinking meat cannot go back
+                to not thinking unless it's a thinking meat monk or something.
+            </p>
+            <p>
+                So, back to automatization. People need to struggle. Then what to automate? What we need to leave untouched?
+                Keine Ahnung. But my bet is it will happening the same as we are currently living: a society where religion is disappearing
+                and humans are losing <mark>ground</mark> and most humans need a ground <em>or they will go haywire</em>.
+            </p>
+        </article>
 
-    <article>
-      <h2 id="hyperfocus"><mark>Hyperfocus</mark> or how I learned to stop worrying and appreciate my pitfalls</h2>
-      <p>
-        I like Dr. Strangelove. I find it to be a great satire not only of cold war but humans themselves<label for="sn-8" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-8" class="sidenote-toggle">
-        <span class="sidenote left">
-          I mean, think about it. We have three major problems in the past: energy (food, water), reproduction, and not be be eaten. Now, for non-poor people, you have all of them covered and somehow you are still miseable.
-          I think the trade-off was not justifiable. And if you go deeper, it might be the main reason of this overpopulation. Talk about denial of death, am I right, people? 
-        </span>.
-      </p>
-      <p>
-        That's the reason for the title <mark>+</mark> it fits perfectly. So, Los geht's.
-      </p>
-      <p>
-        In Nov 2019 I learned that I went to therapy when I was a child for like 3 years. I don't recall any of that but 'Amá chose to share that piece of information before I moved to Germany.
-        Apparently, I have short burst of rage and lots of energy. I remember in kindergarden to be quite active and get bored easily... a lot.
-      </p>
-      <p>
-        In my teenage phase, I attributed all my issues to being a teenager. I was very sensitive to people's comments about me. I got overwhelmed by crowds regardless of relationship I had with them. 
-        I prefer to be alone more importantly, to be alone on the roof watching the stars. I kept me calm. Computer games helped a lot but school was in the way, I only had interests in patterns (math). 
-        For the rest of the classes I was a bad student.
-      </p>
-      <p>
-        Then the time to go to university arrived. I was a still shy and lonely person but I made friends. These dudes where somehow like me. I studied physics. 
-        From time to time, there were parties but I couldn't stay longer, I got weirded out. It was me of course but I dunno why I assumed that would faded it away.
-      </p>
-      <p>
-        Somehow, can't recall how, I learned to deal with my emotions and my sensitiveness. I learned to control my levels of energy. And I noticed that I liked coding, a lot. I learned that I can spend
-        hours in front of the computer just coding away... hours. So, I became a coder, programmer, a dude who whispers to computers.
-      </p>
-      <p>
-        Until Aug 2020, I gave me a present: a DND test for ancestry, diet and mental disorders. I did it out of curiosity. I already knew there was sefardic descendency. What I didn't know was that I also have ashkenazi descendency.
-        There is also Filipino, Manchurian, Coptic Egyptian, Senegambian and Angolan. Being mexican is truly a <mark>mezcolanza</mark><label for="sn-9" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-9" class="sidenote-toggle">
-        <span class="sidenote">
-          I wonder if that's what makes of the Cosmic Race. is there such thing as race?
-        </span>.
-      </p>
-      <p>
-        What got my attention was the mental disorder part<label for="sn-10" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-10" class="sidenote-toggle">
-        <span class="sidenote left">
-          The diet part too. Apparently for my genetics it's better to follow the Nordic Diet. I guess I was meant to move close to the North pole <em>jiggles</em>. 
-        </span>. The analizes says I have a lot of markers for ADHD, some for OCD and some other for Autism<label for="sn-11" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-11" class="sidenote-toggle">
-        <span class="sidenote">
-          I forgot to mention before but I also have a constant sort of depression. I battle that by working a lot and find ways to distract myself which it's hard since I get bored easily.
-        </span>. I did know those mental disorders but I wasn't aware of all the details of each one of them.
-      </p>
-      <p>
-        Let's start with OCD. It makes sense. Sometimes I have burst of making things in order, symmetrical and beautiful aesthetic to the point that people get annoyed by me, <em>I'm sorry</em>.
-        Autism. I might. I doubt it, though. The only thing I can think of it's when people say that I'm rude in some conversations. What they mean is I say things as they are instead of sugarcode them.
-        But the ADHD... this one makes quite a lot of sense. It brought me peace to many of my personal issues. It brought me resolution. It wasn't easy, thought. I was in denial for days. I wanted to be normal
-        even though I knew I was fucked up. 
-      </p>
-      <p>
-        After a few days I made peace with myself. I realized that it might not be so bad. I also realized this might be why I like coding. Coding is hyperfocus to me. Coding is heaven. Coding is my happy place just like
-        that roof and the stars. It can be a superpower, I just need to learn how to harness it.
-      </p>
-      <p>
-        So I stopped worrying.
-      </p>
-    </article>
+        <article>
+            <h2 id="hyperfocus"><mark>Hyperfocus</mark> or how I learned to stop worrying and appreciate my pitfalls</h2>
+            <p>
+                I like Dr. Strangelove. I find it to be a great satire not only of cold war but humans themselves<label for="sn-8" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-8" class="sidenote-toggle">
+                <span class="sidenote left">
+                    I mean, think about it. We have three major problems in the past: energy (food, water), reproduction, and not be be eaten. Now, for non-poor people, you have all of them covered and somehow you are still miseable.
+                    I think the trade-off was not justifiable. And if you go deeper, it might be the main reason of this overpopulation. Talk about denial of death, am I right, people? 
+                </span>.
+            </p>
+            <p>
+                That's the reason for the title <mark>+</mark> it fits perfectly. So, Los geht's.
+            </p>
+            <p>
+                In Nov 2019 I learned that I went to therapy when I was a child for like 3 years. I don't recall any of that but 'Amá chose to share that piece of information before I moved to Germany.
+                Apparently, I have short burst of rage and lots of energy. I remember in kindergarden to be quite active and get bored easily... a lot.
+            </p>
+            <p>
+                In my teenage phase, I attributed all my issues to being a teenager. I was very sensitive to people's comments about me. I got overwhelmed by crowds regardless of relationship I had with them. 
+                I prefer to be alone more importantly, to be alone on the roof watching the stars. I kept me calm. Computer games helped a lot but school was in the way, I only had interests in patterns (math). 
+                For the rest of the classes I was a bad student.
+            </p>
+            <p>
+                Then the time to go to university arrived. I was a still shy and lonely person but I made friends. These dudes where somehow like me. I studied physics. 
+                From time to time, there were parties but I couldn't stay longer, I got weirded out. It was me of course but I dunno why I assumed that would faded it away.
+            </p>
+            <p>
+                Somehow, can't recall how, I learned to deal with my emotions and my sensitiveness. I learned to control my levels of energy. And I noticed that I liked coding, a lot. I learned that I can spend
+                hours in front of the computer just coding away... hours. So, I became a coder, programmer, a dude who whispers to computers.
+            </p>
+            <p>
+                Until Aug 2020, I gave me a present: a DND test for ancestry, diet and mental disorders. I did it out of curiosity. I already knew there was sefardic descendency. What I didn't know was that I also have ashkenazi descendency.
+                There is also Filipino, Manchurian, Coptic Egyptian, Senegambian and Angolan. Being mexican is truly a <mark>mezcolanza</mark><label for="sn-9" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-9" class="sidenote-toggle">
+                <span class="sidenote">
+                    I wonder if that's what makes of the Cosmic Race. is there such thing as race?
+                </span>.
+            </p>
+            <p>
+                What got my attention was the mental disorder part<label for="sn-10" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-10" class="sidenote-toggle">
+                <span class="sidenote left">
+                    The diet part too. Apparently for my genetics it's better to follow the Nordic Diet. I guess I was meant to move close to the North pole <em>jiggles</em>. 
+                </span>. The analizes says I have a lot of markers for ADHD, some for OCD and some other for Autism<label for="sn-11" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-11" class="sidenote-toggle">
+                <span class="sidenote">
+                    I forgot to mention before but I also have a constant sort of depression. I battle that by working a lot and find ways to distract myself which it's hard since I get bored easily.
+                </span>. I did know those mental disorders but I wasn't aware of all the details of each one of them.
+            </p>
+            <p>
+                Let's start with OCD. It makes sense. Sometimes I have burst of making things in order, symmetrical and beautiful aesthetic to the point that people get annoyed by me, <em>I'm sorry</em>.
+                Autism. I might. I doubt it, though. The only thing I can think of it's when people say that I'm rude in some conversations. What they mean is I say things as they are instead of sugarcode them.
+                But the ADHD... this one makes quite a lot of sense. It brought me peace to many of my personal issues. It brought me resolution. It wasn't easy, thought. I was in denial for days. I wanted to be normal
+                even though I knew I was fucked up. 
+            </p>
+            <p>
+                After a few days I made peace with myself. I realized that it might not be so bad. I also realized this might be why I like coding. Coding is hyperfocus to me. Coding is heaven. Coding is my happy place just like
+                that roof and the stars. It can be a superpower, I just need to learn how to harness it.
+            </p>
+            <p>
+                So I stopped worrying.
+            </p>
+        </article>
 
-    <article>
-      <h2 id="humans">Humans, the final frontier</h2>
-      <p>
-        I have this crazy goal. So crazy that I think I just went mental.
-        The physics of the goal is not the hard part to solve but rather humans, how to take humanity the next level
-        and also be prepared for it... htf?<label for="sn-1" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-1" class="sidenote-toggle">
-        <span class="sidenote">
-          Obviously, to travel faster than light, to create wormholes, to contract the spacetime continuum, to find ways to get exotic matter, it is hard.
-          But if I'm saying humans are the big challenge, it's because in my head is more easier to solve technical problems than humans and their egos/biology.
-        </span>
-      </p>
-    </article>
+        <article>
+            <h2 id="humans">Humans, the final frontier</h2>
+            <p>
+                I have this crazy goal. So crazy that I think I just went mental.
+                The physics of the goal is not the hard part to solve but rather humans, how to take humanity the next level
+                and also be prepared for it... htf?<label for="sn-1" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-1" class="sidenote-toggle">
+                <span class="sidenote">
+                    Obviously, to travel faster than light, to create wormholes, to contract the spacetime continuum, to find ways to get exotic matter, it is hard.
+                    But if I'm saying humans are the big challenge, it's because in my head is more easier to solve technical problems than humans and their egos/biology.
+                </span>
+            </p>
+        </article>
 
-    <article>
-      <h2 id="owning-your-failures">Owning your Failures</h2> 
-      <p>
-        Just like history is written by the winners, I think the whole achievements thing is also the same thing. We hear about this and that and how great. But
-        rarely we hear about the failures. We hear about failures when it comes to shame someone or to feel superior<label for="sn-2" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-2" class="sidenote-toggle">
-        <span class="sidenote left">
-          How you noticed there are people waiting to <mark>be offended</mark> or to jump into crazy conclusions just to <mark>denigrate</mark> someone? Jeez...
-        </span>.
-      </p>
-      <p>
-        That made me think that we are not teaching how to own your mistakes and failures. It took many years to finally start talking about them openly like it was nothing.
-        It's weird, don't you think? After all, we learn by failing<label for="sn-3" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-3" class="sidenote-toggle">
-        <span class="sidenote">
-          In fact, my bet is that we can only learning by failing or rather things are only things in comparison to something else. 
-          So, winning is one side of the coin and there can only be a coin with two sides hence failing. To things to be computable, to compute, there's gotta be more than two.
-        </span>.
-      </p>
-      <p>
-        Imagine doing that in job interviews? I did, just a couple of times. And as you probably expected, it wasn't a good thing. 
-        I mean, it wasn't seen as a good thing by the interviewer. I was totally fine with it.
-      </p>
-    </article>
+        <article>
+            <h2 id="owning-your-failures">Owning your Failures</h2> 
+            <p>
+                Just like history is written by the winners, I think the whole achievements thing is also the same thing. We hear about this and that and how great. But
+                rarely we hear about the failures. We hear about failures when it comes to shame someone or to feel superior<label for="sn-2" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-2" class="sidenote-toggle">
+                <span class="sidenote left">
+                    How you noticed there are people waiting to <mark>be offended</mark> or to jump into crazy conclusions just to <mark>denigrate</mark> someone? Jeez...
+                </span>.
+            </p>
+            <p>
+                That made me think that we are not teaching how to own your mistakes and failures. It took many years to finally start talking about them openly like it was nothing.
+                It's weird, don't you think? After all, we learn by failing<label for="sn-3" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-3" class="sidenote-toggle">
+                <span class="sidenote">
+                    In fact, my bet is that we can only learning by failing or rather things are only things in comparison to something else. 
+                    So, winning is one side of the coin and there can only be a coin with two sides hence failing. To things to be computable, to compute, there's gotta be more than two.
+                </span>.
+            </p>
+            <p>
+                Imagine doing that in job interviews? I did, just a couple of times. And as you probably expected, it wasn't a good thing. 
+                I mean, it wasn't seen as a good thing by the interviewer. I was totally fine with it.
+            </p>
+        </article>
 
-    <article>
-      <h2 id="fallible">Fallibilis</h2> 
-      <p>
-        In these turbulent times, I can't help to feel deceived.
-      </p>
-      <p>
-        It's nobody's fault. I don't think that anyone has deceived humanity with bad intentions. 
-      </p>
-      <p>
-        Here I am listening to Kate Bush's Cloudbusting... and It makes me feel... It reminds me to that moment
-        when I learnt that adults are fallible. How fragile humanity is<label for="sn-4" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-4" class="sidenote-toggle">
-        <span class="sidenote left">
-          I happen to believe the ultimate greatest lie of this human civilization is... <mark>Progress</mark>.
-        </span>.
-      </p>
-      <p>
-        This is the moment when I wish there were gods and goddesses. Aliens, if you will.
-        Someone who could save us from our childish behavior and premature use of technology.
-      </p>
-      <p>
-        And yet I just know that something good is gonna happen.
-      </p>
-    </article>
+        <article>
+            <h2 id="fallible">Fallibilis</h2> 
+            <p>
+                In these turbulent times, I can't help to feel deceived.
+            </p>
+            <p>
+                It's nobody's fault. I don't think that anyone has deceived humanity with bad intentions. 
+            </p>
+            <p>
+                Here I am listening to Kate Bush's Cloudbusting... and It makes me feel... It reminds me to that moment
+                when I learnt that adults are fallible. How fragile humanity is<label for="sn-4" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-4" class="sidenote-toggle">
+                <span class="sidenote left">
+                    I happen to believe the ultimate greatest lie of this human civilization is... <mark>Progress</mark>.
+                </span>.
+            </p>
+            <p>
+                This is the moment when I wish there were gods and goddesses. Aliens, if you will.
+                Someone who could save us from our childish behavior and premature use of technology.
+            </p>
+            <p>
+                And yet I just know that something good is gonna happen.
+            </p>
+        </article>
 
-    <article>
-      <h2 id="not-smart">Make a meaningful living</h2> 
-      <p>
-        Tomorrow it's my 37 Sun cycle which it's only special to me and probably my mom<label for="sn-5" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-5" class="sidenote-toggle">
-        <span class="sidenote">
-          I don't recall having a birthday party. 'Amá tried to compensate that by giving me birthday parties lawter. It didn't work. I felt super awkward and overwhelmed. 
-          Although that might be because of something else in my head.
-        </span>.
-      </p>
-      <p>
-        Like any other human being or sentient being, I broke some many bubbles so far. So many illusions
-        we have created as a civilization. A civilization being one of them. Gosh. So many lies.
-      </p>
-      <p>
-        However, I think that in a reality without meaning, you have the power and responsibility (if you want to be sane) to create
-        your own meaningful way of living.
-      </p>
-      <p>
-        In my case, it sums to the following GIF I made.
-      </p>
-      <img src="/me.gif" alt="I'll be a living god" />
-    </article>
-    <article>
-      <h2 id="not-smart">I'm not smart</h2> 
-      <p>
-        Like any developer, I have done a lot of interviews. The interviews are a bit diff, I think, 
-        since I have no computer science degree. I'm a physicist by training. Some people may think
-        that probably means I'm smart. I am not.
-      </p>
-      <p>
-        One of the things I learned as a child was that I'm not smart. I'm not wise. I'm not intelligent.
-        There is nothing special about me and there are far more better people than me in any area.
-        I forced myself to live with that. It's hard since family and friends say otherwise but that, I 
-        believe, does not help me at all.
-      </p>
-      <p>
-        At my age, I've learned to live with that. It's sort of sad since I know I'll be behind. I'll
-        be left behind. It's hard to accept that but I'm ok with the logic of how Nature/Reality seems to work.
-      </p>
-      <p>
-        I recently had to decline to continue with a process with a company because its process involved 
-        challenges like the ones you have at Facebook, Amazon, Google, Microsoft, you name it. They also
-        wanted to know how much time it took me to solve the problem. To me, the company wanted the best of
-        the best which, well, I am not<label for="sn-6" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-6" class="sidenote-toggle">
-        <span class="sidenote left">
-          I have also the idea that those sort of interview processes provide so little information about the person but I think it's my ego trying to not to get hurt.
-        </span>. 
-      </p>
-      <p>
-        I could have fake it. Nowadays, you can find anything on the internet and I'm positive I could have 
-        found the solution. To what end? I'm not smart. Cheating won't make me smart, I think. It was not even
-        about being honest. I doubt I'd be smart by cheating.
-      </p>
-      <p>
-        I like to believe that what I have cultivated is, that for most things, I don't need to be smart, I just 
-        have to be careful. I doubt I'm the best but I do think I best myself every day.
-      </p>
-    </article>
+        <article>
+            <h2 id="not-smart">Make a meaningful living</h2> 
+            <p>
+                Tomorrow it's my 37 Sun cycle which it's only special to me and probably my mom<label for="sn-5" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-5" class="sidenote-toggle">
+                <span class="sidenote">
+                    I don't recall having a birthday party. 'Amá tried to compensate that by giving me birthday parties lawter. It didn't work. I felt super awkward and overwhelmed. 
+                    Although that might be because of something else in my head.
+                </span>.
+            </p>
+            <p>
+                Like any other human being or sentient being, I broke some many bubbles so far. So many illusions
+                we have created as a civilization. A civilization being one of them. Gosh. So many lies.
+            </p>
+            <p>
+                However, I think that in a reality without meaning, you have the power and responsibility (if you want to be sane) to create
+                your own meaningful way of living.
+            </p>
+            <p>
+                In my case, it sums to the following GIF I made.
+            </p>
+            <figure>
+                <img src="/me.gif" alt="I'll be a living god" />
+                <figcaption>
+                    Some awesome random cat from the internet.
+                </figcaption>
+            </figure>
+        </article>
+        <article>
+            <h2 id="not-smart">I'm not smart</h2> 
+            <p>
+                Like any developer, I have done a lot of interviews. The interviews are a bit diff, I think, 
+                since I have no computer science degree. I'm a physicist by training. Some people may think
+                that probably means I'm smart. I am not.
+            </p>
+            <p>
+                One of the things I learned as a child was that I'm not smart. I'm not wise. I'm not intelligent.
+                There is nothing special about me and there are far more better people than me in any area.
+                I forced myself to live with that. It's hard since family and friends say otherwise but that, I 
+                believe, does not help me at all.
+            </p>
+            <p>
+                At my age, I've learned to live with that. It's sort of sad since I know I'll be behind. I'll
+                be left behind. It's hard to accept that but I'm ok with the logic of how Nature/Reality seems to work.
+            </p>
+            <p>
+                I recently had to decline to continue with a process with a company because its process involved 
+                challenges like the ones you have at Facebook, Amazon, Google, Microsoft, you name it. They also
+                wanted to know how much time it took me to solve the problem. To me, the company wanted the best of
+                the best which, well, I am not<label for="sn-6" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-6" class="sidenote-toggle">
+                <span class="sidenote left">
+                    I have also the idea that those sort of interview processes provide so little information about the person but I think it's my ego trying to not to get hurt.
+                </span>. 
+            </p>
+            <p>
+                I could have fake it. Nowadays, you can find anything on the internet and I'm positive I could have 
+                found the solution. To what end? I'm not smart. Cheating won't make me smart, I think. It was not even
+                about being honest. I doubt I'd be smart by cheating.
+            </p>
+            <p>
+                I like to believe that what I have cultivated is, that for most things, I don't need to be smart, I just 
+                have to be careful. I doubt I'm the best but I do think I best myself every day.
+            </p>
+        </article>
 
-    <article>
-      <h2 id="script-tag-programmatically">Script Tag, Programmatically</h2> 
-      <p>
-        A very hackish <label for="sn-7" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-7" class="sidenote-toggle">
-        <span class="sidenote">
-          I find it hackish too but things being hackish or impossible has never been a reason for me not to do it...
-        </span>way to get and insert a script and its content. I like it because what it represents in terms of physical space but I'm aware software engineers find it hackish.
-      </p>
-      <div style="background: #272822; overflow:auto;width:auto;color:white;border:solid gray;border-width:.1em .1em .1em .8em;">
-        <pre style="padding:2ch 2ch;background-color:transparent;margin: 0; line-height: 125%"><span style="color: #66d9ef">function</span> <span style="color: #a6e22e">loadScript</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">url</span><span style="color: #f8f8f2">,</span> <span style="color: #a6e22e">callback</span><span style="color: #f8f8f2">)</span> <span style="color: #f8f8f2">{</span>
+        <article>
+            <h2 id="script-tag-programmatically">Script Tag, Programmatically</h2> 
+            <p>
+                A very hackish <label for="sn-7" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-7" class="sidenote-toggle">
+                <span class="sidenote">
+                    I find it hackish too but things being hackish or impossible has never been a reason for me not to do it...
+                </span>way to get and insert a script and its content. I like it because what it represents in terms of physical space but I'm aware software engineers find it hackish.
+            </p>
+            <div style="background: #272822; overflow:auto;width:auto;color:white;border:solid gray;border-width:.1em .1em .1em .8em;">
+                <pre style="padding:2ch 2ch;background-color:transparent;margin: 0; line-height: 125%"><span style="color: #66d9ef">function</span> <span style="color: #a6e22e">loadScript</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">url</span><span style="color: #f8f8f2">,</span> <span style="color: #a6e22e">callback</span><span style="color: #f8f8f2">)</span> <span style="color: #f8f8f2">{</span>
   <span style="color: #66d9ef">var</span> <span style="color: #a6e22e">script</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">document.</span><span style="color: #a6e22e">createElement</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;script&quot;</span><span style="color: #f8f8f2">);</span>
   <span style="color: #a6e22e">script</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">type</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;text/javascript&quot;</span><span style="color: #f8f8f2">;</span>
 
@@ -542,12 +794,12 @@ c    0.000011   0.000002   0.000013 <span style="color: #f92672">(</span>  0.000
   <span style="color: #a6e22e">script</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">src</span> <span style="color: #f92672">=</span> <span style="color: #a6e22e">url</span><span style="color: #f8f8f2">;</span>
   <span style="color: #f8f8f2">document.</span><span style="color: #a6e22e">body</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">appendChild</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">script</span><span style="color: #f8f8f2">);</span>
 <span style="color: #f8f8f2">}</span>
-        </pre>
-      </div>
-      </p>
-      <p>An example of how to use it</p>
-      <div style="background: #272822; overflow:auto;width:auto;color:white;border:solid gray;border-width:.1em .1em .1em .8em;">
-        <pre style="padding:2ch 2ch;background-color:transparent;margin: 0; line-height: 125%"><span style="color: #a6e22e">loadScript</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;https://unpkg.com/vue&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">function</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+                </pre>
+            </div>
+            </p>
+            <p>An example of how to use it</p>
+            <div style="background: #272822; overflow:auto;width:auto;color:white;border:solid gray;border-width:.1em .1em .1em .8em;">
+                <pre style="padding:2ch 2ch;background-color:transparent;margin: 0; line-height: 125%"><span style="color: #a6e22e">loadScript</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;https://unpkg.com/vue&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">function</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
   <span style="color: #a6e22e">console</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">log</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;Vue Loaded...&quot;</span><span style="color: #f8f8f2">);</span>
   <span style="color: #a6e22e">console</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">log</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;Loading Vuetify...&quot;</span><span style="color: #f8f8f2">);</span>
 
@@ -555,8 +807,8 @@ c    0.000011   0.000002   0.000013 <span style="color: #f92672">(</span>  0.000
     <span style="color: #a6e22e">console</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">log</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;Vuefity Loaded...&quot;</span><span style="color: #f8f8f2">);</span>
   <span style="color: #f8f8f2">});</span>
 <span style="color: #f8f8f2">});</span>
-        </pre>
-      </div>
-    </article>
-  </body>
+                </pre>
+            </div>
+        </article>
+    </body>
 </html>
