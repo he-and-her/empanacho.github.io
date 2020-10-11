@@ -2,7 +2,8 @@
     <h2 id="rust-builder">The One About Builder Pattern in Rust [<mark>DRAFT</mark>]</h2>
     <p>
         I like <em>Rust lang</em> very much. I started using it a couple of years ago to create a <a href="https://crates.io/crates/ishmael">crate</a>. And I'm pretty sure the 
-        code is the worst in the Rust community. I mean,I was learning after all. What do I regret, though, is that I just did the crate but I didn't continue using Rust at all after that. 
+        code is the worst in the Rust community. I mean, I was learning after all. What do I regret, though, is not the bad code, that happens. I regret that I just did the crate but I didn't 
+        continue using Rust at all after that. 
     </p>
     <p>
         So, a few weeks ago I decided to continue with my Rust learning.
@@ -13,7 +14,7 @@
     <figure>
         <img src="https://raw.githubusercontent.com/thelastinuit/bouncer/master/bouncer.png">
         <figcaption>
-            Rupertou, one of my cats, by 
+            Rupertou, one of cat roommate, by 
             <a href="https://marianinfa.mx/">Ninfa</a>.
         </figcaption>
     </figure>
@@ -235,17 +236,63 @@
     <p>
         The good thing about this project is that I've been mentored by <a href="https://twitter.com/yaahc_">Jane</a>, <mark>shout out to her!</mark>
     </p>
+
     <p>
         It's a working in progress, natürlich. Leider, I recently decided to cut out one of my incomes, a freelance gig. It was bound to happen, I just wasn't happy with the gig anymore.
         It was a interesting adventure which the deserve is own post<label for="sn-10" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-10" class="sidenote-toggle">
         <span class="sidenote">
-            It will be sort of a rant. I saw the signs from the beginning but the money was good. But money doesn't buy happinness... right?
-        </span>. Anyway, I've been working on demos for companies but a day only have 24 hrs.
+            It will be sort of a rant. I saw the signs from the beginning but the money was good (altought other friend coders said it was one third of what I should be charging). 
+            But money doesn't buy happinness... right?
+        </span>. Anyway, I've been working on demos for companies but a day only have 24 hrs and even though I like coding... my biology hits hard when I don't sleep enough.
     </p>
+
     <p>
-        <mark>TODO</mark> revisit the content.
+        The whole idea of having best practices and design patterns is to avoid chaos<label for="sn-11" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-11" class="sidenote-toggle">
+        <span class="sidenote left">
+            Did you know the opposite of Chaos is Cosmos? <em>sigh</em>
+        </span>. A Builder, as the word says, it builds thing or things. In Bouncer context I moved from this
     </p>
+    
+    <div style="background: #272822; overflow:auto;width:auto;color:white;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;">
+        <pre style="background-color:transparent;margin: 0; line-height: 125%"><span style="color: #f8f8f2">bouncer</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">run(</span><span style="color: #ae81ff">1</span><span style="color: #f8f8f2">,</span> <span style="color: #ae81ff">2</span><span style="color: #f8f8f2">,</span> <span style="color: #ae81ff">3</span><span style="color: #f8f8f2">,</span> <span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">dummy_function)</span>
+</pre>
+    </div>
+
     <p>
-        <mark>TODO</mark> deconstruct the builder pattern.
+        to this
+    </p>
+
+    <div style="background: #272822; overflow:auto;width:auto;color:white;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;">
+        <pre style="background-color:transparent;margin: 0; line-height: 125%"><span style="color: #f8f8f2">Bouncer</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">new(</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">dummy_function)</span>
+                <span style="color: #f8f8f2">.key(</span><span style="color: #ae81ff">1</span><span style="color: #f8f8f2">)</span>
+                <span style="color: #f8f8f2">.rate_limit(</span><span style="color: #ae81ff">2</span><span style="color: #f8f8f2">)</span>
+                <span style="color: #f8f8f2">.wait_time(</span><span style="color: #ae81ff">3</span><span style="color: #f8f8f2">)</span>
+</pre>
+    </div>
+
+    <p>
+        The most obvious thing is that it's quite readable. In both cases, you will need to read Bouncer API. The differences is that in the first version, 
+        you will need to remember every time the position of the params (and params' name) when passing them along to the function. In the second version, 
+        you will need to remember the names of the params, the order of how you call them is not relevant. It saves effort.
+    </p>
+
+    <p>
+        In physics and mathematics, you want to write less<label for="sn-12" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-12" class="sidenote-toggle">
+        <span class="sidenote">
+            Remember, every thing seems to follow the path of least action.
+        </span>. So you create equations and those equations are compacted into a less wordy equations and so on and so forth. 
+    </p>
+
+    <p>
+        Something similar, I believe, happens in computer science. You want to create code that humans can read but at the same time you want code that does not make invest more effort than necessary.
+    </p>
+    
+    <p>
+        One thing that I find fascinating (that somehow is connected to this is post) is Life seems to be all about low entropy. And... at least when I try code in my head I have this principle: 
+        try to make the code less chaotic (high entropy) because I know that future me will hate myself (not to mention that probably other coders will want to kill me).
+    </p>
+
+    <p>
+        More about Builder pattern <a href="https://github.com/thelastinuit/rust-design-pattern/blob/master/creational/builder.rs">here</a>. 
     </p>
 </article>
