@@ -1,0 +1,45 @@
+<article>
+    <h2 id="script-tag-programmatically">Script Tag, Programmatically</h2> 
+    <p>
+        A very hackish <label for="sn-7" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-7" class="sidenote-toggle">
+        <span class="sidenote">
+            I find it hackish too but things being hackish or impossible has never been a reason for me not to do it...
+        </span>way to get and insert a script and its content. I like it because what it represents in terms of physical space but I'm aware software engineers find it hackish.
+    </p>
+    <div style="background: #272822; overflow:auto;width:auto;color:white;border:solid gray;border-width:.1em .1em .1em .8em;">
+        <pre style="padding:2ch 2ch;background-color:transparent;margin: 0; line-height: 125%"><span style="color: #66d9ef">function</span> <span style="color: #a6e22e">loadScript</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">url</span><span style="color: #f8f8f2">,</span> <span style="color: #a6e22e">callback</span><span style="color: #f8f8f2">)</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #66d9ef">var</span> <span style="color: #a6e22e">script</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">document.</span><span style="color: #a6e22e">createElement</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;script&quot;</span><span style="color: #f8f8f2">);</span>
+  <span style="color: #a6e22e">script</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">type</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;text/javascript&quot;</span><span style="color: #f8f8f2">;</span>
+
+  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(</span><span style="color: #a6e22e">script</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">readyState</span><span style="color: #f8f8f2">)</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #a6e22e">script</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">onreadystatechange</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">function</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+      <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(</span><span style="color: #a6e22e">script</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">readyState</span> <span style="color: #f92672">==</span> <span style="color: #e6db74">&quot;loaded&quot;</span> <span style="color: #f92672">||</span> <span style="color: #a6e22e">script</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">readyState</span> <span style="color: #f92672">==</span> <span style="color: #e6db74">&quot;complete&quot;</span><span style="color: #f8f8f2">)</span> <span style="color: #f8f8f2">{</span>
+        <span style="color: #a6e22e">script</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">onreadystatechange</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">null</span><span style="color: #f8f8f2">;</span>
+        <span style="color: #a6e22e">callback</span><span style="color: #f8f8f2">();</span>
+      <span style="color: #f8f8f2">}</span>
+    <span style="color: #f8f8f2">};</span>
+  <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #a6e22e">script</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">onload</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">function</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+      <span style="color: #a6e22e">callback</span><span style="color: #f8f8f2">();</span>
+    <span style="color: #f8f8f2">};</span>
+  <span style="color: #f8f8f2">}</span>
+
+  <span style="color: #a6e22e">script</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">src</span> <span style="color: #f92672">=</span> <span style="color: #a6e22e">url</span><span style="color: #f8f8f2">;</span>
+  <span style="color: #f8f8f2">document.</span><span style="color: #a6e22e">body</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">appendChild</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">script</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">}</span>
+        </pre>
+    </div>
+    </p>
+    <p>An example of how to use it</p>
+    <div style="background: #272822; overflow:auto;width:auto;color:white;border:solid gray;border-width:.1em .1em .1em .8em;">
+        <pre style="padding:2ch 2ch;background-color:transparent;margin: 0; line-height: 125%"><span style="color: #a6e22e">loadScript</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;https://unpkg.com/vue&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">function</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #a6e22e">console</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">log</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;Vue Loaded...&quot;</span><span style="color: #f8f8f2">);</span>
+  <span style="color: #a6e22e">console</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">log</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;Loading Vuetify...&quot;</span><span style="color: #f8f8f2">);</span>
+
+  <span style="color: #a6e22e">loadScript</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">function</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #a6e22e">console</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">log</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;Vuefity Loaded...&quot;</span><span style="color: #f8f8f2">);</span>
+  <span style="color: #f8f8f2">});</span>
+<span style="color: #f8f8f2">});</span>
+        </pre>
+    </div>
+</article>

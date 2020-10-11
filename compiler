@@ -1,0 +1,31 @@
+#!/usr/bin/env ruby
+
+require 'erb'
+
+module Compiler
+  module_function
+
+  def call
+    thoughts_template = File.open("thoughts-and-such.html.erb")
+    erb_html = ERB.new(thoughts_template.read)
+    @thoughts = [
+      'the-interview',
+      'alle-dagen-heel-druk',
+      'bouncer',
+      'of-classes-and-modules',
+      'automate',
+      'hyperfocus',
+      'humans-the-final-frontier',
+      'owning-your-failures',
+      'fallibilis',
+      'make-a-meaningful-living',
+      'im-not-smart',
+      'script-tag-programmatically'
+    ]
+    erb_html.result binding
+  end
+end
+
+File.open('thoughts-and-such.html', 'w') do |f|
+  f.write Compiler.call
+end
