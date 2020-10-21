@@ -33,10 +33,67 @@ body { background-color: white; }
         
             
             <article>
+    <h2 id="one-liner">One Liner</h2>
+
+    <p>
+        I recently found <a href="https://github.com/duysqubix/MuOxi">MuOxi</a>, a MUD game engine written in Rust. It reminds of my days of MUDs in the lately '90s and early '00s.
+        I spent a few nights with strangers around the global having epic text-based adventures. Good times.
+    </p>
+
+    <p>
+        Maybe it was nostalgy but I decided to contribute to the project. It's open source and I noticed they are not using docker for at least development. They are using Redis and Postgres.
+        So, I thought it could be a good start if I dockerize<label for="sn-33" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-33" class="sidenote-toggle">
+        <span class="sidenote left">
+            I stopped using docker months ago. I stumbled upon a project that got into my nerve. It took eons to start. Puff! It was actually easy to work as per usual.
+        </span> the engine. <a href="https://github.com/duysqubix/MuOxi/pull/19">So I did it</a>. It's a working progress. I'm almost finished, though.
+    </p>
+
+    <p>
+        While working on the PR, I noticed the engine was failing. The connection with Redis was failing apparently. I checked Redis was up and running. It was.  I checked and double-checked it again,
+        nothing. Something told me I was doing something wrong, hmmmm. Usually it's something simple and stupid. I knew I would have a <em>Duh!</em> moment.
+    </p>
+
+    <p>
+        In the meantime, I wanted to test the connection with redis. I knew it was running and the open port was 6379. I didn't want to install a redis client in my environment and I didn't want to test it
+        from the inside because it'd be useless.
+    </p>
+
+    <p>
+        So, I found a <em>one liner</em> out in the jungle and I loved it.
+    </p>
+
+    <div style="background: #272822; overflow:auto;width:auto;color:white;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;">
+        <pre style="background-color:transparent;margin: 0; line-height: 125%"><span style="color: #f8f8f2">$ </span><span style="color: #f92672">(</span><span style="color: #f8f8f2">printf</span> <span style="color: #e6db74">&quot;PING\r\n&quot;</span>;<span style="color: #f92672">)</span> | nc 0.0.0.0 6379
++PONG
+        </pre>
+    </div>
+
+    <p>
+        Once I was sure it was running and open. I was 110% sure I was doing something stupid. I checked the <code>docker-compose.override.yml</code>. The network was defined. The server was defined. Then
+        I checked <code>docker-compose.yml</code>. And that was the <em>Duh!</em> moment: both services, Postgres and Redis, were defined <b>but</b> the network was not. 
+        I added it to both services, stop the containers and run it again.
+    </p>
+
+    <figure>
+        <img src="mud.png" alt="MUD" width="600">
+        <figcaption>
+            MuOxi output in the browser
+        </figcaption>
+    </figure>
+
+    <p>
+        BOOM! it was working.
+    </p>
+</article>
+
+
+        
+            
+            <article>
     <h2 id="everything-is-a-file">Everything is a File</h2>
 
     <p>
-        That title is most likely an oversimplification<label for="sn-31" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-32" class="sidenote-toggle">
+        That title is most likely an oversimplification<label for="sn-31" class="sidenote-toggle sidenote-number"></label><input type="checkbox" id="sn-31" class="sidenote-toggle">
         <span class="sidenote left">
             but we tend to do that because it makes things easier. Layers over layers. Sometimes I wonder if the organization of reality actually determines the organization of neurons. If so,
             would reorganization of neurons change our perspective of reality? Wouldn't then new knowledge change our perspective? <em>I'm tripping again...</em>
@@ -535,7 +592,7 @@ body { background-color: white; }
     <p>
         But hey, it's music, maybe you enjoy it too as for what it is: patterns all the way down...
     </p>
-    <iframe width="100%" height="300" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1142132821&color=%23521c54&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/thelastinuit" title="thelastinuit" target="_blank" style="color: #cccccc; text-decoration: none;">thelastinuit</a> · <a href="https://soundcloud.com/thelastinuit/sets/alle-dagen-heel-druk" title="Alle Dagen Heel Druk" target="_blank" style="color: #cccccc; text-decoration: none;">Alle Dagen Heel Druk</a></div>
+    <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1142132821&color=%23521c54&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/thelastinuit" title="thelastinuit" target="_blank" style="color: #cccccc; text-decoration: none;">thelastinuit</a> · <a href="https://soundcloud.com/thelastinuit/sets/alle-dagen-heel-druk" title="Alle Dagen Heel Druk" target="_blank" style="color: #cccccc; text-decoration: none;">Alle Dagen Heel Druk</a></div>
 </article>
 
         
