@@ -9,6 +9,7 @@ module Compiler
     thoughts_template = File.open("thoughts-and-such.html.erb")
     erb_html = ERB.new(thoughts_template.read)
     @thoughts = [
+      'cargo-fak',
       'one-liner',
       'everything-is-a-file',
       'on-salary',
