@@ -24,8 +24,7 @@ module Compiler
       'owning-your-failures',
       'fallibilis',
       'make-a-meaningful-living',
-      'im-not-smart',
-      'script-tag-programmatically'
+      'im-not-smart'
     ]
     erb_html.result binding
   end
