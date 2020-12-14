@@ -6,15 +6,14 @@ module Compiler
   module_function
 
   def call
-    thoughts_template = File.open("thoughts-and-such.html.erb")
+    thoughts_template = File.open("atbc.html.erb")
     erb_html = ERB.new(thoughts_template.read)
     @thoughts = [
-      'all-things-being-computable-mutiny'
     ]
     erb_html.result binding
   end
 end
 
-File.open('thoughts-and-such.html', 'w') do |f|
+File.open('atbc.html', 'w') do |f|
   f.write Compiler.call
 end
