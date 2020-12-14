@@ -9,22 +9,7 @@ module Compiler
     thoughts_template = File.open("thoughts-and-such.html.erb")
     erb_html = ERB.new(thoughts_template.read)
     @thoughts = [
-      'arnene',
-      'cargo-fak',
-      'one-liner',
-      'everything-is-a-file',
-      'service-object-pattern',
-      'CYP1A2',
-      'the-interview',
-      'alle-dagen-heel-druk',
-      'bouncer',
-      'of-classes-and-modules',
-      'automate',
-      'hyperfocus',
-      'owning-your-failures',
-      'fallibilis',
-      'make-a-meaningful-living',
-      'im-not-smart'
+      'all-things-being-computable-mutiny'
     ]
     erb_html.result binding
   end
